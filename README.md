@@ -40,3 +40,5 @@ Agile
 
 ## Project Plan:  
 Created from project tracking software  
+Outline of what to do  
+Main project goals, not super specific  
