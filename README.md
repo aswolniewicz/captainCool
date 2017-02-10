@@ -1,41 +1,41 @@
 # Captain Cool
 ## Group Names:
-Friedrich Amouzou
-Anna-Sophia Wolniewicz
-Katherine Best
-Kathryn Osborn
+Friedrich Amouzou\n
+Anna-Sophia Wolniewicz\n
+Katherine Best\n
+Kathryn Osborn\n
 
 ## Project Title:
-Captain Cool
+Captain Cool\n
 
 ## Description:
-*2d game
-*Saving the children
-*Browser game
+*2d game\n
+*Saving the children\n
+*Browser game\n
 
 ## Vision statement:
 
 ## Movitation:
 
 ## Risks:
-We haven't worked together before
-We haven't created games before
-3/4 of us aren't familiar with javascript
-We have no domain
+We haven't worked together before\n
+We haven't created games before\n
+3/4 of us aren't familiar with javascript\n
+We have no domain\n
 
 ## Risk Mitigation:
 
 ## Requirements:
-1.User
-2.Functional
-3.Non-functional
+1.User\n
+2.Functional\n
+3.Non-functional\n
 
 ## Methodology:
-Agile 
+Agile \n
 
 ## Project Tracking Software:
-*[Trello](www.trello.com) 
-*[Slack](www.slack.com)
+*[Trello](www.trello.com) \n
+*[Slack](www.slack.com)\n
 
 ## Project Plan:
-Created from project tracking software
+Created from project tracking software\n
