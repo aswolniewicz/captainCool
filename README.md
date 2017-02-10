@@ -10,9 +10,9 @@ Captain Cool
 
 ## Description:  
 
-*2d game  
-*Saving the children  
-*Browser game  
+* 2d game  
+* Saving the children  
+* Browser game  
 
 ## Vision statement:  
 
@@ -27,16 +27,16 @@ We have no domain
 ## Risk Mitigation:  
 
 ## Requirements:   
-1.User  
-2.Functional  
-3.Non-functional  
+1. User  
+2. Functional  
+3. Non-functional  
 
 ## Methodology:  
 Agile  
 
 ## Project Tracking Software:
-*[Trello](www.trello.com)  
-*[Slack](www.slack.com)  
+* [Trello](www.trello.com)  
+* [Slack](www.slack.com)  
 
 ## Project Plan:  
 Created from project tracking software  
