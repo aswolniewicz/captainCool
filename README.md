@@ -2,7 +2,7 @@
 ## Group Names:  
 Friedrich Amouzou   
 Anna-Sophia Wolniewicz, aswolniewicz   
-Katherine Best  
+Katherine Best, Serenaise  
 Kathryn Osborn kateosborn10 
 
 ## Project Title:  
