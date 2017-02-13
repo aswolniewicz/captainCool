@@ -1,7 +1,7 @@
 # Captain Cool  
 ## Group Names:  
 Friedrich Amouzou   
-Anna-Sophia Wolniewicz aswolniewicz 
+Anna-Sophia Wolniewicz, aswolniewicz   
 Katherine Best  
 Kathryn Osborn kateosborn10 
 
