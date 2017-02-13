@@ -1,9 +1,9 @@
 # Captain Cool  
 ## Group Names:  
 Friedrich Amouzou   
-Anna-Sophia Wolniewicz  
-Katherine Best  
-Kathryn Osborn, kateosborn10 
+Anna-Sophia Wolniewicz, aswolniewicz   
+Katherine Best, Serenaise  
+Kathryn Osborn kateosborn10 
 
 ## Project Title:  
 Captain Cool  
