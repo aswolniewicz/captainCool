@@ -1,7 +1,7 @@
 # Captain Cool  
 ## Group Names:  
-Friedrich Amouzou   
-Anna-Sophia Wolniewicz, aswolniewicz   
+Friedrich Amouzou, fram6578  
+Anna-Sophia Wolniewicz, aswolniewicz  
 Katherine Best, Serenaise  
 Kathryn Osborn kateosborn10 
 
@@ -13,6 +13,7 @@ Captain Cool
 * 2d game  
 * Saving the children  
 * Browser game  
+* Educational
 
 ## Vision statement:  
 
