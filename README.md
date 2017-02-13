@@ -3,7 +3,7 @@
 Friedrich Amouzou, fram6578  
 Anna-Sophia Wolniewicz, aswolniewicz  
 Katherine Best, Serenaise  
-Kathryn Osborn kateosborn10 
+Kathryn Osborn, kateosborn10 
 
 ## Project Title:  
 Captain Cool  
