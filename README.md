@@ -40,7 +40,7 @@ We need to communicate.
 Agile  
 
 ## Project Tracking Software:
-* [Trello](www.trello.com)  
+* [Trello](https://trello.com/b/rC4w5cus/project-plan)  
 * [Slack](www.slack.com)  
 
 ## Project Plan:  
