@@ -29,8 +29,13 @@ We need to learn javascript.
 We need to communicate.  
 
 ## Requirements:   
-#### Whelp. Turns out requirements are just user stories, I have wasted my time.
-1. User  
+1. User Stories
+  * 001: As a developer, I want to create the HTML canvas using JavaScript so that the team can start working on the game. (3 hours)
+  * 002: As a developer, I want to create a moving block that users can control via the keyboard, so the team can build the functionality behind the game. (4 hours)
+  * 003: As a developer, I want to create an artistic background and begin development of the sprites and characters. By doing this, the team can start putting the game together. (7 hours)
+  * 004: As a developer, I want to design puzzles that the user will have to solve, to drive the user forward through the plot. By doing this we will give our game a purpose. (5 hours)
+  * 005: As a developer, I want to implement the puzzles in order for the user to be able to interact with them via the keyboard. (7 hours)
+  * 006: As a team, we want a working version of our game so that we can demo it for our peers. (8 hours) 
 2. Functional  
   * Pause menu and main menu   
   * Tips and hints    
