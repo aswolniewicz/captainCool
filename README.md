@@ -44,16 +44,16 @@ We need to communicate.
   * Backtracking and replayability  
   * Solutions are explained  
   * Character customization  
-  * Music and sound effects  
+  * Music and sound effects
+  * Coding interface  
   * Tutorial  
   * Settings  
 3. Non-functional  
-  * Page must load quickly (idk how fast)  
-  * Game must run quickly (idk how fast)  
-  * Controls must be responsive (idk how fast)  
+  * Page must load quickly  
+  * Game must run quickly  
+  * Controls must be responsive  
   * Playable offline  
-  * Local and online saves?  
-  * Supports multiple browsers?  
+  * Local saves  
   
   
 ## Methodology:  
