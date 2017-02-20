@@ -67,3 +67,5 @@ Agile
 Created from project tracking software  
 Outline of what to do  
 Main project goals, not super specific  
+
+![alt text](https://github.com/aswolniewicz/captainCool/blob/master/Project%20Plan.png "Picture of trello board.")
