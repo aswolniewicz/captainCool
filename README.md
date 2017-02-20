@@ -61,7 +61,7 @@ Agile
 
 ## Project Tracking Software:
 * [Trello](https://trello.com/b/rC4w5cus)  
-* [Github](https://github.com/aswolniewicz/captainCool)  
+* [Github](https://github.com/aswolniewicz/captainCool/img)  
 
 ## Project Plan:  
 Created from project tracking software  
