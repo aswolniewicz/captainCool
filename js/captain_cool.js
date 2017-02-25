@@ -14,9 +14,18 @@ var myGameArea = {
     // Game will be 2d
     this.context = this.canvas.getContext("2d");
     document.body.insertBefore(this.canvas, document.body.childNodes[0]);
+    window.addEventListener('keydown', function (e) { // Listen for and catch keyboard input
+		myGameArea.move = true; //Sprite movement boolean
+		myGameArea.keys=(myGameArea.keys || []); //Boolean array of which keys are down
+		myGameArea.keys[e.keyCode] = true;
+	})
+	window.addEventListener('keyup', function (e) {
+		myGameArea.move = false;
+		myGameArea.keys[e.keyCode] = false; 
+	})
     // Start at frame zero
     this.frameNo = 0;
-		draw();
+	draw();
   }
 }
 
@@ -30,17 +39,21 @@ function draw() {
 	});
 	
 	ctx.clearRect(0, 0, 960, 640);
-	setA();
 
 	ctx.drawImage(sprite.image, (50 + 200 * a), 420,
 								sprite.width, sprite.height,
-								x, 0, (sprite.width), sprite.height);
-	if (x < myGameArea.canvas.width - 190)
-		x += 1;
+								x, y, (sprite.width), sprite.height);
+	if (myGameArea.move){ // If one or more keys are pressed
+		if (myGameArea.keys[37]) {x -= 4;} // If left key pressed go left
+		if (myGameArea.keys[39]) {x += 4;} // Right key
+		if (myGameArea.keys[38]) {y -= 4;} // Down key
+		if (myGameArea.keys[40]) {y += 4;} // Up key
+		setSprite(); // Update sprite
+	}
 	window.requestAnimationFrame(draw);
 }
 
-//factory that creats a sprite and takes a JSON called options
+//factory that creates a sprite and takes a JSON called options
 function createSprite (options) {
 	var newSprite = {};
 	newSprite.context = options.context;
@@ -53,15 +66,25 @@ function createSprite (options) {
 var spriteImage = new Image();
 spriteImage.src = "static/images/spritesheet.jpg";
 	
-var x = 0;
-var a = 0;
-function setA() {
-	if (a == 6)
-		a = 0;
-	else {
-		if(x % 20 == 0) {
-			a += 1;
-			console.log(a)
+var x = 0; // Sprite's horizontal position
+var y = 0; // Sprite's veritcal position
+var a = 2; // Current sprite
+var count = 0; // Number of movement frames
+function setSprite() {
+	if(count % 15 == 0) { // Every 15 movement frames (frame group) cycle through sprites
+		if (count == 0){ // Begin cycle at sprite 2
+			a = 2;
 		}
+		else if (count <= 45){ // Go to next sprite for 3 frame groups
+			a++;
+		}
+		else if (count <= 75){ // Go to previous sprite for 2 frame groups
+			a--;
+		}
+		else { // Reset cycle
+			count = -1; // Increments up to 0 before next call
+		}
+		console.log(a);
 	}
+	count++;
 }
