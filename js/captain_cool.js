@@ -65,29 +65,58 @@ class PlayerCharacter extends Character {
 
   //checks if keys are pressed and if they are, move and animate
   move() {
-   		if (KEYS[37])
+      if (KEYS[37] && KEYS[40]) // Go Left and Down
+      {
+        this.animate = true;
+        this.x -= this.speed;
+        this.y += this.speed;
+        this.direction = DIRECTIONS.LEFT;
+      }
+      else if (KEYS[37] && KEYS[38]) // Go Left and Up
+      {
+        this.animate = true;
+        this.x -= this.speed;
+        this.y -= this.speed;
+        this.direction = DIRECTIONS.LEFT;
+      }
+      else if (KEYS[39] && KEYS[40]) // Go Right and Down
+      {
+        this.animate = true;
+        this.x += this.speed;
+        this.y += this.speed;
+        this.direction = DIRECTIONS.RIGHT;
+      }
+      else if (KEYS[39] && KEYS[38]) // Go Right and Up
+      {
+        this.animate = true;
+        this.x += this.speed;
+        this.y -= this.speed;
+        this.direction = DIRECTIONS.RIGHT;
+      }
+   		else if (KEYS[37]) // Go Left
       {
         this.animate = true;
         this.x -= this.speed;
         this.direction = DIRECTIONS.LEFT;
-      } // If left key pressed go left
- 		  else if (KEYS[39])
+      }
+ 		  else if (KEYS[39]) // Go Right
       {
         this.animate = true;
         this.x += this.speed;
         this.direction = DIRECTIONS.RIGHT;
-      } // Right key
-      else if (KEYS[38])
+      }
+      else if (KEYS[38]) // Go Up
       {
         this.animate = true;
         this.y -= this.speed;
         this.direction = DIRECTIONS.DOWN;
-      } // Down key
-      else if (KEYS[40]) {
+      }
+      else if (KEYS[40]) // Go Down
+      {
         this.animate = true;
         this.y += this.speed;
         this.direction = DIRECTIONS.UP;
-      } // Up key
+      }
       else {
         this.animate = false;
       }
