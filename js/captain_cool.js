@@ -64,54 +64,56 @@ class PlayerCharacter extends Character {
   }
 
   //checks if keys are pressed and if they are, move and animate
+  // uses the WASD keys
   move() {
-      if (KEYS[37] && KEYS[40]) // Go Left and Down
+      if (KEYS[65] && KEYS[83]) // Go Left and Down
       {
-        this.animate = true;
-        this.x -= this.speed;
-        this.y += this.speed;
-        this.direction = DIRECTIONS.LEFT;
+        this.animate = true; // Bool that allows the spire to move
+        this.x -= this.speed; // Move left (x value is decremented)
+        this.y += this.speed; // Move down {why is y incremented?????}
+        this.direction = DIRECTIONS.LEFT; //  use the image of the sprite
+                                            // that is facing left 
       }
-      else if (KEYS[37] && KEYS[38]) // Go Left and Up
+      else if (KEYS[65] && KEYS[87]) // Go Left and Up
       {
         this.animate = true;
         this.x -= this.speed;
         this.y -= this.speed;
         this.direction = DIRECTIONS.LEFT;
       }
-      else if (KEYS[39] && KEYS[40]) // Go Right and Down
+      else if (KEYS[68] && KEYS[83]) // Go Right and Down
       {
         this.animate = true;
         this.x += this.speed;
         this.y += this.speed;
         this.direction = DIRECTIONS.RIGHT;
       }
-      else if (KEYS[39] && KEYS[38]) // Go Right and Up
+      else if (KEYS[68] && KEYS[87]) // Go Right and Up
       {
         this.animate = true;
         this.x += this.speed;
         this.y -= this.speed;
         this.direction = DIRECTIONS.RIGHT;
       }
-   		else if (KEYS[37]) // Go Left
+   		else if (KEYS[65]) // Go Left
       {
         this.animate = true;
         this.x -= this.speed;
         this.direction = DIRECTIONS.LEFT;
       }
- 		  else if (KEYS[39]) // Go Right
+ 		  else if (KEYS[68]) // Go Right 39
       {
         this.animate = true;
         this.x += this.speed;
         this.direction = DIRECTIONS.RIGHT;
       }
-      else if (KEYS[38]) // Go Up
+      else if (KEYS[87]) // Go Up
       {
         this.animate = true;
         this.y -= this.speed;
         this.direction = DIRECTIONS.DOWN;
       }
-      else if (KEYS[40]) // Go Down
+      else if (KEYS[83]) // Go Down
       {
         this.animate = true;
         this.y += this.speed;
