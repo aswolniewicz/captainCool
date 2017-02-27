@@ -11,3 +11,10 @@ canvas {
 body {
   background-color: grey;
 }
+
+#message-area {
+  background-color: white;
+  color: blue;
+  font-style: bold;
+  font-family: sans-serif;
+}
