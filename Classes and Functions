@@ -1,3 +1,7 @@
+Classes:
+
+Functions: 
+
 What are the folders for?
 	css = will hold all the .css files
 	font = will hold all the font files (fonts = buttload of confusing files)
@@ -8,7 +12,3 @@ What are the folders for?
 Why is there index.html?
 	When a file run, and it is meant to run an .html file, it defaults to
 	index.html. This will make our search bar look SO much nicer.
-
-Why so many folders?
-	For our sanity as this project grows!! Folders are neat and clean. 
-	Coding can be hectic. Feel free to add more!
