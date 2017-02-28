@@ -1,0 +1,10 @@
+Classes:
+
+Functions:
+
+Folder Guide:
+	css = will hold all the .css files
+	font = will hold all the font files (fonts = buttload of confusing files)
+	img = will hold all the images
+	js = will hold all the .js files
+	media = will hold the sounds
