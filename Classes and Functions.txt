@@ -8,3 +8,7 @@ Folder Guide:
 	img = will hold all the images
 	js = will hold all the .js files
 	media = will hold the sounds
+	
+Why is there index.html?
+	When a file run, and it is meant to run an .html file, it defaults to
+	index.html. This will make our search bar look SO much nicer.
