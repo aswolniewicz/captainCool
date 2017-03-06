@@ -12,3 +12,8 @@ Folder Guide:
 Why is there index.html?
 	When a file run, and it is meant to run an .html file, it defaults to
 	index.html. This will make our search bar look SO much nicer.
+
+Why is there a game.js?
+	I'm used to seperating my code into different files,
+	I just used game.js to test if the same can apply to javascript,
+	It totally can
