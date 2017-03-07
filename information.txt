@@ -1,0 +1,22 @@
+We are teaching: Python
+
+Sprites
+- Master Captain Cool
+- You
+
+Sprite Sizes
+- You: TBD
+
+Background
+- Will load different areas as they encounter them
+- Background will have screens
+
+Levels
+- Character will need to solve levels/ floors to get out
+
+Key Guide
+- W = up
+- A = left
+- S = down
+- D = right
+- T = text input

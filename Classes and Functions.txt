@@ -1,0 +1,34 @@
+What are the folders for?
+	css = will hold all the .css files
+	font = will hold all the font files (fonts = buttload of confusing files)
+	img = will hold all the images
+	js = will hold all the .js files
+	media = will hold the sounds
+
+Why is there index.html?
+	When a file run, and it is meant to run an .html file, it defaults to
+	index.html. This will make our search bar look SO much nicer.
+
+Why so many folders?
+	For our sanity as this project grows!! Folders are neat and clean. 
+	Coding can be hectic. Feel free to add more!
+Classes:
+
+Functions:
+
+Folder Guide:
+	css = will hold all the .css files
+	font = will hold all the font files (fonts = buttload of confusing files)
+	img = will hold all the images
+	js = will hold all the .js files
+	media = will hold the sounds
+	
+Why is there index.html?
+	When a file run, and it is meant to run an .html file, it defaults to
+	index.html. This will make our search bar look SO much nicer.
+
+Why is there a game.js?
+	I'm used to seperating my code into different files,
+	I just used game.js to test if the same can apply to javascript,
+	It totally can
+
