@@ -237,6 +237,10 @@ class PlayerCharacter extends Character {
   //and animate in the direction of direction
   move(up, left, right, down, direction) {
       this.animate = true;
+      if(this.canMoveLeft) this.x -= (left * this.speed);
+      if(this.canMoveRight) this.x += (right * this.speed);
+      if(this.canMoveDown) this.y += (down * this.speed);
+      if(this.canMoveUp) this.y -= (up * this.speed);
       // use pressed to normaize the speed.  Its not perfect right now but its closer.
       var pressed = up + left + right + down;
       pressed = 1 / pressed;
@@ -278,7 +282,8 @@ class PlayerCharacter extends Character {
     }
       //
   pollForKeyboardInput() {
-      if (KEYS[65]) // Go Left
+
+   	  if (KEYS[65]) // Go Left
       {
         this.move(0, 1, 0, 0, DIRECTIONS.LEFT)
       }
