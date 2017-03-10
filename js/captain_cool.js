@@ -10,7 +10,7 @@ class Game {
     this.canvas = canvas;
     this.input=input;
     this.resolver=resolver;
-	
+
 	this.levels = [];
 	this.currentLevel = null;
     this.drawables = [];
@@ -38,11 +38,11 @@ class Game {
   start() {
     this.canvas.width = 960;
     this.canvas.height = 640;
-    this.canvas.style.backgroundColor = 'white';  
+    this.canvas.style.backgroundColor = 'white';
     // Game will be 2d
     this.draw();
   }
-  
+
 }
 
 //get the canvas from the html
@@ -53,6 +53,7 @@ var gameInstance = new Game(canvas,inputHandler,collisionResolver);
 
 //lets create our character from the sprite sheet
 var character = new PlayerCharacter(gameInstance.context, 32, 32, 'img/better_sprite.png', 2, 0, 0, true);
+var masterCool = new Character(gameInstance.context, 32, 48, 'img/old_man_sprite.png', 2, 200, 300, true);
 var ma = new MessageArea(gameInstance.context, 20, 20, 500, 500, false, 'blue');
 var barrier = new Obstacle(gameInstance.context, 20, 250, 300, 200);
 var barrier2 = new Obstacle(gameInstance.context, 200, 20, 250, 350);
@@ -74,6 +75,8 @@ gameInstance.addDrawable(barrier);
 testLevel.addDrawable(barrier2);
 gameInstance.addDrawable(character);
 testScreen.addDrawable(barrier3);
+
+gameInstance.addDrawable(masterCool);
 //order won't matter too much here, whoever is added second gets their collision method
 //called second
 collisionResolver.addCollidable(ma);
@@ -81,6 +84,7 @@ collisionResolver.addCollidable(character);
 collisionResolver.addCollidable(barrier);
 collisionResolver.addCollidable(barrier2);
 collisionResolver.addCollidable(barrier3);
+collisionResolver.addCollidable(masterCool);
 
 testLevel.currentScreen=testScreen;
 gameInstance.currentLevel=testLevel;
