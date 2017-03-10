@@ -237,10 +237,13 @@ class PlayerCharacter extends Character {
   //and animate in the direction of direction
   move(up, left, right, down, direction) {
       this.animate = true;
-      if(this.canMoveLeft) this.x -= (left * this.speed);
-      if(this.canMoveRight) this.x += (right * this.speed);
-      if(this.canMoveDown) this.y += (down * this.speed);
-      if(this.canMoveUp) this.y -= (up * this.speed);
+      // use pressed to normaize the speed.  Its not perfect right now but its closer.
+      var pressed = up + left + right + down;
+      pressed = 1 / pressed;
+      if(this.canMoveLeft) this.x -= (left * pressed * this.speed);
+      if(this.canMoveRight) this.x += (right * pressed * this.speed);
+      if(this.canMoveDown) this.y += (down * pressed * this.speed);
+      if(this.canMoveUp) this.y -= (up * pressed * this.speed);
       this.direction = direction;
       this.setAnimationFrame();
       //at some point have to turn off animation
@@ -277,22 +280,23 @@ class PlayerCharacter extends Character {
     }
       //
   pollForKeyboardInput() {
-      // if (KEYS[65] && KEYS[83]) // Go Left and Down
-      // {
-      // }
-      // else if (KEYS[65] && KEYS[87]) // Go Left and Up
-      // {
-      //   this.move(1, 1, 0, 0, DIRECTIONS.LEFT);
-      // }
-      // else if (KEYS[68] && KEYS[83]) // Go Right and Down
-      // {
-      //   this.move(0, 0, 1, 1, DIRECTIONS.RIGHT);
-      // }
-      // else if (KEYS[68] && KEYS[87]) // Go Right and Up
-      // {
-      //   this.move(1, 0, 1, 0, DIRECTIONS.RIGHT);
-      // }
-   		/*else*/ if (KEYS[65]) // Go Left
+       if (KEYS[65] && KEYS[83]) // Go Left and Down
+       {
+            this.move(0,1,0,1,DIRECTIONS.LEFT)
+       }
+       else if (KEYS[65] && KEYS[87]) // Go Left and Up
+       {
+         this.move(1, 1, 0, 0, DIRECTIONS.LEFT);
+       }
+       else if (KEYS[68] && KEYS[83]) // Go Right and Down
+       {
+         this.move(0, 0, 1, 1, DIRECTIONS.RIGHT);
+       }
+       else if (KEYS[68] && KEYS[87]) // Go Right and Up
+       {
+         this.move(1, 0, 1, 0, DIRECTIONS.RIGHT);
+       }
+   		 if (KEYS[65]) // Go Left
       {
         this.move(0, 1, 0, 0, DIRECTIONS.LEFT)
       }
