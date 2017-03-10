@@ -14,6 +14,7 @@ class Level {
     this.drawables.push(d);
   }
   changeScreen(screen){
+	  this.currentScreen.drawables.forEach(function(d){d.solid=false;});
 	  this.currentScreen=screen;
   }
   displayScreen(){
@@ -48,9 +49,9 @@ class Screen{
   }
   draw(){
     this.level.canvas.style.backgroundColor = this.color;
-    this.drawables.forEach(function(d){d.draw();});
+    this.drawables.forEach(function(d){d.solid=true;d.draw();});
     this.doors.forEach(function(door) {
-		door.collided=false;door.draw();
+	  door.draw();
 	}); 
   }
 }
@@ -62,7 +63,6 @@ class Door extends Collidable {
     this.screen=screen;
     this.destination=destination;
     this.color=color;
-    this.collided=false;
     screen.addDoor(this);
   }
   draw() {
@@ -71,10 +71,7 @@ class Door extends Collidable {
   }
 
   onCollision() {
-	if(!this.collided){
       this.screen.level.changeScreen(this.destination);
-      this.collided=true;
-    }
   }
 
   

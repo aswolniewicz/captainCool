@@ -216,7 +216,6 @@ class PlayerCharacter extends Character {
     }
     if(collidedWith.constructor.name == 'MessageArea') {
       this.speak("What is this?", Number.MAX_SAFE_INTEGER); //has another dialogue close condition
-      isBarrierSolid = false;
     }
   }
 
