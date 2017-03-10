@@ -32,6 +32,16 @@
         </ul>
       </div>
     </div>
+    <input type="text" id="myText" value="Text">
+    <p>Click the button to display the text</p>
+    <button onclick="ShowText()">Click the button</button>
+    <p id="demo"></p>
+    <script>
+    function ShowText() {
+        var x = document.getElementById("myText").value;
+        document.getElementById("demo").innerHTML = x;
+    }
+    </script>
     <!-- Have to load the scripts in order, captain_cool must go last because it depends on everything else -->
     <script src="js/background.js"></script>
     <script src="js/debug.js"></script>
@@ -41,4 +51,3 @@
     <script src="js/captain_cool.js"></script>
   </body>
 </html>
-
