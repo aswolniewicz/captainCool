@@ -20,3 +20,8 @@ Key Guide
 - S = down
 - D = right
 - T = text input
+
+/*
+There is a text box that is always there that is taking input.  Its contents are currently stored in a golbal variable called textVar.  If something has been entered in the box and the button to submit it has been clicked, then the contents of the box are stored in textVar.  If nothing has been entered then textVar is undefined. 
+*/
+

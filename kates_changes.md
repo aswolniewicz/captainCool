@@ -48,6 +48,10 @@ Every Drawable class has a draw method and inherits from the base class Drawable
 general description: global variables that correspond with DOM elements are drawn on the screen for debugging uses. 
 ## updatePositionLogs and updateContactLogs are called by updateLogs which is called on every draw. 
 ## updateKeysPressedLogs is called by the keyboard eventListeners 
+=======
+* general description: global variables that correspond with DOM elements are drawn on the screen for debugging uses. 
+* updatePositionLogs and updateContactLogs are called by updateLogs which is called on every draw. 
+* updateKeysPressedLogs is called by the keyboard eventListeners 
 
 # captainCool 
 ## Game
