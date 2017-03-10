@@ -165,6 +165,9 @@ class Character extends Collidable {
     this.isSpeaking = false;
     this.speechCounter = 0;
   }
+  onCollision(){
+	  this.baseOnCollision();
+  }
 
   //move must be overridden if we want to do anything
   move(up, left, right, down, direction) {}
