@@ -32,6 +32,18 @@
         </ul>
       </div>
     </div>
+    <!-- Gets text from user and stroes it in x -->
+    <input type="text" id="myText" value="Text">
+    <p>Click the button to display the text</p>
+    <button onclick="ShowText()">Click the button</button>
+    <p id="demo"></p>
+    <script>
+    function ShowText() {
+      //<-- textVar is currently a global variable -->
+         window.textVar = document.getElementById("myText").value;
+        document.getElementById("demo").innerHTML = window.textVar;
+    }
+    </script>
     <!-- Have to load the scripts in order, captain_cool must go last because it depends on everything else -->
     <script src="js/debug.js"></script>
     <script src="js/drawable_classes.js"></script>
@@ -41,4 +53,3 @@
     <script src="js/captain_cool.js"></script>
   </body>
 </html>
-

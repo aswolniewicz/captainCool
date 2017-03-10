@@ -236,10 +236,14 @@ class PlayerCharacter extends Character {
   // move commands go in as 1 or 0
   //and animate in the direction of direction
   move(up, left, right, down, direction) {
-      if(this.canMoveLeft) this.x -= (left * this.speed);
-      if(this.canMoveRight) this.x += (right * this.speed);
-      if(this.canMoveDown) this.y += (down * this.speed);
-      if(this.canMoveUp) this.y -= (up * this.speed);
+      this.animate = true;
+      // use pressed to normaize the speed.  Its not perfect right now but its closer.
+      var pressed = up + left + right + down;
+      pressed = 1 / pressed;
+      if(this.canMoveLeft) this.x -= (left * pressed * this.speed);
+      if(this.canMoveRight) this.x += (right * pressed * this.speed);
+      if(this.canMoveDown) this.y += (down * pressed * this.speed);
+      if(this.canMoveUp) this.y -= (up * pressed * this.speed);
       this.direction = direction;
       this.setAnimationFrame();
       //at some point have to turn off animation
