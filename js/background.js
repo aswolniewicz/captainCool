@@ -71,9 +71,7 @@ class Door extends Collidable {
   }
 
   onCollision() {
-	if(!this.solid){
       this.screen.level.changeScreen(this.destination);
-    }
   }
 
   
