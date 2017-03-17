@@ -259,6 +259,13 @@ class PlayerCharacter extends Character {
     this.y -= (up * 2);
   }
 
+  // Change location of the player character
+  changeLocation(destX, destY){
+    console.log("Gets to here")
+    this.x = destX;
+    this.y = destY;
+  }
+
   //figure out where on the spritesheet to animate from
   setAnimationFrame() {
         //set yImage based on direction for most sprites

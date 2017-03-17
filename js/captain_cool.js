@@ -64,7 +64,7 @@ var barrier3 = new Obstacle(gameInstance.context, 20, 300, 40, 50);
 var testLevel = new Level(gameInstance,1);
 var testScreen = new Screen(testLevel,1,'purple');
 var testScreen2 = new Screen(testLevel,2,'yellow');
-var testDoor = new Door(testScreen, 20, 20, 300, 500,testScreen2, testScreen2.color);
+var testDoor = new Door(testScreen, 20, 20, 940, 500,testScreen2, testScreen2.color);
 var testDoor2 = new Door(testScreen2, 20, 20, 300, 600,testScreen, testScreen.color);
 
 //here we go with this same idea for collisions, drawing, and keyboard input polling

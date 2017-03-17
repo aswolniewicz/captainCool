@@ -1,8 +1,8 @@
-/* 
+/*
 Welcome Friends!
 Background.js contains all classes pertinant to the background
 Those classes are Level, Screen, and Door
-*/ 
+*/
 
 //indiviual levels of the game
 class Level {
@@ -42,7 +42,7 @@ class Level {
   //Print all screen ids to the console
   logScreens(){
 	  this.screens.forEach(function(screen) {
-		  console.log("hello from"); 
+		  console.log("hello from");
 		  console.log(screen.id);
 	  });
   }
@@ -77,14 +77,14 @@ class Screen{
     //draw all doors belonging to this background
     this.doors.forEach(function(door) {
 	  door.draw();
-	}); 
+	});
   }
 }
 
 //collidable objects that transport you from screen to screen on touch
 class Door extends Collidable {
   //to construct, give it a parent screen, draw arguments, destintion screen, and color
-  constructor(screen, width, height, x, y, destination,color) {
+  constructor(screen, width, height, x, y, destination, color) {
     super(null, width, height, x, y, false); //set draw arguments from superclass
     this.context=screen.context; //adopt parent screen context
     this.screen=screen; //parent screen
@@ -101,7 +101,9 @@ class Door extends Collidable {
   onCollision() {
 	  //get parent screen's parent level to change screens
       this.screen.level.changeScreen(this.destination);
+      // Currently all doors teleport the player back to the begining.
+      window.doorEffect(0,0);
   }
 
-  
+
 }
