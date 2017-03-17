@@ -248,6 +248,7 @@ class PlayerCharacter extends Character {
       if(this.canMoveUp) this.y -= (up * pressed * this.speed);
       this.direction = direction;
       this.setAnimationFrame();
+      this.checkOutOfBounds();
       //at some point have to turn off animation
   }
 
@@ -261,10 +262,23 @@ class PlayerCharacter extends Character {
 
   // Change location of the player character
   changeLocation(destX, destY){
-    console.log("Gets to here")
     this.x = destX;
     this.y = destY;
-    console.log("destX: ", destX, "destY: ", destY);
+  }
+
+  checkOutOfBounds(){
+    if (this.x < 0){
+      this.x = 0
+    }
+    else if( this.x > window.canvas.width - this.width){
+      this.x = window.canvas.width - this.width;
+    }
+    if (this.y < 0){
+      this.y = 0
+    }
+    else if( this.y > window.canvas.height- this.height){
+      this.y = window.canvas.height - this.height;
+    }
   }
 
   //figure out where on the spritesheet to animate from
