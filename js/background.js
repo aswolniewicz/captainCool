@@ -84,13 +84,15 @@ class Screen{
 //collidable objects that transport you from screen to screen on touch
 class Door extends Collidable {
   //to construct, give it a parent screen, draw arguments, destintion screen, and color
-  constructor(screen, width, height, x, y, destination, color) {
+  constructor(screen, width, height, x, y, destination, color, sendToX, sendToY) {
     super(null, width, height, x, y, false); //set draw arguments from superclass
     this.context=screen.context; //adopt parent screen context
     this.screen=screen; //parent screen
     screen.addDoor(this); //add itself to parent screen's door list
     this.destination=destination; //destination screen
     this.color=color; //fill color
+    this.sendToX = sendToX;
+    this.sendToY = sendToY;
   }
   //display door as simple colored rectangle
   draw() {
@@ -102,7 +104,7 @@ class Door extends Collidable {
 	  //get parent screen's parent level to change screens
       this.screen.level.changeScreen(this.destination);
       // Currently all doors teleport the player back to the begining.
-      window.doorEffect(0,0);
+      window.doorEffect(this.sendToX, this.sendToY);
   }
 
 

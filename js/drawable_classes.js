@@ -264,6 +264,7 @@ class PlayerCharacter extends Character {
     console.log("Gets to here")
     this.x = destX;
     this.y = destY;
+    console.log("destX: ", destX, "destY: ", destY);
   }
 
   //figure out where on the spritesheet to animate from
