@@ -59,6 +59,8 @@ var barrier = new Obstacle(gameInstance.context, 20, 250, 300, 200);
 var barrier2 = new Obstacle(gameInstance.context, 200, 20, 250, 350);
 var barrier3 = new Obstacle(gameInstance.context, 20, 300, 40, 50);
 
+//testScreen.addDrawable(barrier)
+//
 var testLevel = new Level(gameInstance,1);
 var testScreen = new Screen(testLevel,1,'green');
 var testScreen2 = new Screen(testLevel,2,'yellow');
@@ -71,6 +73,7 @@ inputHandler.addPoller(ma);
 
 //whoever is added second gets their draw method called second and is therefore drawn on top
 gameInstance.addDrawable(ma);
+//could remove gameInstance and replace with testScreen
 gameInstance.addDrawable(barrier);
 testLevel.addDrawable(barrier2);
 gameInstance.addDrawable(character);
