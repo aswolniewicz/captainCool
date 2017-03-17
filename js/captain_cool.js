@@ -52,7 +52,7 @@ var inputHandler = new InputHandler();
 var gameInstance = new Game(canvas,inputHandler,collisionResolver);
 
 //lets create our character from the sprite sheet
-var character = new PlayerCharacter(gameInstance.context, 32, 32, 'img/better_sprite.png', 2, 0, 0, true);
+var character = new PlayerCharacter(gameInstance.context, 32, 32, 'img/better_sprite.png', 3, 0, 0, true);
 var masterCool = new Character(gameInstance.context, 32, 48, 'img/old_man_sprite.png', 2, 200, 300, true);
 var ma = new MessageArea(gameInstance.context, 20, 20, 500, 500, false, 'blue');
 var barrier = new Obstacle(gameInstance.context, 20, 250, 300, 200);
@@ -62,7 +62,7 @@ var barrier3 = new Obstacle(gameInstance.context, 20, 300, 40, 50);
 //testScreen.addDrawable(barrier)
 //
 var testLevel = new Level(gameInstance,1);
-var testScreen = new Screen(testLevel,1,'green');
+var testScreen = new Screen(testLevel,1,'purple');
 var testScreen2 = new Screen(testLevel,2,'yellow');
 var testDoor = new Door(testScreen, 20, 20, 300, 500,testScreen2, testScreen2.color);
 var testDoor2 = new Door(testScreen2, 20, 20, 300, 600,testScreen, testScreen.color);
