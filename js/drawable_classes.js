@@ -117,7 +117,7 @@ class MessageArea extends Collidable {
 
 //any character that moves extends this class
 class Character extends Collidable {
-  constructor(context, width, height, image, speed, x, y, solid) {
+  constructor(context, width, height, image, speed, x, y, solid, frames) {
     //super calls the base class constructor
     //super.methodname() calls that method from the base class
     super(context, width, height, x, y, solid)
@@ -132,6 +132,7 @@ class Character extends Collidable {
     this.isSpeaking = false;
     this.speechCounter = 0;
     this.speechDuration;
+    this.frames = frames;
   }
 
   //draws to canvas context based on the source image and the position
@@ -286,15 +287,18 @@ class PlayerCharacter extends Character {
         //set yImage based on direction for most sprites
         this.cutY = this.direction;
         if(this.count % 15 == 0) { // Every 15 movement frames (frame group) cycle through sprites
-          if (this.count == 0){ // Begin cycle at sprite 2
+          if (this.count == 0){ // Begin cycle at sprite 0
             this.cutX = 0;
           }
-          else if (this.count == 15){ // Go to next sprite for 3 frame groups
+          else if (this.count == 15){ // Go to sprite 1
             this.cutX = 1;
           }
-          else if (this.count == 30){ // Go to previous sprite for 2 frame groups
+          else if (this.count == 30){ // go to sprite 2
             this.cutX = 2;
-            this.count = -1;
+          }
+          else if (this.count == 45){ // return to sprite 1
+            this.cutX = 1;
+            this.count = -15; // This will make it go back to sprite 0
           }
         }
         this.count++;
