@@ -117,7 +117,7 @@ class MessageArea extends Collidable {
 
 //any character that moves extends this class
 class Character extends Collidable {
-  constructor(context, width, height, image, speed, x, y, solid, frames) {
+  constructor(context, width, height, image, speed, x, y, solid) {
     //super calls the base class constructor
     //super.methodname() calls that method from the base class
     super(context, width, height, x, y, solid)
@@ -132,7 +132,6 @@ class Character extends Collidable {
     this.isSpeaking = false;
     this.speechCounter = 0;
     this.speechDuration;
-    this.frames = frames;
   }
 
   //draws to canvas context based on the source image and the position
@@ -173,6 +172,7 @@ class Character extends Collidable {
   //move must be overridden if we want to do anything
   move(up, left, right, down, direction) {}
 }
+
 
 
 //player character that responds to key input
