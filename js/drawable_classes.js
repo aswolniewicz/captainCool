@@ -173,6 +173,24 @@ class Character extends Collidable {
   move(up, left, right, down, direction) {}
 }
 
+// this is for characters like masterCool who are not controlled by keyboard input
+// so far these characters speak when run into but don't move 
+// can add more later
+class NonPlayerCharacter extends Character{
+    constructor(context, width, height, image, speed, x, y, solid) {
+    super(context, width, height, image, speed, x, y, solid);
+}
+
+  onCollision(collidedWith){
+
+    this.baseOnCollision(collidedWith);
+
+    if(collidedWith.solid == true){
+      // 120 means the message will display for 2 seconds, we can change this
+      this.speak("some message here", 120);
+    }
+  }
+}
 
 
 //player character that responds to key input
@@ -216,7 +234,10 @@ class PlayerCharacter extends Character {
         this.canMoveDown = false;
         this.bounce(1, 0, 0, 0);
       }
-      this.speak("I can't go that way", 60);
+    
+    }
+    if (collidedWith.constructor.name == 'Obstacle'){
+      this.speak("I can't go this way", 30);
     }
     if(collidedWith.constructor.name == 'MessageArea') {
       this.speak("What is this?", Number.MAX_SAFE_INTEGER); //has another dialogue close condition
