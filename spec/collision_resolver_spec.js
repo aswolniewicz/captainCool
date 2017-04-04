@@ -2,6 +2,8 @@
  describe("CollisionResolver", function() {
   var test_resolver = new CollisionResolver;
 
+  // Test that colli
+
   // Test that the program starts with 0 collidables.
   it("Should start with an empty list of collidables.", function() {
     expect(test_resolver.collidables.length).toEqual(0);

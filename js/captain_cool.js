@@ -14,7 +14,7 @@ class Game {
 	this.levels = [];
 	this.currentLevel = null;
     this.drawables = [];
-    this.context = this.canvas.getContext('2d');
+    this.context = this.canvas.getContext("2d");
   }
 
   //anything that's drawable we need to add to this list so that

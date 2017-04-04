@@ -11,23 +11,61 @@
   <script src="jasmine/lib/jasmine-2.5.2/jasmine-html.js"></script>
   <script src="jasmine/lib/jasmine-2.5.2/boot.js"></script>
 
-  <!-- include source files here... -->
-  <!-- should match index.html -->
-  <script src = "js/effects.js"></script>
-  <script src="js/debug.js"></script>
-  <script src="js/drawable_classes.js"></script>
-  <script src="js/background.js"></script>
-  <script src="js/collision_resolver.js"></script>
-  <script src="js/input_handler.js"></script>
-  <script src="js/captain_cool.js"></script>
-
-  <!-- include spec files here... -->
-  <script src="spec/collision_resolver_spec.js"></script>
-  <script src="spec/background_spec.js"></script>
-  <script src="spec/captain_cool_spec.js"></script>
-
 </head>
 
 <body>
+
+    <!-- copied index.html for testing -->
+    <canvas id='canvas'></canvas>
+    <div id="message-area"></div>
+    <!-- Temporary area at the bottom of screen that is useful for debugging-->
+    <div id="debug-area">
+      <h3>Debug Messages</h3>
+      <div class="debug-sub-area">
+        <h4>Position</h4>
+        <ul id="debug-list">
+          <li id="char-x"></li>
+          <li id="char-y"></li>
+        </ul>
+      </div>
+      <div class="debug-sub-area">
+        <h4>Contact List</h3>
+        <ul id="contact-list">
+        </ul>
+      </div>
+      <div class="debug-sub-area">
+        <h4>Keys Pressed</h4>
+        <ul id="keys-pressed-list">
+        </ul>
+      </div>
+    </div>
+    <!-- Gets text from user and stroes it in textVar -->
+    <input type="text" id="myText" value="Text">
+    <p>Click the button to display the text</p>
+    <button onclick="ShowText()">Click the button</button>
+    <p id="demo"></p>
+    <script>
+    function ShowText() {
+      //<-- textVar is currently a global variable -->
+         window.textVar = document.getElementById("myText").value;
+        document.getElementById("demo").innerHTML = window.textVar;
+    }
+    </script>
+
+    <!-- include source files here... -->
+    <!-- should match index.html -->
+    <script src = "js/effects.js"></script>
+    <script src="js/debug.js"></script>
+    <script src="js/drawable_classes.js"></script>
+    <script src="js/background.js"></script>
+    <script src="js/collision_resolver.js"></script>
+    <script src="js/input_handler.js"></script>
+    <script src="js/captain_cool.js"></script>
+
+    <!-- include spec files here... -->
+    <script src="spec/collision_resolver_spec.js"></script>
+    <script src="spec/background_spec.js"></script>
+    <script src="spec/captain_cool_spec.js"></script>
+
 </body>
 </html>
