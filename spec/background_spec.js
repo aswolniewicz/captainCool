@@ -19,15 +19,18 @@
     expect(test_level.drawables).toEqual([]);
   })
 
-  // Test that a screen has been added.
+  // Make sure that each screen does change.
+  it("Should change current level's screen.", function() {
+    test_level = new Level(test_game, 1);
+    expect(test_level.changeScreen.screen).toEqual(test_game.screen);
+  })
 
-  // Test that the program can add a drawable.
-
-  // Test that the screen has been changed.
-
-  // Test that correct screen is being displayed.
-
-  // Test that screens are being logged.
+  // Test that background is drawn when not null.
+  it("Should draw background and objects.", function() {
+    test_level = new Level(test_game, 1);
+    test_level.currentScreen = 3;
+    expect(test_level.currentScreen).not.toBeNull();
+  })
 })
 
 describe("Screen", function() {
