@@ -32,18 +32,3 @@
     expect(test_level.currentScreen).not.toBeNull();
   })
 })
-
-describe("Screen", function() {
-  var test_screen = new Screen();
-  // Create a new game for testing.
-  var test_canvas = document.getElementById('canvas');
-  var test_collisionResolver = new CollisionResolver();
-  var test_inputHandler = new InputHandler();
-  var test_game = new Game(test_canvas,test_inputHandler,test_collisionResolver);
-  var test_level = new Level(test_game, 1);
-
-  // Test the constructor works.
-  it("Should properly construct a level.", function() {
-    expect(test_screen.level).toEqual(test_game.level);
-  })
-})
