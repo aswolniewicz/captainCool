@@ -63,8 +63,8 @@ var barrier3 = new Obstacle(gameInstance.context, 20, 300, 40, 50);
 //testScreen.addDrawable(barrier)
 //
 var testLevel = new Level(gameInstance,1);
-var testScreen = new Screen(testLevel,1,'purple');
-var testScreen2 = new Screen(testLevel,2,'magenta');
+var testScreen = new Screen(testLevel,1,'img/background.png','image');
+var testScreen2 = new Screen(testLevel,2,'magenta','color');
 var testDoor = new Door(testScreen, 10, 150, 950, 250,testScreen2, testScreen2.color,15,300);
 var testDoor2 = new Door(testScreen2, 10, 150, 0, 250,testScreen, testScreen.color,900,300);
 

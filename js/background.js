@@ -51,11 +51,19 @@ class Level {
 //individual background segments of level map
 class Screen{
   //to construct pass level object, id number, and background color
-  constructor(level, id, color)  {
+  constructor(level, id, color,type)  {
+  this.type = type;
 	this.level = level; //parent level
 	level.addScreen(this); //add itself to parent level's screen list
 	this.id = id; //number to track screen
-	this.color = color; //background color
+  if (this.type == 'image'){
+    document.getElementById("Background1");
+    this.image = new Image();
+    this.image.src = color;
+  }
+  else{
+	   this.color = color; //background color
+  }
 	this.context=level.context; //adopt parent level's context
 	this.doors = []; //doors belonging to screen
 	this.drawables=[]; //drawables that persist throughout screen
@@ -71,8 +79,15 @@ class Screen{
   //display background
   draw(){
 	//for simplification background is just a color
-    this.level.canvas.style.backgroundColor = this.color;
-    //draw all background objects and make them solid
+    if(this.type == 'image'){
+      var ctx = this.context;
+      //document.getElementById("Background1")
+      ctx.drawImage(this.image,0,0,960,640);
+    }
+    else{
+      this.level.canvas.style.backgroundColor = this.color;
+    }
+    //draw all bawckground objects and make them solid
     this.drawables.forEach(function(d){d.solid=true;d.draw();});
     //draw all doors belonging to this background
     this.doors.forEach(function(door) {
