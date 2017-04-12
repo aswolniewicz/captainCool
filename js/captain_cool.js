@@ -23,7 +23,7 @@ class Game {
     this.drawables.push(d);
   }
   draw() {
-    this.context.clearRect(0, 0, 960  , 640);
+    this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
     this.currentLevel.displayScreen();
     this.drawables.forEach(function(d) {
       d.draw();
@@ -53,12 +53,12 @@ var gameInstance = new Game(canvas,inputHandler,collisionResolver);
 
 //lets create our character from the sprite sheet
 // Changed speed to 5 from 3 to speed up testing.
-var character = new PlayerCharacter(gameInstance.context, 44, 60, 'img/captain_cool.png', 5, 150, 0, true);
-var masterCool = new NonPlayerCharacter(gameInstance.context, 53, 64, 'img/master_cool.png', 2, 400, 50, true);
-var ma = new MessageArea(gameInstance.context, 20, 20, 500, 500, false, 'blue');
-var barrier = new Obstacle(gameInstance.context, 20, 250, 300, 200);
-var barrier2 = new Obstacle(gameInstance.context, 200, 20, 250, 350);
-var barrier3 = new Obstacle(gameInstance.context, 20, 300, 40, 50);
+var character = new PlayerCharacter(gameInstance, 44, 60, 'img/captain_cool.png', 5, 150, 0, true);
+var masterCool = new NonPlayerCharacter(gameInstance, 53, 64, 'img/master_cool.png', 2, 400, 50, true);
+var ma = new MessageArea(gameInstance, 20, 20, 500, 500, false, 'blue');
+var barrier = new Obstacle(gameInstance, 20, 250, 300, 200);
+var barrier2 = new Obstacle(gameInstance, 200, 20, 250, 350);
+var barrier3 = new Obstacle(gameInstance, 20, 300, 40, 50);
 
 //testScreen.addDrawable(barrier)
 //
@@ -83,17 +83,9 @@ testScreen.addDrawable(barrier3);
 gameInstance.addDrawable(masterCool);
 //order won't matter too much here, whoever is added second gets their collision method
 //called second
-collisionResolver.addCollidable(ma);
-collisionResolver.addCollidable(character);
-collisionResolver.addCollidable(barrier);
-collisionResolver.addCollidable(barrier2);
-collisionResolver.addCollidable(barrier3);
-collisionResolver.addCollidable(masterCool);
 
 testLevel.currentScreen=testScreen;
 gameInstance.currentLevel=testLevel;
-collisionResolver.addCollidable(testDoor);
-collisionResolver.addCollidable(testDoor2);
 
 //now that draw is defined we can start the game
 gameInstance.start();

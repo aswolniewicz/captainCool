@@ -8,6 +8,7 @@ Those classes are Level, Screen, and Door
 class Level {
   //to construct pass a Game object and id number
   constructor(game, id)  {
+	this.game=game
 	this.id = id; //number to track level
 	this.currentScreen = null; //pointer to the current screen
     this.screens = []; //screens belonging to level
@@ -100,7 +101,7 @@ class Screen{
 class Door extends Collidable {
   //to construct, give it a parent screen, draw arguments, destintion screen, and color
   constructor(screen, width, height, x, y, destination, color, sendToX, sendToY) {
-    super(null, width, height, x, y, false); //set draw arguments from superclass
+    super(screen.level.game, width, height, x, y, false); //set draw arguments from superclass
     this.context=screen.context; //adopt parent screen context
     this.screen=screen; //parent screen
     screen.addDoor(this); //add itself to parent screen's door list
@@ -110,7 +111,7 @@ class Door extends Collidable {
     this.sendToY = sendToY;
   }
   //display door as simple colored rectangle
-  draw() {
+  display() {
     this.context.fillStyle = this.color;
     this.context.fillRect(this.x, this.y, this.width, this.height);
   }
@@ -121,6 +122,4 @@ class Door extends Collidable {
       // Currently all doors teleport the player back to the begining.
       window.doorEffect(this.sendToX, this.sendToY);
   }
-
-
 }

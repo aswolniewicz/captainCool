@@ -1,7 +1,7 @@
 //base drawable class, anything drawn on the screen inherits this.
 class Drawable {
-  constructor(context, width, height, x, y) {
-    this.context = context;
+  constructor(game, width, height, x, y) {
+    this.context = game.context;
     this.width = width;
     this.height = height;
     this.x = x;
@@ -13,13 +13,19 @@ class Drawable {
 
 //
 class Collidable extends Drawable{
-  constructor(context, width, height, x, y, solid) {
+  constructor(game, width, height, x, y, solid) {
     console.log("is solid: " + solid)
-    super(context, width, height, x, y);
+    super(game, width, height, x, y);
+    this.resolver= game.resolver
     this.solid = solid;
     this.contactList = [];
   }
-
+  display(){
+  }
+  draw(){
+    this.resolver.addCollidable(this)
+    this.display()
+  }
   //
   baseOnContactLost(lostWith, i) {
     this.contactList.splice(i, 1);
@@ -45,10 +51,10 @@ class Collidable extends Drawable{
 
 //
 class Obstacle extends Collidable {
-  constructor(context, width, height, x, y) {
-    super(context, width, height, x, y, true) //true b/c solid
+  constructor(game, width, height, x, y) {
+    super(game, width, height, x, y, true) //true b/c solid
   }
-  draw() {
+  display() {
     this.context.fillStyle = 'black';
     this.context.fillRect(this.x, this.y, this.width, this.height);
   }
@@ -64,15 +70,15 @@ class Obstacle extends Collidable {
 
 //
 class MessageArea extends Collidable {
-  constructor(context, width, height, x, y, solid, color) {
-    super(context, width, height, x, y, solid);
+  constructor(game, width, height, x, y, solid, color) {
+    super(game, width, height, x, y, solid);
     //can't access this in constructor until we call super
     this.color = color; //color is a string (think css)
     this.displayMessage = true;
   }
 
   //
-  draw() {
+  display() {
     this.context.fillStyle = this.color;
     this.context.fillRect(this.x, this.y, this.width, this.height);
   }
@@ -117,10 +123,10 @@ class MessageArea extends Collidable {
 
 //any character that moves extends this class
 class Character extends Collidable {
-  constructor(context, width, height, image, speed, x, y, solid) {
+  constructor(game, width, height, image, speed, x, y, solid) {
     //super calls the base class constructor
     //super.methodname() calls that method from the base class
-    super(context, width, height, x, y, solid)
+    super(game, width, height, x, y, solid)
     this.image =  new Image();
     this.image.src = image;
     this.cutX = 0;
@@ -135,7 +141,7 @@ class Character extends Collidable {
   }
 
   //draws to canvas context based on the source image and the position
-  draw() {
+  display() {
     charX = this.x;
     charY = this.y;
     this.context.drawImage(this.image, (this.cutX * this.width),
@@ -177,8 +183,8 @@ class Character extends Collidable {
 // so far these characters speak when run into but don't move 
 // can add more later
 class NonPlayerCharacter extends Character{
-    constructor(context, width, height, image, speed, x, y, solid) {
-    super(context, width, height, image, speed, x, y, solid);
+    constructor(game, width, height, image, speed, x, y, solid) {
+    super(game, width, height, image, speed, x, y, solid);
 }
 
   onCollision(collidedWith){
@@ -195,8 +201,8 @@ class NonPlayerCharacter extends Character{
 
 //player character that responds to key input
 class PlayerCharacter extends Character {
-  constructor(context, width, height, image, speed, x, y, solid) {
-    super(context, width, height, image, speed, x, y, solid);
+  constructor(game, width, height, image, speed, x, y, solid) {
+    super(game, width, height, image, speed, x, y, solid);
     this.count = 0;
     this.canMoveUp = true;
     this.canMoveLeft = true;

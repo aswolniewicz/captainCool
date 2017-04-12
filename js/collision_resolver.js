@@ -14,7 +14,12 @@ class CollisionResolver {
   addCollidable(c) {
     this.collidables.push(c);
   }
-
+  removeCollidable(c){
+	var index = this.collidables.indexOf(c)
+	if(index > -1){
+      this.collidables.splice(index,1)
+    }
+  }
   //really great O(n^2) method that needs to be re written
   //maybe only check every object against objects that moved?
   detectCollisions() {
@@ -34,5 +39,6 @@ class CollisionResolver {
         }
       });
     })
+    this.collidables=[]
   }
 }
