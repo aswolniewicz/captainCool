@@ -59,6 +59,12 @@ var ma = new MessageArea(gameInstance, 20, 20, 500, 500, false, 'blue');
 var barrier = new Obstacle(gameInstance, 20, 250, 300, 200);
 var barrier2 = new Obstacle(gameInstance, 200, 20, 250, 350);
 var barrier3 = new Obstacle(gameInstance, 20, 300, 40, 50);
+var rightWall = new Obstacle(gameInstance,20, 800, 900,0);
+var topWall = new Obstacle(gameInstance,500,20,150,100);
+var aWall = new Obstacle(gameInstance,20,200,650,100);
+var bWall = new Obstacle(gameInstance,20,200,750,100);
+var cWall = new Obstacle(gameInstance,120,20,650,300);
+
 
 //testScreen.addDrawable(barrier)
 //
@@ -73,14 +79,19 @@ inputHandler.addPoller(character);
 inputHandler.addPoller(ma);
 
 //whoever is added second gets their draw method called second and is therefore drawn on top
-gameInstance.addDrawable(ma);
+testScreen.addDrawable(ma);
 //could remove gameInstance and replace with testScreen
-gameInstance.addDrawable(barrier);
-testLevel.addDrawable(barrier2);
+testScreen.addDrawable(barrier);
+testScreen.addDrawable(barrier2);
 gameInstance.addDrawable(character);
 testScreen.addDrawable(barrier3);
+testScreen2.addDrawable(rightWall);
+testScreen2.addDrawable(topWall);
+testScreen2.addDrawable(aWall);
+testScreen2.addDrawable(bWall);
+testScreen2.addDrawable(cWall);
 
-gameInstance.addDrawable(masterCool);
+testScreen.addDrawable(masterCool);
 //order won't matter too much here, whoever is added second gets their collision method
 //called second
 
