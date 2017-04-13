@@ -64,16 +64,17 @@ var barrier3 = new Obstacle(gameInstance, 20, 300, 40, 50);
 var rightWall = new Obstacle(gameInstance,20, 800, 900,0);
 var topWall = new Obstacle(gameInstance,500,20,150,100);
 var aWall = new Obstacle(gameInstance,20,200,650,100);
-var bWall = new Obstacle(gameInstance,20,200,750,100);
+var bWall = new Obstacle(gameInstance,20,300,750,0);
 var cWall = new Obstacle(gameInstance,120,20,650,300);
 var dWall = new Obstacle(gameInstance,20,250,550,250);
 var eWall = new Obstacle(gameInstance,220,20,550,500);
 var fWall = new Obstacle(gameInstance,220,20,200,500);
 var gWall = new Obstacle(gameInstance,20,150,150,220);
-var hWall = new Obstacle(gameInstance,20,150,150,220);
-
-
-
+var hWall = new Obstacle(gameInstance,120,20,150,220);
+var iWall = new Obstacle(gameInstance,20,150,250,220);
+var jwall = new Obstacle(gameInstance,300,20,250,350);
+var kwall = new Obstacle(gameInstance,20,200,650,500);
+var lwall = new Obstacle(gameInstance,20,150,400,100);
 
 //testScreen.addDrawable(barrier)
 //
@@ -103,6 +104,11 @@ testScreen2.addDrawable(dWall);
 testScreen2.addDrawable(eWall);
 testScreen2.addDrawable(fWall);
 testScreen2.addDrawable(gWall);
+testScreen2.addDrawable(hWall);
+testScreen2.addDrawable(iWall);
+testScreen2.addDrawable(jwall);
+testScreen2.addDrawable(kwall);
+testScreen2.addDrawable(lwall);
 
 
 testScreen.addDrawable(masterCool);
