@@ -57,6 +57,7 @@ class Screen{
 	this.level = level; //parent level
 	level.addScreen(this); //add itself to parent level's screen list
 	this.id = id; //number to track screen
+  //checks to see if the background is an image or a colo
   if (this.type == 'image'){
     document.getElementById("Background1");
     this.image = new Image();
@@ -79,10 +80,9 @@ class Screen{
   }
   //display background
   draw(){
-	//for simplification background is just a color
+    //draws the background
     if(this.type == 'image'){
       var ctx = this.context;
-      //document.getElementById("Background1")
       ctx.drawImage(this.image,0,0,960,640);
     }
     else{
@@ -99,7 +99,8 @@ class Screen{
 
 //collidable objects that transport you from screen to screen on touch
 class Door extends Collidable {
-  //to construct, give it a parent screen, draw arguments, destintion screen, and color
+  //to construct, give it a parent screen, draw arguments, destintion screen,
+  //color and a destination location.
   constructor(screen, width, height, x, y, destination, color, sendToX, sendToY) {
     super(screen.level.game, width, height, x, y, false); //set draw arguments from superclass
     this.context=screen.context; //adopt parent screen context
@@ -107,6 +108,7 @@ class Door extends Collidable {
     screen.addDoor(this); //add itself to parent screen's door list
     this.destination=destination; //destination screen
     this.color=color; //fill color
+    //controls where the user goes when they go through the door
     this.sendToX = sendToX;
     this.sendToY = sendToY;
   }
@@ -119,7 +121,6 @@ class Door extends Collidable {
   onCollision() {
 	  //get parent screen's parent level to change screens
       this.screen.level.changeScreen(this.destination);
-      // Currently all doors teleport the player back to the begining.
       window.doorEffect(this.sendToX, this.sendToY);
   }
 }
