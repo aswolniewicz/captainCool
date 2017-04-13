@@ -59,18 +59,27 @@ var ma = new MessageArea(gameInstance, 20, 20, 500, 500, false, 'blue');
 var barrier = new Obstacle(gameInstance, 20, 250, 300, 200);
 var barrier2 = new Obstacle(gameInstance, 200, 20, 250, 350);
 var barrier3 = new Obstacle(gameInstance, 20, 300, 40, 50);
+// The following obstacles are part of the maze.
+// var name = new Obstacle(gameInstance,width,height,x,y);
 var rightWall = new Obstacle(gameInstance,20, 800, 900,0);
 var topWall = new Obstacle(gameInstance,500,20,150,100);
 var aWall = new Obstacle(gameInstance,20,200,650,100);
 var bWall = new Obstacle(gameInstance,20,200,750,100);
 var cWall = new Obstacle(gameInstance,120,20,650,300);
+var dWall = new Obstacle(gameInstance,20,250,550,250);
+var eWall = new Obstacle(gameInstance,220,20,550,500);
+var fWall = new Obstacle(gameInstance,220,20,200,500);
+var gWall = new Obstacle(gameInstance,20,150,150,220);
+var hWall = new Obstacle(gameInstance,20,150,150,220);
+
+
 
 
 //testScreen.addDrawable(barrier)
 //
 var testLevel = new Level(gameInstance,1);
 var testScreen = new Screen(testLevel,1,'img/background.png','image');
-var testScreen2 = new Screen(testLevel,2,'magenta','color');
+var testScreen2 = new Screen(testLevel,2,'grey','color');
 var testDoor = new Door(testScreen, 10, 150, 950, 250,testScreen2, testScreen2.color,15,300);
 var testDoor2 = new Door(testScreen2, 10, 150, 0, 250,testScreen, testScreen.color,900,300);
 
@@ -90,6 +99,11 @@ testScreen2.addDrawable(topWall);
 testScreen2.addDrawable(aWall);
 testScreen2.addDrawable(bWall);
 testScreen2.addDrawable(cWall);
+testScreen2.addDrawable(dWall);
+testScreen2.addDrawable(eWall);
+testScreen2.addDrawable(fWall);
+testScreen2.addDrawable(gWall);
+
 
 testScreen.addDrawable(masterCool);
 //order won't matter too much here, whoever is added second gets their collision method
