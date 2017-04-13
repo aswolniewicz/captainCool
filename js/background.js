@@ -101,16 +101,14 @@ class Screen{
 class Door extends Collidable {
   //to construct, give it a parent screen, draw arguments, destintion screen,
   //color and a destination location.
-  constructor(screen, width, height, x, y, destination, color, sendToX, sendToY) {
+  constructor(screen, width, height, x, y, destination, color,effectsArray) {
     super(screen.level.game, width, height, x, y, false); //set draw arguments from superclass
     this.context=screen.context; //adopt parent screen context
     this.screen=screen; //parent screen
     screen.addDoor(this); //add itself to parent screen's door list
     this.destination=destination; //destination screen
     this.color=color; //fill color
-    //controls where the user goes when they go through the door
-    this.sendToX = sendToX;
-    this.sendToY = sendToY;
+    this.effect = effectsArray;
   }
   //display door as simple colored rectangle
   display() {
@@ -121,6 +119,10 @@ class Door extends Collidable {
   onCollision() {
 	  //get parent screen's parent level to change screens
       this.screen.level.changeScreen(this.destination);
-      window.doorEffect(this.sendToX, this.sendToY);
+      if (this.effect[0]=='location'){
+        var sendToX = this.effect[1];
+        var sendToY = this.effect[2];
+        window.doorEffect(sendToX, sendToY);
+      }
   }
 }

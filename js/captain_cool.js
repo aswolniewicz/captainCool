@@ -81,16 +81,19 @@ var lwall = new Obstacle(gameInstance,20,150,400,100);
 var testLevel = new Level(gameInstance,1);
 var testScreen = new Screen(testLevel,1,'img/background.png','image');
 var testScreen2 = new Screen(testLevel,2,'grey','color');
-var testDoor = new Door(testScreen, 10, 150, 950, 250,testScreen2, testScreen2.color,15,300);
-var testDoor2 = new Door(testScreen2, 10, 150, 0, 250,testScreen, testScreen.color,900,300);
+var testDoorArray = ['location',15,300];
+var testDoor = new Door(testScreen, 10, 150, 950, 250,testScreen2, testScreen2.color,testDoorArray);
+var testDoor2Array = ['location',900,30];
+var testDoor2 = new Door(testScreen2, 10, 150, 0, 250,testScreen, testScreen.color,testDoor2Array);
 
 //here we go with this same idea for collisions, drawing, and keyboard input polling
 inputHandler.addPoller(character);
 inputHandler.addPoller(ma);
 
 //whoever is added second gets their draw method called second and is therefore drawn on top
+//The argument before addDrawable determines where elements appear throughout the game.
+//They can appear throughout the entire game, only on a screen, or only on a level
 testScreen.addDrawable(ma);
-//could remove gameInstance and replace with testScreen
 testScreen.addDrawable(barrier);
 testScreen.addDrawable(barrier2);
 gameInstance.addDrawable(character);
