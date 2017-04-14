@@ -15,10 +15,11 @@ class CollisionResolver {
     this.collidables.push(c);
   }
   removeCollidable(c){
-	var index = this.collidables.indexOf(c)
-	if(index > -1){
-      this.collidables.splice(index,1)
-    }
+    console.log("removed collidable")
+  	var index = this.collidables.indexOf(c)
+  	if(index > -1){
+        this.collidables.splice(index,1)
+      }
   }
   //really great O(n^2) method that needs to be re written
   //maybe only check every object against objects that moved?

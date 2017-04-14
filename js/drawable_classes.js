@@ -179,12 +179,13 @@ class Character extends Collidable {
   move(up, left, right, down, direction) {}
 }
 
-// this is for characters like masterCool who are not controlled by keyboard input
-// so far these characters speak when run into but don't move 
-// can add more later
+// this is for  masterCool who is not controlled by keyboard input
+// now mastercool animates constantly by rocking
+// still displays message when collided with 
 class NonPlayerCharacter extends Character{
     constructor(game, width, height, image, speed, x, y, solid) {
     super(game, width, height, image, speed, x, y, solid);
+    this.count = 0;
 }
 
   onCollision(collidedWith){
@@ -196,6 +197,38 @@ class NonPlayerCharacter extends Character{
       this.speak("some message here", 120);
     }
   }
+
+  rock(){
+    this.setAnimationFrame();
+  }
+
+  setAnimationFrame() {
+
+        if(this.count % 15 == 0) { // Every 15 movement frames (frame group) cycle through sprites
+          if (this.count == 0){ // Begin cycle at sprite 0
+            this.cutX = 0;
+          }
+          else if (this.count == 15){ // Go to sprite 1
+            this.cutX = 1;
+          }
+          else if (this.count == 30){ // go to sprite 2
+            this.cutX = 2;
+          }
+          else if (this.count == 45){ // return to sprite 1
+            this.cutX = 1;
+            this.count = -15; // This will make it go back to sprite 0
+          }
+        }
+        this.count++;
+
+    }
+
+    draw(){
+      console.log(this.resolver.collidables)
+      this.resolver.addCollidable(this)
+      this.rock();
+      this.display();
+    }
 }
 
 
@@ -219,7 +252,6 @@ class PlayerCharacter extends Character {
 
   //
   onCollision(collidedWith) {
-
     this.baseOnCollision(collidedWith);
     //for debug purposes
     debugContactList = this.contactList;
