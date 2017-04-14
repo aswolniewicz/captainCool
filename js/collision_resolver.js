@@ -14,11 +14,12 @@ class CollisionResolver {
   addCollidable(c) {
     this.collidables.push(c);
   }
+  // Remove collidable object from detection list
   removeCollidable(c){
     console.log("removed collidable")
-  	var index = this.collidables.indexOf(c)
-  	if(index > -1){
-        this.collidables.splice(index,1)
+  	var index = this.collidables.indexOf(c) //Find collidable in list
+  	if(index > -1){ // If its found
+        this.collidables.splice(index,1) //Remove it from the list
       }
   }
   //really great O(n^2) method that needs to be re written
@@ -40,6 +41,7 @@ class CollisionResolver {
         }
       });
     })
+    // After detecting collision reset the collidable list
     this.collidables=[]
   }
 }
