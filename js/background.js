@@ -100,7 +100,10 @@ class Screen{
 //collidable objects that transport you from screen to screen on touch
 class Door extends Collidable {
   //to construct, give it a parent screen, draw arguments, destintion screen,
-  //color and a destination location.
+  //color and an array describing the effect the door should have.
+  // Note that if the door should change the players location then 'location'
+  //be the first element of the array, the next element should be the x value of
+  //the destination and the third element should be the y value.
   constructor(screen, width, height, x, y, destination, color,effectsArray) {
     super(screen.level.game, width, height, x, y, false); //set draw arguments from superclass
     this.context=screen.context; //adopt parent screen context
