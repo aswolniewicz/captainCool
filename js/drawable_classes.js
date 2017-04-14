@@ -87,11 +87,16 @@ class MessageArea extends Collidable {
   //
   onCollision(collidedwith) {
     this.baseOnCollision(collidedwith);
-    var index = this.effect.indexOf('message');
-    if(this.displayMessage && index != -1) {
+    var messageIndex = this.effect.indexOf('message');
+    if(this.displayMessage && messageIndex > -1) {
       this.color = 'red';
-      this.showMessage(this.effect[index+1]);
+      this.showMessage(this.effect[messageIndex+1]);
       this.displayMessage = false;
+    }
+    var keyIndex = this.effect.indexOf('key');
+    if (this.effect.indexOf('key') > -1){
+      OBJ.push(this.effect[keyIndex+1]);
+      console.log(OBJ);
     }
   }
 
