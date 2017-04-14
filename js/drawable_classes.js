@@ -70,11 +70,12 @@ class Obstacle extends Collidable {
 
 //
 class MessageArea extends Collidable {
-  constructor(game, width, height, x, y, solid, color) {
+  constructor(game, width, height, x, y, solid, color,effectsArray) {
     super(game, width, height, x, y, solid);
     //can't access this in constructor until we call super
     this.color = color; //color is a string (think css)
     this.displayMessage = true;
+    this.effect = effectsArray;
   }
 
   //
@@ -86,9 +87,10 @@ class MessageArea extends Collidable {
   //
   onCollision(collidedwith) {
     this.baseOnCollision(collidedwith);
-    if(this.displayMessage) {
+    var index = this.effect.indexOf('message');
+    if(this.displayMessage && index != -1) {
       this.color = 'red';
-      this.showMessage('Test Message: Press enter to dismiss.');
+      this.showMessage(this.effect[index+1]);
       this.displayMessage = false;
     }
   }

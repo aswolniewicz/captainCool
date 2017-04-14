@@ -55,7 +55,7 @@ var gameInstance = new Game(canvas,inputHandler,collisionResolver);
 // Changed speed to 5 from 3 to speed up testing.
 var character = new PlayerCharacter (gameInstance, 44, 60, 'img/captain_cool.png', 5, 150, 0, true);
 var masterCool = new NonPlayerCharacter(gameInstance, 53, 64, 'img/master_cool.png', 2, 400, 50, true);
-var ma = new MessageArea(gameInstance, 20, 20, 500, 500, false, 'blue');
+var ma = new MessageArea(gameInstance, 20, 20, 500, 500, false, 'blue',['message','Test Message: Press enter to dismiss.']);
 var barrier = new Obstacle(gameInstance, 20, 250, 300, 200);
 var barrier2 = new Obstacle(gameInstance, 200, 20, 250, 350);
 var barrier3 = new Obstacle(gameInstance, 20, 300, 40, 50);
