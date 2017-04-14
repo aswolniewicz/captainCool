@@ -53,7 +53,7 @@ var gameInstance = new Game(canvas,inputHandler,collisionResolver);
 
 //lets create our character from the sprite sheet
 // Changed speed to 5 from 3 to speed up testing.
-var character = new PlayerCharacter(gameInstance, 44, 60, 'img/captain_cool.png', 5, 150, 0, true);
+var character = new t (gameInstance, 44, 60, 'img/captain_cool.png', 5, 150, 0, true);
 var masterCool = new NonPlayerCharacter(gameInstance, 53, 64, 'img/master_cool.png', 2, 400, 50, true);
 var ma = new MessageArea(gameInstance, 20, 20, 500, 500, false, 'blue');
 var barrier = new Obstacle(gameInstance, 20, 250, 300, 200);

@@ -88,7 +88,7 @@ class MessageArea extends Collidable {
     this.baseOnCollision(collidedwith);
     if(this.displayMessage) {
       this.color = 'red';
-      this.showMessage();
+      this.showMessage('Test Message: Press enter to dismiss.');
       this.displayMessage = false;
     }
   }
@@ -109,9 +109,10 @@ class MessageArea extends Collidable {
   }
 
   //
-  showMessage() {
+  showMessage(message) {
+    console.log(message)
     var messageArea = document.getElementById('message-area');
-    messageArea.innerHTML = 'Test Message: Press enter to dismiss.';
+    messageArea.innerHTML = message;
   }
 
   //
@@ -181,7 +182,7 @@ class Character extends Collidable {
 
 // this is for  masterCool who is not controlled by keyboard input
 // now mastercool animates constantly by rocking
-// still displays message when collided with 
+// still displays message when collided with
 class NonPlayerCharacter extends Character{
     constructor(game, width, height, image, speed, x, y, solid) {
     super(game, width, height, image, speed, x, y, solid);
@@ -224,7 +225,7 @@ class NonPlayerCharacter extends Character{
     }
 
     draw(){
-      console.log(this.resolver.collidables)
+      //console.log(this.resolver.collidables)
       this.resolver.addCollidable(this)
       this.rock();
       this.display();
@@ -272,7 +273,7 @@ class PlayerCharacter extends Character {
         this.canMoveDown = false;
         this.bounce(1, 0, 0, 0);
       }
-    
+
     }
     if (collidedWith.constructor.name == 'Obstacle'){
       this.speak("I can't go this way", 30);
