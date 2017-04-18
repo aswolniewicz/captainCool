@@ -94,12 +94,11 @@ class MessageArea extends Collidable {
       this.displayMessage = false;
     }
     var keyIndex = this.effect.indexOf('key');
-    // Check to make sure that 'key' is a property of the object and that they
-    // have not picked it up yet.
+    // Check to make sure that 'key' is a property of the object
     if (keyIndex > -1){
+      // If you have already picked up the key don't pick it up again.
       if (OBJ.indexOf(this.effect[keyIndex+1]) <= -1){
         OBJ.push(this.effect[keyIndex+1]);
-        console.log(OBJ);
       }
     }
   }
