@@ -97,6 +97,7 @@ inputHandler.addPoller(ma);
 //The argument before addDrawable determines where elements appear throughout the game.
 //They can appear throughout the entire game, only on a screen, or only on a level
 testScreen.addDrawable(ma);
+testScreen.addDrawable(key1);
 testScreen.addDrawable(barrier);
 testScreen.addDrawable(barrier2);
 gameInstance.addDrawable(character);
