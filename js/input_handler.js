@@ -7,11 +7,11 @@ class InputHandler {
     window.addEventListener('keydown', function (e) {
  		  KEYS =(KEYS || []); //Boolean array of which keys are down
  		  KEYS[e.keyCode] = true;
-      updateKeysPressedLogs(e.keyCode, 0);
+    //  updateKeysPressedLogs(e.keyCode, 0);
  	  })
  	  window.addEventListener('keyup', function (e) {
  		  KEYS[e.keyCode] = false;
-      updateKeysPressedLogs(e.keyCode, 1);
+     // updateKeysPressedLogs(e.keyCode, 1);
  	  })
   }
 

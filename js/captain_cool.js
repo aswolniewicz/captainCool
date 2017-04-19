@@ -125,6 +125,8 @@ testScreen.addDrawable(masterCool);
 //order won't matter too much here, whoever is added second gets their collision method
 //called second
 
+console.log(this.drawables)
+
 testLevel.currentScreen=testScreen;
 gameInstance.currentLevel=testLevel;
 

@@ -66,6 +66,7 @@ class Obstacle extends Collidable {
   onContactLost() {
     this.baseOnContactLost();
   }
+  
 }
 
 //
@@ -266,6 +267,7 @@ class PlayerCharacter extends Character {
     this.baseOnCollision(collidedWith);
     //for debug purposes
    // debugContactList = this.contactList;
+   
     if(collidedWith.solid == true) {
       if(this.direction == DIRECTIONS.UP) {
         this.canMoveUp = false;
@@ -330,6 +332,7 @@ class PlayerCharacter extends Character {
     this.y += (down * 2);
     this.y -= (up * 2);
   }
+
 
   // Change location of the player character
   changeLocation(destX, destY){
