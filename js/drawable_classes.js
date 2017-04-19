@@ -265,7 +265,7 @@ class PlayerCharacter extends Character {
   onCollision(collidedWith) {
     this.baseOnCollision(collidedWith);
     //for debug purposes
-    debugContactList = this.contactList;
+   // debugContactList = this.contactList;
     if(collidedWith.solid == true) {
       if(this.direction == DIRECTIONS.UP) {
         this.canMoveUp = false;
@@ -297,7 +297,7 @@ class PlayerCharacter extends Character {
   onContactLost(lostWith, i) {
     this.baseOnContactLost(lostWith, i);
     //for debug purposes
-    debugContactList = this.contactList;
+  //  debugContactList = this.contactList;
     if(lostWith.solid)
       this.allowMovement();
     if(lostWith.constructor.name == "MessageArea" && this.isSpeaking)

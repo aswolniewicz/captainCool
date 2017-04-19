@@ -6,6 +6,9 @@ var KEYS = [];
 //Array storing objects picked up by the character
 var OBJ = [];
 
+var charX = 0;
+var charY = 0;
+
 //the game class, posesses the canvas and calls all of the draw functions
 class Game {
   constructor(canvas,input,resolver)  {
@@ -32,7 +35,7 @@ class Game {
     });
     this.input.pollForKeyboardInput();
     this.resolver.detectCollisions();
-    updateLogs();
+    //updateLogs();
     var self = this;
     window.requestAnimationFrame(function(){self.draw();});
   }
