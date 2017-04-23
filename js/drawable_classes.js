@@ -66,7 +66,7 @@ class Obstacle extends Collidable {
   onContactLost() {
     this.baseOnContactLost();
   }
-  
+
 }
 
 //
@@ -100,6 +100,7 @@ class MessageArea extends Collidable {
       // If you have already picked up the key don't pick it up again.
       if (OBJ.indexOf(this.effect[keyIndex+1]) <= -1){
         OBJ.push(this.effect[keyIndex+1]);
+        //this.resolver.removeCollidable(this);
       }
     }
   }
@@ -267,7 +268,7 @@ class PlayerCharacter extends Character {
     this.baseOnCollision(collidedWith);
     //for debug purposes
    // debugContactList = this.contactList;
-   
+
     if(collidedWith.solid == true) {
       if(this.direction == DIRECTIONS.UP) {
         this.canMoveUp = false;
