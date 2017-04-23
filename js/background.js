@@ -125,7 +125,7 @@ class Door extends Collidable {
       if (this.effect[0]=='location'){
         var sendToX = this.effect[1];
         var sendToY = this.effect[2];
-        window.doorEffect(sendToX, sendToY);
+        character.changeLocation(sendToX, sendToY);
       }
   }
 }
