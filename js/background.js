@@ -89,7 +89,7 @@ class Screen{
       this.level.canvas.style.backgroundColor = this.color;
     }
     //draw all bawckground objects and make them solid
-    this.drawables.forEach(function(d){d.solid=true;d.draw();});
+    this.drawables.forEach(function(d){d.draw();});
     //draw all doors belonging to this background
     this.doors.forEach(function(door) {
 	  door.draw();
