@@ -73,6 +73,8 @@ var key1 = new MessageArea(gameInstance, 48, 48, 500, 500, 'img/newKey.png', fal
 var barrier = new Obstacle(gameInstance, 20, 250, 300, 200);
 var barrier2 = new Obstacle(gameInstance, 200, 20, 250, 350);
 var barrier3 = new Obstacle(gameInstance, 20, 300, 40, 50);
+// Draw the score
+var score = new scoreBox("30px", "Consolas", "black", 280, 40, "text");
 // The following obstacles are part of the maze.
 // var name = new Obstacle(gameInstance,width,height,x,y);
 var rightWall = new Obstacle(gameInstance,20, 800, 900,0);

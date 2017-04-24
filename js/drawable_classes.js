@@ -1,7 +1,6 @@
 //base drawable class, anything drawn on the screen inherits this.
 class Drawable {
   constructor(game, width, height, x, y) {
-    this.game=game;
     this.context = game.context;
     this.width = width;
     this.height = height;
@@ -11,6 +10,9 @@ class Drawable {
   //draw method to overload
   draw() { }
 }
+
+// This is for the point system.
+class 
 
 //
 class Collidable extends Drawable{
@@ -72,31 +74,18 @@ class Obstacle extends Collidable {
 
 //
 class MessageArea extends Collidable {
-  constructor(game, width, height, x, y, image, solid, effectsArray) {
+  constructor(game, width, height, x, y, solid, color,effectsArray) {
     super(game, width, height, x, y, solid);
-    this.image =  new Image();
-    this.image.src = image;
-    this.cutX = 0;
-    this.cutY = 0;
-
-
     //can't access this in constructor until we call super
-   // this.color = color; //color is a string (think css)
+    this.color = color; //color is a string (think css)
     this.displayMessage = true;
     this.effect = effectsArray;
   }
 
   //
- display() {
-   
-  charX = this.x;
-  charY = this.y;
-  this.context.drawImage(this.image, (this.cutX * this.width),
-                          (this.height * this.cutY), this.width, this.height,
-                          this.x, this.y,
-                          this.width, this.height);
-   // this.context.fillStyle = this.color;
-   //this.context.fillRect(this.x, this.y, this.width, this.height);
+  display() {
+    this.context.fillStyle = this.color;
+    this.context.fillRect(this.x, this.y, this.width, this.height);
   }
 
   //
@@ -114,8 +103,7 @@ class MessageArea extends Collidable {
       // If you have already picked up the key don't pick it up again.
       if (OBJ.indexOf(this.effect[keyIndex+1]) <= -1){
         OBJ.push(this.effect[keyIndex+1]);
-        console.log(this.game);
-        this.game.removeDrawable(this);
+        //this.resolver.removeCollidable(this);
       }
     }
   }
@@ -125,7 +113,7 @@ class MessageArea extends Collidable {
     this.baseOnContactLost(lostWith, i);
     //do whatever else you need to do
     this.displayMessage = true;
-    //this.color = 'blue'
+    this.color = 'blue'
   }
 
   //
@@ -284,7 +272,7 @@ class PlayerCharacter extends Character {
     //for debug purposes
    // debugContactList = this.contactList;
 
-    if(collidedWith.solid == true && collidedWith.constructor.name != 'MessageArea') {
+    if(collidedWith.solid == true) {
       if(this.direction == DIRECTIONS.UP) {
         this.canMoveUp = false;
         this.bounce(0, 0, 0, 1);
@@ -307,7 +295,7 @@ class PlayerCharacter extends Character {
       this.speak("I can't go this way", 30);
     }
     if(collidedWith.constructor.name == 'MessageArea') {
-      this.speak("What is this?", 100); //has another dialogue close condition
+      this.speak("What is this?", Number.MAX_SAFE_INTEGER); //has another dialogue close condition
     }
   }
 
