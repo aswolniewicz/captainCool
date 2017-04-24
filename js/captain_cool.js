@@ -62,8 +62,7 @@ var character = new PlayerCharacter (gameInstance, 44, 60, 'img/captain_cool.png
 var masterCool = new NonPlayerCharacter(gameInstance, 53, 64, 'img/master_cool.png', 2, 400, 50, true);
 var maArray = ['message','Test Message: Press enter to dismiss.']
 var key1Array = ['message','A key','key','Key_For_Screen2_Door']
-var ma = new MessageArea(gameInstance, 20, 20, 500, 500, false, 'blue',maArray);
-var key1 = new MessageArea(gameInstance,20,20,600,500,false,'yellow',key1Array);
+var key1 = new MessageArea(gameInstance, 48, 48, 500, 500, 'img/newKey.png', false, key1Array);
 var barrier = new Obstacle(gameInstance, 20, 250, 300, 200);
 var barrier2 = new Obstacle(gameInstance, 200, 20, 250, 350);
 var barrier3 = new Obstacle(gameInstance, 20, 300, 40, 50);
@@ -94,12 +93,12 @@ var testDoor2 = new Door(testScreen2, 10, 150, 0, 250,testScreen, 'black',['loca
 
 //here we go with this same idea for collisions, drawing, and keyboard input polling
 inputHandler.addPoller(character);
-inputHandler.addPoller(ma);
+//inputHandler.addPoller(ma);
 
 //whoever is added second gets their draw method called second and is therefore drawn on top
 //The argument before addDrawable determines where elements appear throughout the game.
 //They can appear throughout the entire game, only on a screen, or only on a level
-testScreen.addDrawable(ma);
+//testScreen.addDrawable(ma);
 testScreen.addDrawable(key1);
 testScreen.addDrawable(barrier);
 testScreen.addDrawable(barrier2);

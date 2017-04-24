@@ -71,18 +71,31 @@ class Obstacle extends Collidable {
 
 //
 class MessageArea extends Collidable {
-  constructor(game, width, height, x, y, solid, color,effectsArray) {
+  constructor(game, width, height, x, y, image, solid, effectsArray) {
     super(game, width, height, x, y, solid);
+    this.image =  new Image();
+    this.image.src = image;
+    this.cutX = 0;
+    this.cutY = 0;
+
+
     //can't access this in constructor until we call super
-    this.color = color; //color is a string (think css)
+   // this.color = color; //color is a string (think css)
     this.displayMessage = true;
     this.effect = effectsArray;
   }
 
   //
-  display() {
-    this.context.fillStyle = this.color;
-    this.context.fillRect(this.x, this.y, this.width, this.height);
+ display() {
+   
+  charX = this.x;
+  charY = this.y;
+  this.context.drawImage(this.image, (this.cutX * this.width),
+                          (this.height * this.cutY), this.width, this.height,
+                          this.x, this.y,
+                          this.width, this.height);
+   // this.context.fillStyle = this.color;
+   //this.context.fillRect(this.x, this.y, this.width, this.height);
   }
 
   //
@@ -110,7 +123,7 @@ class MessageArea extends Collidable {
     this.baseOnContactLost(lostWith, i);
     //do whatever else you need to do
     this.displayMessage = true;
-    this.color = 'blue'
+    //this.color = 'blue'
   }
 
   //
