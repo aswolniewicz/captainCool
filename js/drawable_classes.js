@@ -163,8 +163,8 @@ class Character extends Collidable {
                           this.width, this.height);
     if(this.isSpeaking) {
       if(this.speechCounter <= this.speechDuration) {
-        this.context.font = "12px Arial";
-        this.context.fillStyle = 'slateblue';
+        this.context.font = "14px Arial";
+        this.context.fillStyle = 'white';
         this.context.fillText(this.dialogue, this.x - 20, this.y - 20);
         this.speechCounter += 1;
       }
