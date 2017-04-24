@@ -88,7 +88,7 @@ class MessageArea extends Collidable {
 
   //
  display() {
-   
+
   charX = this.x;
   charY = this.y;
   this.context.drawImage(this.image, (this.cutX * this.width),
