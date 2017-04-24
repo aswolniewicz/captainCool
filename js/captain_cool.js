@@ -102,7 +102,7 @@ var testDoor2 = new Door(testScreen2, 10, 150, 0, 250,testScreen, 'black',['loca
 
 //here we go with this same idea for collisions, drawing, and keyboard input polling
 inputHandler.addPoller(character);
-//inputHandler.addPoller(ma);
+inputHandler.addPoller(key1);
 
 //whoever is added second gets their draw method called second and is therefore drawn on top
 //The argument before addDrawable determines where elements appear throughout the game.
