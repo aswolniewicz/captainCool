@@ -272,19 +272,19 @@ class PlayerCharacter extends Character {
     if(collidedWith.solid == true) {
       if(this.direction == DIRECTIONS.UP) {
         this.canMoveUp = false;
-        this.bounce(0, 0, 0, 1);
+        this.bounce(0, 0, 0, 2);
       }
       if(this.direction == DIRECTIONS.LEFT) {
         this.canMoveLeft = false;
-        this.bounce(0, 0, 1, 0);
+        this.bounce(0, 0, 2, 0);
       }
       if(this.direction == DIRECTIONS.RIGHT) {
         this.canMoveRight = false;
-        this.bounce(0, 1, 0, 0);
+        this.bounce(0, 2, 0, 0);
       }
       if(this.direction == DIRECTIONS.DOWN) {
         this.canMoveDown = false;
-        this.bounce(1, 0, 0, 0);
+        this.bounce(2, 0, 0, 0);
       }
 
     }
