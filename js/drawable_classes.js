@@ -269,7 +269,7 @@ class PlayerCharacter extends Character {
     //for debug purposes
    // debugContactList = this.contactList;
 
-    if(collidedWith.solid == true) {
+    if(collidedWith.solid == true && collidedWith.constructor.name != 'MessageArea') {
       if(this.direction == DIRECTIONS.UP) {
         this.canMoveUp = false;
         this.bounce(0, 0, 0, 1);
