@@ -22,8 +22,8 @@ body {
 
 /* these correspond to id's in html file */
 #message-area {
-  background-color: white;
-  color: blue;
+  background-color: black;
+  color: white;
   font-style: bold;
   font-family: sans-serif;
 }
