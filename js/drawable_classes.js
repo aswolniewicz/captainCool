@@ -11,9 +11,6 @@ class Drawable {
   draw() { }
 }
 
-// This is for the point system.
-class 
-
 //
 class Collidable extends Drawable{
   constructor(game, width, height, x, y, solid) {
