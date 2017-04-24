@@ -1,6 +1,7 @@
 //base drawable class, anything drawn on the screen inherits this.
 class Drawable {
   constructor(game, width, height, x, y) {
+    this.game=game;
     this.context = game.context;
     this.width = width;
     this.height = height;
@@ -100,7 +101,8 @@ class MessageArea extends Collidable {
       // If you have already picked up the key don't pick it up again.
       if (OBJ.indexOf(this.effect[keyIndex+1]) <= -1){
         OBJ.push(this.effect[keyIndex+1]);
-        //this.resolver.removeCollidable(this);
+        console.log(this.game);
+        this.game.removeDrawable(this);
       }
     }
   }
@@ -292,7 +294,7 @@ class PlayerCharacter extends Character {
       this.speak("I can't go this way", 30);
     }
     if(collidedWith.constructor.name == 'MessageArea') {
-      this.speak("What is this?", Number.MAX_SAFE_INTEGER); //has another dialogue close condition
+      this.speak("What is this?", 100); //has another dialogue close condition
     }
   }
 

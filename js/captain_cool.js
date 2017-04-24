@@ -27,6 +27,13 @@ class Game {
   addDrawable(d) {
     this.drawables.push(d);
   }
+  removeDrawable(d) {
+    var index = this.drawables.indexOf(d);
+    if (index > -1){
+      this.drawables.splice(index,1);
+    }
+    this.currentLevel.removeDrawable(d);
+  }
   draw() {
     this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
     this.currentLevel.displayScreen();

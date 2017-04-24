@@ -24,6 +24,13 @@ class Level {
   addDrawable(d) {
     this.drawables.push(d);
   }
+  removeDrawable(d) {
+    var index = this.drawables.indexOf(d);
+    if (index > -1){
+      this.drawables.splice(index,1);
+    }
+    this.currentScreen.removeDrawable(d);
+  }
   //change level's current screen
   changeScreen(screen){
 	  //make previous screen drawables unsolid
@@ -77,6 +84,12 @@ class Screen{
   //add Drawable object to drawable list
   addDrawable(d) {
     this.drawables.push(d);
+  }
+  removeDrawable(d) {
+    var index = this.drawables.indexOf(d);
+    if (index > -1){
+      this.drawables.splice(index,1);
+    }
   }
   //display background
   draw(){
