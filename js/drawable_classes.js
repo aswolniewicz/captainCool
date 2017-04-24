@@ -71,18 +71,28 @@ class Obstacle extends Collidable {
 
 //
 class MessageArea extends Collidable {
-  constructor(game, width, height, x, y, solid, color,effectsArray) {
+  constructor(game, width, height, x, y, image, solid, effectsArray) {
     super(game, width, height, x, y, solid);
     //can't access this in constructor until we call super
-    this.color = color; //color is a string (think css)
+   // this.color = color; //color is a string (think css)
+   this.game = game;
+    this.image = new Image();
+    this.image.src = image; 
     this.displayMessage = true;
     this.effect = effectsArray;
+    this.cutX = 0;
+    this.cutY = 0;
   }
 
   //
   display() {
-    this.context.fillStyle = this.color;
-    this.context.fillRect(this.x, this.y, this.width, this.height);
+    charX = this.x;
+    charY = this.y;
+    this.context.drawImage(this.image, (this.cutX * this.width),
+                          (this.height * this.cutY), this.width, this.height,
+                          this.x, this.y,
+                          this.width, this.height);
+ 
   }
 
   //
@@ -90,7 +100,7 @@ class MessageArea extends Collidable {
     this.baseOnCollision(collidedwith);
     var messageIndex = this.effect.indexOf('message');
     if(this.displayMessage && messageIndex > -1) {
-      this.color = 'red';
+      //this.color = 'red';
       this.showMessage(this.effect[messageIndex+1]);
       this.displayMessage = false;
     }
@@ -100,6 +110,7 @@ class MessageArea extends Collidable {
       // If you have already picked up the key don't pick it up again.
       if (OBJ.indexOf(this.effect[keyIndex+1]) <= -1){
         OBJ.push(this.effect[keyIndex+1]);
+        this.game.removeDrawable(this);
         //this.resolver.removeCollidable(this);
       }
     }

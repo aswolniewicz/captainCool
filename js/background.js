@@ -34,7 +34,7 @@ class Level {
   //change level's current screen
   changeScreen(screen){
 	  //make previous screen drawables unsolid
-	  this.currentScreen.drawables.forEach(function(d){d.solid=false;});
+	  this.currentScreen.drawables.forEach(function(d){});
 	  //set new screen
 	  this.currentScreen=screen;
   }
