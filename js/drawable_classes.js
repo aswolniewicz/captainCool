@@ -16,15 +16,12 @@ class Collidable extends Drawable{
   constructor(game, width, height, x, y, solid) {
     console.log("is solid: " + solid)
     super(game, width, height, x, y);
-    this.resolver= game.resolver
+    this.resolver= game.resolver;
+    this.collides=true;
     this.solid = solid;
     this.contactList = [];
   }
-  display(){
-  }
   draw(){
-    this.resolver.addCollidable(this)
-    this.display()
   }
   //
   baseOnContactLost(lostWith, i) {
@@ -54,7 +51,7 @@ class Obstacle extends Collidable {
   constructor(game, width, height, x, y) {
     super(game, width, height, x, y, true) //true b/c solid
   }
-  display() {
+  draw() {
     this.context.fillStyle = 'black';
     this.context.fillRect(this.x, this.y, this.width, this.height);
   }
@@ -85,7 +82,7 @@ class MessageArea extends Collidable {
   }
 
   //
-  display() {
+  draw() {
     charX = this.x;
     charY = this.y;
     this.context.drawImage(this.image, (this.cutX * this.width),
@@ -165,7 +162,7 @@ class Character extends Collidable {
   }
 
   //draws to canvas context based on the source image and the position
-  display() {
+  draw() {
     charX = this.x;
     charY = this.y;
     this.context.drawImage(this.image, (this.cutX * this.width),
@@ -248,10 +245,8 @@ class NonPlayerCharacter extends Character{
     }
 
     draw(){
-      //console.log(this.resolver.collidables)
-      this.resolver.addCollidable(this)
       this.rock();
-      this.display();
+      super.draw();
     }
 }
 

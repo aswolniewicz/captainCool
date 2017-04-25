@@ -8,7 +8,8 @@ Those classes are Level, Screen, and Door
 class Level {
   //to construct pass a Game object and id number
   constructor(game, id)  {
-	this.game=game
+	this.game=game;
+	this.collidables=[]; //List of collidable objects belonging to game instance
 	this.id = id; //number to track level
 	this.currentScreen = null; //pointer to the current screen
     this.screens = []; //screens belonging to level
@@ -23,6 +24,9 @@ class Level {
   //add drawable object to drawable list
   addDrawable(d) {
     this.drawables.push(d);
+    if(d.collides){ //When adding drawables check also if they're collidable
+		this.collidables.push(d);
+	}
   }
   removeDrawable(d) {
     var index = this.drawables.indexOf(d);
@@ -33,9 +37,9 @@ class Level {
   }
   //change level's current screen
   changeScreen(screen){
-	  //make previous screen drawables unsolid
-	  this.currentScreen.drawables.forEach(function(d){});
 	  //set new screen
+	  this.game.resolver.stop=true; // Stop current collision detection
+	  this.game.resolver.collidables=[]; //Reset resolver collidable list
 	  this.currentScreen=screen;
   }
   //Show current screen's background and all its drawables
@@ -61,6 +65,7 @@ class Screen{
   //to construct pass level object, id number, and background color
   constructor(level, id, color,type)  {
   this.type = type;
+	this.collidables=[]; //List of collidable objects belonging to game instance
 	this.level = level; //parent level
 	level.addScreen(this); //add itself to parent level's screen list
 	this.id = id; //number to track screen
@@ -77,13 +82,13 @@ class Screen{
 	this.doors = []; //doors belonging to screen
 	this.drawables=[]; //drawables that persist throughout screen
   }
-  //add Door object to door list
-  addDoor(door){
-	  this.doors.push(door);
-  }
+  
   //add Drawable object to drawable list
   addDrawable(d) {
     this.drawables.push(d);
+    if(d.collides){ //When adding drawables check also if they're collidable
+		this.collidables.push(d);
+	}
   }
   removeDrawable(d) {
     var index = this.drawables.indexOf(d);
@@ -103,10 +108,6 @@ class Screen{
     }
     //draw all bawckground objects and make them solid
     this.drawables.forEach(function(d){d.draw();});
-    //draw all doors belonging to this background
-    this.doors.forEach(function(door) {
-	  door.draw();
-	});
   }
 }
 
@@ -121,13 +122,13 @@ class Door extends Collidable {
     super(screen.level.game, width, height, x, y, false); //set draw arguments from superclass
     this.context=screen.context; //adopt parent screen context
     this.screen=screen; //parent screen
-    screen.addDoor(this); //add itself to parent screen's door list
+    screen.addDrawable(this); //add itself to parent screen's drawable list
     this.destination=destination; //destination screen
     this.color=color; //fill color
     this.effect = effectsArray;
   }
   //display door as simple colored rectangle
-  display() {
+  draw() {
     this.context.fillStyle = this.color;
     this.context.fillRect(this.x, this.y, this.width, this.height);
   }
