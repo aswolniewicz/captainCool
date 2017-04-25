@@ -36,7 +36,14 @@ class Game {
     if (index > -1){
       this.drawables.splice(index,1);
     }
+    this.removeCollidable(d);
     this.currentLevel.removeDrawable(d);
+  }
+  removeCollidable(c){
+  	var index = this.collidables.indexOf(c) //Find collidable in list
+  	if(index > -1){ // If its found
+        this.collidables.splice(index,1) //Remove it from the list
+      }
   }
   draw() {
     this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);

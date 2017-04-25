@@ -33,7 +33,14 @@ class Level {
     if (index > -1){
       this.drawables.splice(index,1);
     }
+    this.removeCollidable(d);
     this.currentScreen.removeDrawable(d);
+  }
+  removeCollidable(c){
+  	var index = this.collidables.indexOf(c) //Find collidable in list
+  	if(index > -1){ // If its found
+        this.collidables.splice(index,1) //Remove it from the list
+      }
   }
   //change level's current screen
   changeScreen(screen){
@@ -95,6 +102,13 @@ class Screen{
     if (index > -1){
       this.drawables.splice(index,1);
     }
+    this.removeCollidable(d);
+  }
+  removeCollidable(c){
+  	var index = this.collidables.indexOf(c) //Find collidable in list
+  	if(index > -1){ // If its found
+        this.collidables.splice(index,1) //Remove it from the list
+      }
   }
   //display background
   draw(){
