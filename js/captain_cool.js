@@ -82,7 +82,7 @@ var gameInstance = new Game(canvas,inputHandler,collisionResolver);
 var character = new PlayerCharacter (gameInstance, 44, 60, 'img/captain_cool.png', 5, 150, 0, true);
 var masterCool = new NonPlayerCharacter(gameInstance, 53, 64, 'img/master_cool.png', 2, 400, 50, true);
 var maArray = ['message','Test Message: Press enter to dismiss.']
-var key1Array = ['message','A key','key','Key_For_Screen2_Door']
+var key1Array = ['message','You have found a key.  Press enter to dismiss','key','Key_For_Screen2_Door']
 var key1 = new MessageArea(gameInstance, 48, 48, 500, 500, 'img/newKey.png', false, key1Array);
 var barrier = new Obstacle(gameInstance, 20, 250, 300, 200);
 var barrier2 = new Obstacle(gameInstance, 200, 20, 250, 350);
@@ -139,6 +139,7 @@ testScreen2.addDrawable(iWall);
 testScreen2.addDrawable(jwall);
 testScreen2.addDrawable(kwall);
 testScreen2.addDrawable(lwall);
+
 
 
 testScreen.addDrawable(masterCool);

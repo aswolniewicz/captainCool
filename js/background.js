@@ -89,7 +89,7 @@ class Screen{
 	this.doors = []; //doors belonging to screen
 	this.drawables=[]; //drawables that persist throughout screen
   }
-  
+
   //add Drawable object to drawable list
   addDrawable(d) {
     this.drawables.push(d);
@@ -150,9 +150,11 @@ class Door extends Collidable {
   onCollision() {
 	  //get parent screen's parent level to change screens
       this.screen.level.changeScreen(this.destination);
-      if (this.effect[0]=='location'){
-        var sendToX = this.effect[1];
-        var sendToY = this.effect[2];
+      var keyIndex = this.effect.indexOf('key');
+      var locIndex = this.effect.indexOf('location');
+      if (this.effect[locIndex]=='location'){
+        var sendToX = this.effect[locIndex+1];
+        var sendToY = this.effect[locIndex+2];
         character.changeLocation(sendToX, sendToY);
       }
   }

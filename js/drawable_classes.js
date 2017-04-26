@@ -83,7 +83,6 @@ class MessageArea extends Collidable {
 
   //
  display() {
-
   charX = this.x;
   charY = this.y;
   this.context.drawImage(this.image, (this.cutX * this.width),
@@ -108,6 +107,7 @@ class MessageArea extends Collidable {
       // If you have already picked up the key don't pick it up again.
       if (OBJ.indexOf(this.effect[keyIndex+1]) <= -1){
         OBJ.push(this.effect[keyIndex+1]);
+        console.log(OBJ);
         //Remove object from drawable list
         this.game.removeDrawable(this);
         var count; //Index of other object in this object's contact array
