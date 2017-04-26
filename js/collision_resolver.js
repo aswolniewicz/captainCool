@@ -2,6 +2,7 @@
 class CollisionResolver {
   constructor(gameInstance) {
     this.collidables = [];
+    this.stop=false; //Variable to force collision detection to stop
   }
 
   //call the notify methods of the two objects that collided
@@ -26,8 +27,10 @@ class CollisionResolver {
   //maybe only check every object against objects that moved?
   detectCollisions() {
     var self = this;
+    self.stop=false; //Assume detection is good to go
     self.collidables.forEach(function(d1) {
       self.collidables.forEach(function(d2) {
+		if(self.stop){return 0} //If any function changes stop variable to true then detection ceases
         if(((d1.x + d1.width >= d2.x) && (d1.x <= d2.x + d2.width))
             && ((d1.y + d1.height >= d2.y) && (d1.y <= d2.y + d2.height)) && !(d1 === d2)) {
             self.notifyCollilsion(d1, d2); //eventaully need to raise a method that notifies its args of the collision (observer)
@@ -41,7 +44,5 @@ class CollisionResolver {
         }
       });
     })
-    // After detecting collision reset the collidable list
-    this.collidables=[]
   }
 }

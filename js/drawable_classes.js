@@ -1,7 +1,6 @@
 //base drawable class, anything drawn on the screen inherits this.
 class Drawable {
   constructor(game, width, height, x, y) {
-    this.game=game;
     this.context = game.context;
     this.width = width;
     this.height = height;
@@ -17,15 +16,12 @@ class Collidable extends Drawable{
   constructor(game, width, height, x, y, solid) {
     console.log("is solid: " + solid)
     super(game, width, height, x, y);
-    this.resolver= game.resolver
+    this.resolver= game.resolver;
+    this.collides=true;
     this.solid = solid;
     this.contactList = [];
   }
-  display(){
-  }
   draw(){
-    this.resolver.addCollidable(this)
-    this.display()
   }
   //
   baseOnContactLost(lostWith, i) {
@@ -55,7 +51,7 @@ class Obstacle extends Collidable {
   constructor(game, width, height, x, y) {
     super(game, width, height, x, y, true) //true b/c solid
   }
-  display() {
+  draw() {
     this.context.fillStyle = 'black';
     this.context.fillRect(this.x, this.y, this.width, this.height);
   }
@@ -74,16 +70,15 @@ class Obstacle extends Collidable {
 class MessageArea extends Collidable {
   constructor(game, width, height, x, y, image, solid, effectsArray) {
     super(game, width, height, x, y, solid);
-    this.image =  new Image();
-    this.image.src = image;
-    this.cutX = 0;
-    this.cutY = 0;
-
-
     //can't access this in constructor until we call super
    // this.color = color; //color is a string (think css)
+   this.game = game;
+    this.image = new Image();
+    this.image.src = image;
     this.displayMessage = true;
     this.effect = effectsArray;
+    this.cutX = 0;
+    this.cutY = 0;
   }
 
   //
@@ -95,8 +90,7 @@ class MessageArea extends Collidable {
                           (this.height * this.cutY), this.width, this.height,
                           this.x, this.y,
                           this.width, this.height);
-   // this.context.fillStyle = this.color;
-   //this.context.fillRect(this.x, this.y, this.width, this.height);
+
   }
 
   //
@@ -104,7 +98,7 @@ class MessageArea extends Collidable {
     this.baseOnCollision(collidedwith);
     var messageIndex = this.effect.indexOf('message');
     if(this.displayMessage && messageIndex > -1) {
-      this.color = 'red';
+      //this.color = 'red';
       this.showMessage(this.effect[messageIndex+1]);
       this.displayMessage = false;
     }
@@ -114,8 +108,21 @@ class MessageArea extends Collidable {
       // If you have already picked up the key don't pick it up again.
       if (OBJ.indexOf(this.effect[keyIndex+1]) <= -1){
         OBJ.push(this.effect[keyIndex+1]);
-        console.log(this.game);
+        //Remove object from drawable list
         this.game.removeDrawable(this);
+        var count; //Index of other object in this object's contact array
+        var index; //Index of this object in other object's contact array
+        var other; //Other object that is touching current object
+
+        //Call contactLost function on all objects that were
+        //Touching this object and vice versa
+        for(count = 0; count < this.contactList.length; count++){
+			other=this.contactList[count];
+			this.onContactLost(other,count);
+			index=other.contactList.indexOf(this);
+			other.onContactLost(this,index);
+		}
+        //this.resolver.removeCollidable(this);
       }
     }
   }
@@ -125,7 +132,7 @@ class MessageArea extends Collidable {
     this.baseOnContactLost(lostWith, i);
     //do whatever else you need to do
     this.displayMessage = true;
-    //this.color = 'blue'
+    this.color = 'blue'
   }
 
   //
@@ -169,7 +176,7 @@ class Character extends Collidable {
   }
 
   //draws to canvas context based on the source image and the position
-  display() {
+  draw() {
     charX = this.x;
     charY = this.y;
     this.context.drawImage(this.image, (this.cutX * this.width),
@@ -252,10 +259,8 @@ class NonPlayerCharacter extends Character{
     }
 
     draw(){
-      //console.log(this.resolver.collidables)
-      this.resolver.addCollidable(this)
       this.rock();
-      this.display();
+      super.draw();
     }
 }
 
@@ -287,19 +292,19 @@ class PlayerCharacter extends Character {
     if(collidedWith.solid == true) {
       if(this.direction == DIRECTIONS.UP) {
         this.canMoveUp = false;
-        this.bounce(0, 0, 0, 1);
+        this.bounce(0, 0, 0, 2);
       }
       if(this.direction == DIRECTIONS.LEFT) {
         this.canMoveLeft = false;
-        this.bounce(0, 0, 1, 0);
+        this.bounce(0, 0, 2, 0);
       }
       if(this.direction == DIRECTIONS.RIGHT) {
         this.canMoveRight = false;
-        this.bounce(0, 1, 0, 0);
+        this.bounce(0, 2, 0, 0);
       }
       if(this.direction == DIRECTIONS.DOWN) {
         this.canMoveDown = false;
-        this.bounce(1, 0, 0, 0);
+        this.bounce(2, 0, 0, 0);
       }
 
     }
@@ -307,7 +312,7 @@ class PlayerCharacter extends Character {
       this.speak("I can't go this way", 30);
     }
     if(collidedWith.constructor.name == 'MessageArea') {
-      this.speak("What is this?", 100); //has another dialogue close condition
+      this.speak("What is this?", 30); //has another dialogue close condition
     }
   }
 

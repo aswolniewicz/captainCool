@@ -19,6 +19,7 @@ class Game {
 	this.levels = [];
 	this.currentLevel = null;
     this.drawables = [];
+    this.collidables=[]; //List of collidable objects belonging to game instance
     this.context = this.canvas.getContext("2d");
   }
 
@@ -26,24 +27,37 @@ class Game {
   //we call its draw method on draw
   addDrawable(d) {
     this.drawables.push(d);
+    if(d.collides){ //When adding drawables check also if they're collidable
+		this.collidables.push(d);
+	}
   }
   removeDrawable(d) {
     var index = this.drawables.indexOf(d);
     if (index > -1){
       this.drawables.splice(index,1);
     }
+    this.removeCollidable(d);
     this.currentLevel.removeDrawable(d);
+  }
+  removeCollidable(c){
+  	var index = this.collidables.indexOf(c) //Find collidable in list
+  	if(index > -1){ // If its found
+        this.collidables.splice(index,1) //Remove it from the list
+      }
   }
   draw() {
     this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
     this.currentLevel.displayScreen();
+    var self = this;
     this.drawables.forEach(function(d) {
       d.draw();
     });
-    this.input.pollForKeyboardInput();
+    //Append the current game's, level's, and screen's collidable list
+    //To the collision resolver collidable list
+    this.resolver.collidables=this.collidables.concat(this.currentLevel.collidables).concat(this.currentLevel.currentScreen.collidables);
     this.resolver.detectCollisions();
+    this.input.pollForKeyboardInput();
     //updateLogs();
-    var self = this;
     window.requestAnimationFrame(function(){self.draw();});
   }
   //call the initial global draw function and set some values
