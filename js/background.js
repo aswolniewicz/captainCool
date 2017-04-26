@@ -129,9 +129,8 @@ class Screen{
 class Door extends Collidable {
   //to construct, give it a parent screen, draw arguments, destintion screen,
   //color and an array describing the effect the door should have.
-  // Note that if the door should change the players location then 'location'
-  //be the first element of the array, the next element should be the x value of
-  //the destination and the third element should be the y value.
+  // Note that if the door should change the players location then the destination
+  //x and y values should imediately follow the location argument.
   constructor(screen, width, height, x, y, destination, color,effectsArray) {
     super(screen.level.game, width, height, x, y, false); //set draw arguments from superclass
     this.context=screen.context; //adopt parent screen context
@@ -148,19 +147,20 @@ class Door extends Collidable {
   }
   //when touched by player character change screens
   onCollision() {
-	  //get parent screen's parent level to change screens
       var keyIndex = this.effect.indexOf('keyed');
       var locIndex = this.effect.indexOf('location');
       var doorOn = false;
       if (keyIndex > -1){
+        // If a key is required check to see if they have a key matching the required key name
         var keyName = this.effect[keyIndex + 1];
         var inObj = OBJ.indexOf(keyName);
         if (inObj > -1){
           doorOn = true;
         }
       }
-
+      // If a key is not required or they have found the key the door opperates as usual
       if (keyIndex<= -1 || doorOn){
+        //get parent screen's parent level to change screens
         this.screen.level.changeScreen(this.destination);
         if (locIndex > -1){
           var sendToX = this.effect[locIndex+1];
