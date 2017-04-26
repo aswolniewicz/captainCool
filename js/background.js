@@ -152,7 +152,7 @@ class Door extends Collidable {
       this.screen.level.changeScreen(this.destination);
       var keyIndex = this.effect.indexOf('key');
       var locIndex = this.effect.indexOf('location');
-      if (this.effect[locIndex]=='location'){
+      if (locIndex > -1){
         var sendToX = this.effect[locIndex+1];
         var sendToY = this.effect[locIndex+2];
         character.changeLocation(sendToX, sendToY);
