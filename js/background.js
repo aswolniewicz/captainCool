@@ -149,13 +149,24 @@ class Door extends Collidable {
   //when touched by player character change screens
   onCollision() {
 	  //get parent screen's parent level to change screens
-      this.screen.level.changeScreen(this.destination);
-      var keyIndex = this.effect.indexOf('key');
+      var keyIndex = this.effect.indexOf('keyed');
       var locIndex = this.effect.indexOf('location');
-      if (locIndex > -1){
-        var sendToX = this.effect[locIndex+1];
-        var sendToY = this.effect[locIndex+2];
-        character.changeLocation(sendToX, sendToY);
+      var doorOn = false;
+      if (keyIndex > -1){
+        var keyName = this.effect[keyIndex + 1];
+        var inObj = OBJ.indexOf(keyName);
+        if (inObj > -1){
+          doorOn = true;
+        }
+      }
+
+      if (keyIndex<= -1 || doorOn){
+        this.screen.level.changeScreen(this.destination);
+        if (locIndex > -1){
+          var sendToX = this.effect[locIndex+1];
+          var sendToY = this.effect[locIndex+2];
+          character.changeLocation(sendToX, sendToY);
+        }
       }
   }
 }

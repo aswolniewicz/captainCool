@@ -109,7 +109,7 @@ var lwall = new Obstacle(gameInstance,20,150,400,100);
 var testLevel = new Level(gameInstance,1);
 var testScreen = new Screen(testLevel,1,'img/background.png','image');
 var testScreen2 = new Screen(testLevel,2,'img/background.png','image');
-var testDoor = new Door(testScreen, 10, 150, 950, 250,testScreen2, 'black',['location',15,300]);
+var testDoor = new Door(testScreen, 10, 150, 950, 250,testScreen2, 'black',['location',15,300,'keyed','Key_For_Screen2_Door']);
 var testDoor2 = new Door(testScreen2, 10, 150, 0, 250,testScreen, 'black',['location',900,300]);
 
 //here we go with this same idea for collisions, drawing, and keyboard input polling
