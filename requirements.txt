@@ -1,5 +1,4 @@
 Flask==0.10.1
 Flask-Markdown==0.3
-Flask-Misaka==0.4.1
 Flask-PageDown==0.1.4
 Flask-SQLAlchemy==1.0
