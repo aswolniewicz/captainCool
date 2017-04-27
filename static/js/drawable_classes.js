@@ -1,3 +1,4 @@
+
 //base drawable class, anything drawn on the screen inherits this.
 class Drawable {
   constructor(game, width, height, x, y) {

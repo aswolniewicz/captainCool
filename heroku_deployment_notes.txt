@@ -1,0 +1,12 @@
+Hi Friends! We are online... but in order to do so the file system has changed and how you render the index has changed
+1. Make sure python and pip are installed on your machine
+2. Now, pip install -r requirements.txt when you are in the captainCool directory 
+3. OK, so to run on your local machine, go to terminal and within the directory type python app.py
+4. It will show you the port it is serving to, go to the port
+
+Notes:
+1. We are using my Heroku account so I can push the final project up to our website hosted by Heroky
+2. In order to use Heroku the js files and img files have to be in a folder called static. So if you add a key and 
+need to add an image path, make sure it matches the other paths... something like ../static/img/thenameoftheimage
+3. In the same vein, the index file is now in a folder called templates.
+4. you can find our app at https://captaincool.herokuapp.com/
