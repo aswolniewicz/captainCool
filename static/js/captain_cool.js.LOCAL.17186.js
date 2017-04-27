@@ -36,14 +36,7 @@ class Game {
     if (index > -1){
       this.drawables.splice(index,1);
     }
-    this.removeCollidable(d);
     this.currentLevel.removeDrawable(d);
-  }
-  removeCollidable(c){
-  	var index = this.collidables.indexOf(c) //Find collidable in list
-  	if(index > -1){ // If its found
-        this.collidables.splice(index,1) //Remove it from the list
-      }
   }
   draw() {
     this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
@@ -82,13 +75,8 @@ var gameInstance = new Game(canvas,inputHandler,collisionResolver);
 var character = new PlayerCharacter (gameInstance, 44, 60, '../static/img/captain_cool.png', 5, 150, 0, true);
 var masterCool = new NonPlayerCharacter(gameInstance, 53, 64, '../static/img/master_cool.png', 2, 400, 50, true);
 var maArray = ['message','Test Message: Press enter to dismiss.']
-<<<<<<< HEAD:static/js/captain_cool.js
 var key1Array = ['message','A key','key','Key_For_Screen2_Door']
 var key1 = new MessageArea(gameInstance, 48, 48, 500, 500, '../static/img/newKey.png', false, key1Array);
-=======
-var key1Array = ['message','You have found a key.  Press enter to dismiss','key','Key_For_Screen2_Door']
-var key1 = new MessageArea(gameInstance, 48, 48, 500, 500, 'img/newKey.png', false, key1Array);
->>>>>>> f6c94a7273995a44c7bf6bff503c01cebc91d572:js/captain_cool.js
 var barrier = new Obstacle(gameInstance, 20, 250, 300, 200);
 var barrier2 = new Obstacle(gameInstance, 200, 20, 250, 350);
 var barrier3 = new Obstacle(gameInstance, 20, 300, 40, 50);
@@ -112,15 +100,9 @@ var lwall = new Obstacle(gameInstance,20,150,400,100);
 //testScreen.addDrawable(barrier)
 //
 var testLevel = new Level(gameInstance,1);
-<<<<<<< HEAD:static/js/captain_cool.js
 var testScreen = new Screen(testLevel,1,'../static/img/background.png','image');
 var testScreen2 = new Screen(testLevel,2,'../static/img/background.png','image');
 var testDoor = new Door(testScreen, 10, 150, 950, 250,testScreen2, 'black',['location',15,300]);
-=======
-var testScreen = new Screen(testLevel,1,'img/background.png','image');
-var testScreen2 = new Screen(testLevel,2,'img/background.png','image');
-var testDoor = new Door(testScreen, 10, 150, 950, 250,testScreen2, 'black',['location',15,300,'keyed','Key_For_Screen2_Door']);
->>>>>>> f6c94a7273995a44c7bf6bff503c01cebc91d572:js/captain_cool.js
 var testDoor2 = new Door(testScreen2, 10, 150, 0, 250,testScreen, 'black',['location',900,300]);
 
 //here we go with this same idea for collisions, drawing, and keyboard input polling
@@ -150,7 +132,6 @@ testScreen2.addDrawable(iWall);
 testScreen2.addDrawable(jwall);
 testScreen2.addDrawable(kwall);
 testScreen2.addDrawable(lwall);
-
 
 
 testScreen.addDrawable(masterCool);

@@ -74,7 +74,7 @@ class MessageArea extends Collidable {
    // this.color = color; //color is a string (think css)
    this.game = game;
     this.image = new Image();
-    this.image.src = image; 
+    this.image.src = image;
     this.displayMessage = true;
     this.effect = effectsArray;
     this.cutX = 0;
@@ -82,14 +82,14 @@ class MessageArea extends Collidable {
   }
 
   //
-  draw() {
-    charX = this.x;
-    charY = this.y;
-    this.context.drawImage(this.image, (this.cutX * this.width),
+ draw() {
+  charX = this.x;
+  charY = this.y;
+  this.context.drawImage(this.image, (this.cutX * this.width),
                           (this.height * this.cutY), this.width, this.height,
                           this.x, this.y,
                           this.width, this.height);
- 
+
   }
 
   //
@@ -107,7 +107,21 @@ class MessageArea extends Collidable {
       // If you have already picked up the key don't pick it up again.
       if (OBJ.indexOf(this.effect[keyIndex+1]) <= -1){
         OBJ.push(this.effect[keyIndex+1]);
+        console.log(OBJ);
+        //Remove object from drawable list
         this.game.removeDrawable(this);
+        var count; //Index of other object in this object's contact array
+        var index; //Index of this object in other object's contact array
+        var other; //Other object that is touching current object
+
+        //Call contactLost function on all objects that were
+        //Touching this object and vice versa
+        for(count = 0; count < this.contactList.length; count++){
+			other=this.contactList[count];
+			this.onContactLost(other,count);
+			index=other.contactList.indexOf(this);
+			other.onContactLost(this,index);
+		}
         //this.resolver.removeCollidable(this);
       }
     }
@@ -298,7 +312,7 @@ class PlayerCharacter extends Character {
       this.speak("I can't go this way", 30);
     }
     if(collidedWith.constructor.name == 'MessageArea') {
-      this.speak("What is this?", Number.MAX_SAFE_INTEGER); //has another dialogue close condition
+      this.speak("What is this?", 30); //has another dialogue close condition
     }
   }
 

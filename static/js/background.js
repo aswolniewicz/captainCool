@@ -33,7 +33,14 @@ class Level {
     if (index > -1){
       this.drawables.splice(index,1);
     }
+    this.removeCollidable(d);
     this.currentScreen.removeDrawable(d);
+  }
+  removeCollidable(c){
+  	var index = this.collidables.indexOf(c) //Find collidable in list
+  	if(index > -1){ // If its found
+        this.collidables.splice(index,1) //Remove it from the list
+      }
   }
   //change level's current screen
   changeScreen(screen){
@@ -82,7 +89,7 @@ class Screen{
 	this.doors = []; //doors belonging to screen
 	this.drawables=[]; //drawables that persist throughout screen
   }
-  
+
   //add Drawable object to drawable list
   addDrawable(d) {
     this.drawables.push(d);
@@ -95,6 +102,13 @@ class Screen{
     if (index > -1){
       this.drawables.splice(index,1);
     }
+    this.removeCollidable(d);
+  }
+  removeCollidable(c){
+  	var index = this.collidables.indexOf(c) //Find collidable in list
+  	if(index > -1){ // If its found
+        this.collidables.splice(index,1) //Remove it from the list
+      }
   }
   //display background
   draw(){
@@ -115,9 +129,8 @@ class Screen{
 class Door extends Collidable {
   //to construct, give it a parent screen, draw arguments, destintion screen,
   //color and an array describing the effect the door should have.
-  // Note that if the door should change the players location then 'location'
-  //be the first element of the array, the next element should be the x value of
-  //the destination and the third element should be the y value.
+  // Note that if the door should change the players location then the destination
+  //x and y values should imediately follow the location argument.
   constructor(screen, width, height, x, y, destination, color,effectsArray) {
     super(screen.level.game, width, height, x, y, false); //set draw arguments from superclass
     this.context=screen.context; //adopt parent screen context
@@ -134,12 +147,26 @@ class Door extends Collidable {
   }
   //when touched by player character change screens
   onCollision() {
-	  //get parent screen's parent level to change screens
-      this.screen.level.changeScreen(this.destination);
-      if (this.effect[0]=='location'){
-        var sendToX = this.effect[1];
-        var sendToY = this.effect[2];
-        character.changeLocation(sendToX, sendToY);
+      var keyIndex = this.effect.indexOf('keyed');
+      var locIndex = this.effect.indexOf('location');
+      var doorOn = false;
+      if (keyIndex > -1){
+        // If a key is required check to see if they have a key matching the required key name
+        var keyName = this.effect[keyIndex + 1];
+        var inObj = OBJ.indexOf(keyName);
+        if (inObj > -1){
+          doorOn = true;
+        }
+      }
+      // If a key is not required or they have found the key the door opperates as usual
+      if (keyIndex<= -1 || doorOn){
+        //get parent screen's parent level to change screens
+        this.screen.level.changeScreen(this.destination);
+        if (locIndex > -1){
+          var sendToX = this.effect[locIndex+1];
+          var sendToY = this.effect[locIndex+2];
+          character.changeLocation(sendToX, sendToY);
+        }
       }
   }
 }
