@@ -2,7 +2,7 @@ from flask import Flask, render_template
 
 app = Flask(__name__)
 app.config.update(dict(
-   DEBUG=True
+   DEBUG=False
 ))
 @app.route("/")
 def index():
