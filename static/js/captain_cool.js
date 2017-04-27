@@ -72,11 +72,11 @@ var gameInstance = new Game(canvas,inputHandler,collisionResolver);
 
 //lets create our character from the sprite sheet
 // Changed speed to 5 from 3 to speed up testing.
-var character = new PlayerCharacter (gameInstance, 44, 60, 'img/captain_cool.png', 5, 150, 0, true);
-var masterCool = new NonPlayerCharacter(gameInstance, 53, 64, 'img/master_cool.png', 2, 400, 50, true);
+var character = new PlayerCharacter (gameInstance, 44, 60, '../static/img/captain_cool.png', 5, 150, 0, true);
+var masterCool = new NonPlayerCharacter(gameInstance, 53, 64, '../static/img/master_cool.png', 2, 400, 50, true);
 var maArray = ['message','Test Message: Press enter to dismiss.']
 var key1Array = ['message','A key','key','Key_For_Screen2_Door']
-var key1 = new MessageArea(gameInstance, 48, 48, 500, 500, 'img/newKey.png', false, key1Array);
+var key1 = new MessageArea(gameInstance, 48, 48, 500, 500, '../static/img/newKey.png', false, key1Array);
 var barrier = new Obstacle(gameInstance, 20, 250, 300, 200);
 var barrier2 = new Obstacle(gameInstance, 200, 20, 250, 350);
 var barrier3 = new Obstacle(gameInstance, 20, 300, 40, 50);
@@ -100,8 +100,8 @@ var lwall = new Obstacle(gameInstance,20,150,400,100);
 //testScreen.addDrawable(barrier)
 //
 var testLevel = new Level(gameInstance,1);
-var testScreen = new Screen(testLevel,1,'img/background.png','image');
-var testScreen2 = new Screen(testLevel,2,'img/background.png','image');
+var testScreen = new Screen(testLevel,1,'../static/img/background.png','image');
+var testScreen2 = new Screen(testLevel,2,'../static/img/background.png','image');
 var testDoor = new Door(testScreen, 10, 150, 950, 250,testScreen2, 'black',['location',15,300]);
 var testDoor2 = new Door(testScreen2, 10, 150, 0, 250,testScreen, 'black',['location',900,300]);
 

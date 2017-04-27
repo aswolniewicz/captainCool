@@ -6,7 +6,7 @@
       Captain Cool
     </title>
     <meta charset = "utf-8">
-    <link href = "css/captain_cool.css" rel = "stylesheet">
+    <link href = "{{ url_for('static', filename='css/captain_cool.css') }}" rel = "stylesheet">
   </head>
   <body>
     <canvas id='canvas'></canvas>
@@ -47,10 +47,10 @@
     </script>
     <!-- Have to load the scripts in order, captain_cool must go last because it depends on everything else -->
 <!--     <script src="js/debug.js"></script> -->
-    <script src="js/drawable_classes.js"></script>
-    <script src="js/background.js"></script>
-    <script src="js/collision_resolver.js"></script>
-    <script src="js/input_handler.js"></script>
-    <script src="js/captain_cool.js"></script>
+    <script src="{{url_for('static', filename='js/drawable_classes.js')}}"></script>
+    <script src="{{url_for('static', filename='js/background.js')}}"></script>
+    <script src="{{url_for('static', filename='js/collision_resolver.js')}}"></script>
+    <script src="{{url_for('static', filename='js/input_handler.js')}}"></script>
+    <script src="{{url_for('static', filename='js/captain_cool.js')}}"></script>
   </body>
 </html>
