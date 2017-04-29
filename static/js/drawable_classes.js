@@ -429,3 +429,43 @@ var DIRECTIONS = {
   RIGHT : 2,
   DOWN : 0
 }
+
+// This is the timer, and will be displyed above the canvas.
+// I used this as a guide. http://stackoverflow.com/questions/20618355/the-simplest-possible-javascript-countdown-timer
+// I just made this a count-up instad.
+function startTimer(length, display) {
+  // Set up the parameters.
+  var start = Date.now(), elapsed, min, sec;
+
+  // This is the timer function
+  function timer() {
+    // Get the elapsed seconds.
+    elapsed = length - (((Date.now() - start) / 1000) | 0);
+
+    // Turn into ints.
+    min = (elapsed / 60) | 0;
+    sec = (elapsed % 60) | 0;
+
+    // Make ready for display.
+    min = min < 10 ? "0" + min : min;
+    sec = sec < 10 ? "0" + sec : sec;
+
+    // display
+    display.textContent = min + ":" + sec;
+
+    // Start countdown at the very top.
+    if (elapsed <= 0) {
+      start = Date.now() + 1000;
+    }
+  };
+  // Start timer.
+  timer();
+  setInterval(timer, 1000);
+}
+
+// Load timer
+window.onload = function() {
+  var fiveMinutes = 60 * 5,
+    display = document.querySelector('#time');
+  startTimer(fiveMinutes, display);
+}
