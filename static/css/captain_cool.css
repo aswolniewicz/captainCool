@@ -22,6 +22,12 @@ body {
   margin-right: auto;
 }
 
+/* Formating for the timer */
+ #time {
+   font-style: bold;
+   font-family: sans-serif;
+ }
+
 /* these correspond to id's in html file */
 #message-area {
   background-color: black;

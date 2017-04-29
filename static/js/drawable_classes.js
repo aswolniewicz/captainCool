@@ -431,8 +431,7 @@ var DIRECTIONS = {
 }
 
 // This is the timer, and will be displyed above the canvas.
-// I used this as a guide. http://stackoverflow.com/questions/20618355/the-simplest-possible-javascript-countdown-timer
-// I just made this a count-up instad.
+// Cannot start at 0, it breaks. Start.
 function startTimer(length, display) {
   // Set up the parameters.
   var start = Date.now(), elapsed, min, sec;
@@ -440,7 +439,7 @@ function startTimer(length, display) {
   // This is the timer function
   function timer() {
     // Get the elapsed seconds.
-    elapsed = length - (((Date.now() - start) / 1000) | 0);
+    elapsed = length + (((Date.now() - start) / 1000) | 0);
 
     // Turn into ints.
     min = (elapsed / 60) | 0;
@@ -465,7 +464,6 @@ function startTimer(length, display) {
 
 // Load timer
 window.onload = function() {
-  var fiveMinutes = 60 * 5,
-    display = document.querySelector('#time');
-  startTimer(fiveMinutes, display);
+  var display = document.querySelector('#time');
+  startTimer(1, display);
 }
