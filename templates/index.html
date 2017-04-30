@@ -9,6 +9,7 @@
     <link href = "{{ url_for('static', filename='css/captain_cool.css') }}" rel = "stylesheet">
   </head>
   <body>
+    <div><span id = "time"></span></div>
     <canvas id='canvas'></canvas>
     <div id="message-area"></div>
     <!-- Temporary area at the bottom of screen that is useful for debugging-->
@@ -34,7 +35,7 @@
     </div> -->
     <!-- Gets text from user and stroes it in textVar -->
     <p id="textBox">
-      <input type="text" id="myText" value="Text"> 
+      <input type="text" id="myText" value="Text">
       <!--<p>Click the button to display the text</p>-->
       <button onclick="ShowText()">Click the button</button>
     </p>
