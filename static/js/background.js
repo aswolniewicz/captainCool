@@ -7,10 +7,9 @@ Those classes are Level, Screen, and Door
 //indiviual levels of the game
 class Level {
   //to construct pass a Game object and id number
-  constructor(game, id)  {
+  constructor(game)  {
 	this.game=game;
 	this.collidables=[]; //List of collidable objects belonging to game instance
-	this.id = id; //number to track level
 	this.currentScreen = null; //pointer to the current screen
     this.screens = []; //screens belonging to level
     this.canvas = game.canvas; //level adopts canvas from Game object
@@ -48,6 +47,7 @@ class Level {
 	  this.game.resolver.stop=true; // Stop current collision detection
 	  this.game.resolver.collidables=[]; //Reset resolver collidable list
 	  this.currentScreen=screen;
+	  this.game.currentLevel=screen.level;
   }
   //Show current screen's background and all its drawables
   displayScreen(){
@@ -70,12 +70,11 @@ class Level {
 //individual background segments of level map
 class Screen{
   //to construct pass level object, id number, and background color
-  constructor(level, id, color,type)  {
+  constructor(level, color,type)  {
   this.type = type;
 	this.collidables=[]; //List of collidable objects belonging to game instance
 	this.level = level; //parent level
 	level.addScreen(this); //add itself to parent level's screen list
-	this.id = id; //number to track screen
   //checks to see if the background is an image or a colo
   if (this.type == 'image'){
     document.getElementById("Background1");
@@ -146,7 +145,7 @@ class Door extends Collidable {
     this.context.fillRect(this.x, this.y, this.width, this.height);
   }
   //when touched by player character change screens
-  onCollision() {
+  onCollision(collidedWith) {
       var keyIndex = this.effect.indexOf('keyed');
       var locIndex = this.effect.indexOf('location');
       var doorOn = false;
@@ -160,13 +159,15 @@ class Door extends Collidable {
       }
       // If a key is not required or they have found the key the door opperates as usual
       if (keyIndex<= -1 || doorOn){
+		if(collidedWith.constructor.name == 'PlayerCharacter'){
         //get parent screen's parent level to change screens
-        this.screen.level.changeScreen(this.destination);
-        if (locIndex > -1){
-          var sendToX = this.effect[locIndex+1];
-          var sendToY = this.effect[locIndex+2];
-          character.changeLocation(sendToX, sendToY);
-        }
+          this.screen.level.changeScreen(this.destination);
+          if (locIndex > -1){
+            var sendToX = this.effect[locIndex+1];
+            var sendToY = this.effect[locIndex+2];
+            character.changeLocation(sendToX, sendToY);
+          }
+	    }
       }
   }
 }
