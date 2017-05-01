@@ -225,13 +225,17 @@ class NonPlayerCharacter extends Character{
 }
 
   onCollision(collidedWith){
-
     this.baseOnCollision(collidedWith);
 
     if(collidedWith.solid == true){
+     this.speak("some message here", 120);
+   }
       // 120 means the message will display for 2 seconds, we can change this
-      this.speak("some message here", 120);
-    }
+     
+
+    
+ 
+   
   }
 
   rock(){

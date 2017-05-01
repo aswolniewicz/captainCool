@@ -1,59 +1,24 @@
-<!doctype html>
+{% extends "base.html" %}
 
-<html>
-  <head>
-    <title>
-      Captain Cool
-    </title>
-    <meta charset = "utf-8">
-    <link href = "{{ url_for('static', filename='css/captain_cool.css') }}" rel = "stylesheet">
-  </head>
-  <body>
-    <div><span id = "time"></span></div>
-    <canvas id='canvas'></canvas>
-    <div id="message-area"></div>
-    <!-- Temporary area at the bottom of screen that is useful for debugging-->
-  <!--   <div id="debug-area">
-      <h3>Debug Messages</h3>
-      <div class="debug-sub-area">
-        <h4>Position</h4>
-        <ul id="debug-list">
-          <li id="char-x"></li>
-          <li id="char-y"></li>
-        </ul>
-      </div>
-      <div class="debug-sub-area">
-        <h4>Contact List</h3>
-        <ul id="contact-list">
-        </ul>
-      </div>
-      <div class="debug-sub-area">
-        <h4>Keys Pressed</h4>
-        <ul id="keys-pressed-list">
-        </ul>
-      </div>
-    </div> -->
-    <!-- Gets text from user and stroes it in textVar -->
-    <p id="textBox">
-      <input type="text" id="myText" value="Text">
-      <!--<p>Click the button to display the text</p>-->
-      <button onclick="ShowText()">Click the button</button>
-    </p>
-    <script>
-    function ShowText() {
-      //<-- textVar is currently a global variable -->
-         window.textVar = document.getElementById("myText").value;
-        document.getElementById("textBox").innerHTML = window.textVar;
-    }
-    </script>
-    <!-- Have to load the scripts in order, captain_cool must go last because it depends on everything else -->
-<!--     <script src="js/debug.js"></script> -->
-    <script src="{{url_for('static', filename='js/drawable_classes.js')}}"></script>
-    <script src="{{url_for('static', filename='js/background.js')}}"></script>
-    <script src="{{url_for('static', filename='js/collision_resolver.js')}}"></script>
-    <script src="{{url_for('static', filename='js/input_handler.js')}}"></script>
-    <script src="{{url_for('static', filename='js/captain_cool.js')}}"></script>
-    <script src="{{url_for('static', filename='js/Level1.js')}}"></script>
-    <script> gameInstance.start(); </script>
-  </body>
-</html>
+
+{% block styles %}
+
+{% endblock %}
+
+
+{% block content %}
+<h1>Enter your information to start the game</h1>
+<form method="post" action="{{ url_for('game') }}">
+<div class="form-group">
+<label for="in-initials">Initials: </label>
+<input class="form-control" type="text" id="in-initials" name="initials"/>
+</div>
+
+<button class="btn btn-default">Start</button>
+</form>
+{% endblock %}
+
+
+{% block scripts %}
+
+{% endblock %}
