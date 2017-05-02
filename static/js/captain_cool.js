@@ -29,7 +29,7 @@ function parseInput(){
 		parsemsg("")
 	}
 	//Get and store textField element
-	var textField = document.getElementById("in-initials");
+	var textField = document.getElementById("myText");
 	//Save whatever text is in textfield as input
 	var inText=textField.value;
 	textField.value="";

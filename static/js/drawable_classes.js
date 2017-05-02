@@ -15,7 +15,6 @@ class Drawable {
 //
 class Collidable extends Drawable{
   constructor(game, width, height, x, y, solid) {
-    console.log("is solid: " + solid)
     super(game, width, height, x, y);
     this.resolver= game.resolver;
     this.collides=true;
