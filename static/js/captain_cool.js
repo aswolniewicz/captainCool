@@ -10,74 +10,78 @@ var OBJ = [];
 var charX = 0;
 var charY = 0;
 
-//Change the 'Submit Text' button's click function to parseInput()
-document.getElementById("myButton").onclick=parseInput;
-
-//Take input from text field and parse it
-function parseInput(){
-	//Print out a message to textBox
-	function parsemsg(message){
-		document.getElementById("textBox").innerHTML=message;
-	}
-	//Print out an error message to textBox
-	function parsefail(error){
-		//Print 'Parsing failed' then a newline of '='
-		parsemsg("Parsing failed<br>"+"=".repeat(20)+"<br>"+error);
-	}
-	//Flush textBox, i.e., make it completely blank
-	function parsereset(){
-		parsemsg("")
-	}
-	//Get and store textField element
-	var textField = document.getElementById("myText");
-	//Save whatever text is in textfield as input
-	var inText=textField.value;
-	textField.value="";
-	//If input is too large then fail on error
-	if(inText.length>50){
-		parsefail("Input too big bro");
-		return;
-	}
-	//Separate input by semicolons into an array
-	var commands = inText.split(";");
-	//For each command (text up until semicolon), parse it
-	for (var i = 0; i < commands.length; i++) {
-		//Removing leading and trailing whitespace
-		commands[i]=commands[i].trim();
-		//Store each word of the command into another array
-		var words=commands[i].split(" ");
-		//If the first word is speak, run speak command
-		if(words[0]=="speak"){
-			//Get indices of the string to be spoken
-			var dex = commands[i].indexOf(words[0]);
-			var startq=commands[i].indexOf("\"", dex+1);
-			var endq=commands[i].indexOf("\"", startq+1);
-			//If spoken string cannot be found print error
-			if(startq==-1||endq==-1){
-				parsefail("Bad string");
-				return;
-			}
-			//Spoken string is found
-			else{
-				//Speak the spoken string
-				var quote = commands[i].substring(startq+1,endq);
-				character.speak(quote,100);
-				//Flush the output text
-				parsereset();
-			}
-		}
-		//If command string is empty then print error
-		else if(!commands[i]){
-			parsefail("Empty baby")
-		}
-		//if command is not parsed then print error
-		else{
-			parsefail("No such command:<br>" + commands[i]);
-			return;
-		}
-	}
+class Parser {
+  constructor(buttonid,inFieldId,outFieldId){
+    //Change the 'Submit Text' button's click function to parseInput()
+    this.button=document.getElementById(buttonid)
+    //Get and store textField element
+    this.inField = document.getElementById(inFieldId);
+    this.outField = document.getElementById(outFieldId);
+    var self=this;
+    this.button.onclick= function (){self.parse();};
+  }
+  //Print out a message to textBox
+  parsemsg(message){
+    this.outField.innerHTML=message;
+  }
+  //Print out an error message to textBox
+  parsefail(error){
+    //Print 'Parsing failed' then a newline of '='
+    this.parsemsg("Parsing failed<br>"+"=".repeat(20)+"<br>"+error);
+  }
+  //Flush textBox, i.e., make it completely blank
+  parsereset(){
+    this.parsemsg("");
+  }
+  parse(){
+    //Save whatever text is in textfield as input
+    var inText=this.inField.value;
+    this.inField.value="";
+    //If input is too large then fail on error
+    if(inText.length>50){
+      this.parsefail("Input too big bro");
+      return;
+    }
+    //Separate input by semicolons into an array
+    var commands = inText.split(";");
+    //For each command (text up until semicolon), parse it
+    for (var i = 0; i < commands.length; i++) {
+      //Removing leading and trailing whitespace
+      commands[i]=commands[i].trim();
+      //Store each word of the command into another array
+      var words=commands[i].split(" ");
+      //If the first word is speak, run speak command
+      if(words[0]=="speak"){
+        //Get indices of the string to be spoken
+        var dex = commands[i].indexOf(words[0]);
+        var startq=commands[i].indexOf("\"", dex+1);
+        var endq=commands[i].indexOf("\"", startq+1);
+        //If spoken string cannot be found print error
+        if(startq==-1||endq==-1){
+          this.parsefail("Bad string");
+          return;
+        }
+        //Spoken string is found
+        else{
+          //Speak the spoken string
+          var quote = commands[i].substring(startq+1,endq);
+          character.speak(quote,100);
+          //Flush the output text
+          this.parsereset();
+        }
+      }
+      //If command string is empty then print error
+      else if(!commands[i]){
+        this.parsefail("Empty baby")
+      }
+      //if command is not parsed then print error
+      else{
+        this.parsefail("No such command:<br>" + commands[i]);
+        return;
+      }
+    }
+  }
 }
-
 //the game class, posesses the canvas and calls all of the draw functions
 class Game {
   constructor(canvas,input,resolver)  {
@@ -142,6 +146,7 @@ class Game {
 
 //get the canvas from the html
 var canvas = document.getElementById('canvas');
+var commandParser= new Parser("myButton","myText","textBox");
 var collisionResolver = new CollisionResolver();
 var inputHandler = new InputHandler();
 var gameInstance = new Game(canvas,inputHandler,collisionResolver);

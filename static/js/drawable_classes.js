@@ -123,7 +123,6 @@ class MessageArea extends Collidable {
 			index=other.contactList.indexOf(this);
 			other.onContactLost(this,index);
 		}
-        //this.resolver.removeCollidable(this);
       }
     }
   }
