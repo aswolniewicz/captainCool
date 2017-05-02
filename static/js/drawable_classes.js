@@ -67,13 +67,15 @@ class Obstacle extends Collidable {
 
 }
 
-//
+//The effectsArray parameter of the MessageArea is an array of properties that the door should have.
+//The property name should be followed by the specifications for that property.
+//For example if the MessageArea has the key property then the name of the key should imediately follow 'key' in the array.
 class MessageArea extends Collidable {
   constructor(game, width, height, x, y, image, solid, effectsArray) {
     super(game, width, height, x, y, solid);
     //can't access this in constructor until we call super
    // this.color = color; //color is a string (think css)
-   this.game = game;
+    this.game = game;
     this.image = new Image();
     this.image.src = image;
     this.displayMessage = true;
@@ -98,7 +100,6 @@ class MessageArea extends Collidable {
     this.baseOnCollision(collidedwith);
     var messageIndex = this.effect.indexOf('message');
     if(this.displayMessage && messageIndex > -1) {
-      //this.color = 'red';
       this.showMessage(this.effect[messageIndex+1]);
       this.displayMessage = false;
     }
@@ -231,11 +232,11 @@ class NonPlayerCharacter extends Character{
      this.speak("some message here", 120);
    }
       // 120 means the message will display for 2 seconds, we can change this
-     
 
-    
- 
-   
+
+
+
+
   }
 
   rock(){
@@ -367,6 +368,7 @@ class PlayerCharacter extends Character {
   }
 
   checkOutOfBounds(){
+    // Forbid the player character to go off the screen.
     if (this.x < 0){
       this.x = 0
     }

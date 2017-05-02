@@ -128,8 +128,10 @@ class Screen{
 class Door extends Collidable {
   //to construct, give it a parent screen, draw arguments, destintion screen,
   //color and an array describing the effect the door should have.
-  // Note that if the door should change the players location then the destination
-  //x and y values should imediately follow the location argument.
+
+  //The effectsArray parameter is an array of properties that the door should have.
+  //The property name should be followed by the specifications for that property.
+  //For example ['location', x-coordinat,y-coordinate]
   constructor(screen, width, height, x, y, destination, color,effectsArray) {
     super(screen.level.game, width, height, x, y, false); //set draw arguments from superclass
     this.context=screen.context; //adopt parent screen context
@@ -154,20 +156,21 @@ class Door extends Collidable {
         var keyName = this.effect[keyIndex + 1];
         var inObj = OBJ.indexOf(keyName);
         if (inObj > -1){
+          // If they have the key allow the door to opperate
           doorOn = true;
         }
       }
       // If a key is not required or they have found the key the door opperates as usual
-      if (keyIndex<= -1 || doorOn){
-		if(collidedWith.constructor.name == 'PlayerCharacter'){
-        //get parent screen's parent level to change screens
-          this.screen.level.changeScreen(this.destination);
-          if (locIndex > -1){
-            var sendToX = this.effect[locIndex+1];
-            var sendToY = this.effect[locIndex+2];
-            character.changeLocation(sendToX, sendToY);
-          }
-	    }
+    if (keyIndex<= -1 || doorOn){
+  		if(collidedWith.constructor.name == 'PlayerCharacter'){
+          //get parent screen's parent level to change screens
+            this.screen.level.changeScreen(this.destination);
+            if (locIndex > -1){
+              var sendToX = this.effect[locIndex+1];
+              var sendToY = this.effect[locIndex+2];
+              character.changeLocation(sendToX, sendToY);
+            }
+  	    }
       }
   }
 }
