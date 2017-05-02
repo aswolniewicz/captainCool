@@ -6,6 +6,7 @@ var KEYS = [];
 //Array storing objects picked up by the character
 var OBJ = [];
 
+
 var charX = 0;
 var charY = 0;
 
@@ -79,9 +80,9 @@ var gameInstance = new Game(canvas,inputHandler,collisionResolver);
 
 //lets create our character from the sprite sheet
 // Changed speed to 5 from 3 to speed up testing.
-var character = new PlayerCharacter (gameInstance, 44, 60, '../static/img/captain_cool.png', 5, 150, 0, true);
-inputHandler.addPoller(character);
-gameInstance.addDrawable(character);
+//var character = new PlayerCharacter (gameInstance, 44, 60, '../static/img/captain_cool.png', 5, 150, 0, true);
+//inputHandler.addPoller(character);
+//gameInstance.addDrawable(character);
 
 
 var Level1 = new Level(gameInstance);
