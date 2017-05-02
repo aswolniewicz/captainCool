@@ -37,9 +37,8 @@
       <label for="text-input">Enter Text Here: </label>
       <input class="form-control" type="text" id="in-initials" name="initials"/>
       </div>
-
       <!--<p>Click the button to display the text</p>-->
-      <button type="button" onclick="ShowText()">Submit Text</button>
+      <button type="button" id="myButton">Submit Text</button>
       <form method="post" action="{{ url_for('results') }}">
         <input type="hidden">
         <button>Quit Game</button>
