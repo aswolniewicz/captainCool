@@ -33,7 +33,7 @@ class Parser {
   //Print out an error message to textBox
   parsefail(error){
     //Print 'Parsing failed' then a newline of '='
-    this.parsemsg("Parsing failed<br>"+"=".repeat(20)+"<br>"+error);
+    this.parsemsg(error);
   }
   //Flush textBox, i.e., make it completely blank
   parsereset(){
@@ -80,15 +80,16 @@ class Parser {
       commands[i]=commands[i].trim();
       //Store each word of the command into another array
       var words=commands[i].split(" ");
+      
       //If the first word is speak, run speak command
-      if(words[0]=="speak"){
+      if(words[0].toLowerCase()=="speak"){
         //Get indices of the string to be spoken
         var dex = commands[i].indexOf(words[0]);
         var startq=commands[i].indexOf("\"", dex+1);
         var endq=commands[i].indexOf("\"", startq+1);
         //If spoken string cannot be found print error
         if(startq==-1||endq==-1){
-          this.parsefail("Bad string");
+          this.parsefail("Put what you want to say in \"\"");
           return;
         }
         //Spoken string is found
@@ -102,7 +103,7 @@ class Parser {
       }
       //If command string is empty then print error
       else if(!commands[i]){
-        this.parsefail("Empty baby");
+        this.parsefail("Ya gotta type something");
         return;
       }
       //if command is not parsed then print error
