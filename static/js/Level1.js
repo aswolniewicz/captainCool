@@ -1,5 +1,5 @@
 //Intialize Screens
-var Screen1_1 = new Screen(Level1,'../static/img/background.png','image');
+var Screen1_1 = new Screen(Level1,'../static/img/background.png','image',"Talk to the old man");
 var Screen1_2 = new Screen(Level1,'../static/img/background.png','image');
 var Screen1_3 = new Screen(Level1,'../static/img/background.png','image');
 var Screen1_4 = new Screen(Level1,'../static/img/background.png','image');

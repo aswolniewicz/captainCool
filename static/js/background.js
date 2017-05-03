@@ -54,6 +54,8 @@ class Level {
 	  for (var i = 0; i < screen.commands.length; i++) {
 		  this.game.parser.checks.push(screen.commands[i]);
 	  }
+	  // Print screen message
+	  this.game.parser.parsemsg(screen.message);
   }
   //Show current screen's background and all its drawables
   displayScreen(){
@@ -76,9 +78,10 @@ class Level {
 //individual background segments of level map
 class Screen{
   //to construct pass level object, id number, and background color
-  constructor(level, color,type)  {
+  constructor(level, color, type, message="")  {
 	this.commands=[]; //List of commands to check for
     this.type = type;
+    this.message = message; //Message shown on screen entry
 	this.collidables=[]; //List of collidable objects belonging to game instance
 	this.level = level; //parent level
 	level.addScreen(this); //add itself to parent level's screen list
