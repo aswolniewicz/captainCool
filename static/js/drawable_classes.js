@@ -108,7 +108,6 @@ class MessageArea extends Collidable {
     this.baseOnContactLost(lostWith, i);
     //do whatever else you need to do
     this.displayMessage = true;
-    this.color = 'blue'
   }
 
   //
@@ -127,7 +126,7 @@ class MessageArea extends Collidable {
 class Key extends MessageArea {
   constructor(game, width, height, x, y, image, door, message=keymessage, lockcolor=keylockedcolor) {
     //Intialize all the same stuff as a MessageArea, assume unsolid
-    super(game, width, height, x, y, image, false, message=keymessage); 
+    super(game, width, height, x, y, image, false, message); 
     this.door=door; //Door to unlock
     this.color=door.color; //Store color of door when its unlocked
     this.door.color=lockcolor; //Change color to door to lockedcolor
@@ -223,8 +222,9 @@ class Character extends Collidable {
 // now mastercool animates constantly by rocking
 // still displays message when collided with
 class NonPlayerCharacter extends Character{
-    constructor(game, width, height, image, speed, x, y, solid) {
+    constructor(game, width, height, image, speed, x, y, solid,message="") {
     super(game, width, height, image, speed, x, y, solid);
+    this.message = message;
     this.count = 0;
 }
 
@@ -232,7 +232,7 @@ class NonPlayerCharacter extends Character{
     this.baseOnCollision(collidedWith);
 
     if(collidedWith.solid == true){
-     this.speak("some message here", 120);
+     this.speak(this.message, 120);
    }
       // 120 means the message will display for 2 seconds, we can change this
 
@@ -321,9 +321,6 @@ class PlayerCharacter extends Character {
     if (collidedWith.constructor.name == 'Obstacle'){
       this.speak("I can't go this way", 30);
     }
-    if(collidedWith.constructor.name == 'MessageArea') {
-      this.speak("What is this?", 30); //has another dialogue close condition
-    }
   }
 
   //
@@ -333,8 +330,6 @@ class PlayerCharacter extends Character {
   //  debugContactList = this.contactList;
     if(lostWith.solid)
       this.allowMovement();
-    if(lostWith.constructor.name == "MessageArea" && this.isSpeaking)
-      this.isSpeaking = false;
   }
 
   //checks if keys are pressed and if they are, move and animate

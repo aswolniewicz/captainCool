@@ -132,10 +132,13 @@ class Game {
   //anything that's drawable we need to add to this list so that
   //we call its draw method on draw
   addDrawable(d) {
-    this.drawables.push(d);
-    if(d.collides){ //When adding drawables check also if they're collidable
-		this.collidables.push(d);
-	}
+    var dList = [].concat(d);
+	for (var i = 0; i < dList.length; i++) {
+      this.drawables.push(dList[i]);
+      if(dList[i].collides){ //When adding drawables check also if they're collidable
+	    this.collidables.push(dList[i]);
+	  }
+    }
   }
   removeDrawable(d) {
     var index = this.drawables.indexOf(d);

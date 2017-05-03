@@ -33,11 +33,10 @@
     <!-- Gets text from user and stroes it in textVar -->
     <p id="textBox">
       <div class="form-group">
-      <label for="text-input">Enter Text Here: </label>
       <input class="form-control" type="text" id="myText" name="Text"/>
       </div>
       <!--<p>Click the button to display the text</p>-->
-      <button type="button" id="myButton" class="btn btn-default">Submit Text</button>
+      <button type="button" id="myButton" class="btn btn-default">Submit Command</button>
       <form method="post" action="{{ url_for('results') }}">
         <input type="hidden">
         <button class="btn btn-default">Quit Game</button>
