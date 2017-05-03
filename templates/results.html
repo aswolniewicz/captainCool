@@ -1,5 +1,9 @@
 {% extends "base.html" %}
 
+{% block styles %}
+    <link href = "{{ url_for('static', filename='css/results_index.css') }}" rel = "stylesheet">
+{% endblock %}
+
 {% block content %}
 <h1>Game Over!</h1>
 <div id="results">
@@ -8,5 +12,6 @@
 		<li>Time Completed:</li>
 	</ul>
 </div>
+<audio src = "{{ url_for('static', filename = 'media/backgroundMusic.mp3')}}" autoplay loop>
 
 {% endblock %}

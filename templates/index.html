@@ -2,20 +2,24 @@
 
 
 {% block styles %}
-
+    <link href = "{{ url_for('static', filename='css/results_index.css') }}" rel = "stylesheet">
 {% endblock %}
 
 
 {% block content %}
-<h1>Enter your information to start the game</h1>
+
+<h1>Enter your information to start the game.</h1>
+<br>
 <form method="post" action="{{ url_for('game') }}">
 <div class="form-group">
 <label for="in-initials">Name: </label>
+<br>
 <input class="form-control" type="text" id="in-initials" name="initials"/>
 </div>
 
 <button class="btn btn-default">Start</button>
 </form>
+<audio src = "{{ url_for('static', filename = 'media/backgroundMusic.mp3')}}" autoplay loop>
 {% endblock %}
 
 
