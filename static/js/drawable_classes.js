@@ -127,12 +127,12 @@ class MessageArea extends Collidable {
 class Key extends MessageArea {
   constructor(game, width, height, x, y, image, door, message=keymessage, lockcolor=keylockedcolor) {
     //Intialize all the same stuff as a MessageArea, assume unsolid
-    super(game, width, height, x, y, image, false, message); 
+    super(game, width, height, x, y, image, false, message);
     this.door=door; //Door to unlock
     this.color=door.color; //Store color of door when its unlocked
     this.door.color=lockcolor; //Change color to door to lockedcolor
   }
-	
+
   onCollision(collidedwith) {
 	// Do the same message area stuff
     super.onCollision(collidedwith);
@@ -158,7 +158,7 @@ class Key extends MessageArea {
 		index=other.contactList.indexOf(this);
 		other.onContactLost(this,index);
 	  }
-    } 
+    }
   }
 }
 //any character that moves extends this class
