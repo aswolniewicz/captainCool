@@ -13,12 +13,13 @@ var charY = 0;
 class Parser {
   constructor(buttonid,inFieldId,outFieldId){
     //Change the 'Submit Text' button's click function to parseInput()
-    this.button=document.getElementById(buttonid)
+    this.button=document.getElementById(buttonid);
+    var self=this;
+    this.button.onclick= function (){self.parse();};
     //Get and store textField element
     this.inField = document.getElementById(inFieldId);
     this.outField = document.getElementById(outFieldId);
-    var self=this;
-    this.button.onclick= function (){self.parse();};
+    this.checks=[];
   }
   //Print out a message to textBox
   parsemsg(message){
@@ -32,6 +33,22 @@ class Parser {
   //Flush textBox, i.e., make it completely blank
   parsereset(){
     this.parsemsg("");
+  }
+  waitforcommand(command,door){
+	this.checks.push({c:command,d:door});
+  }
+  matchcommand(command){
+	for (var i = 0; i < this.checks.length; i++) {
+      if(this.checks[i].d){
+	    var strip1=command.split(' ').join('');
+	    var strip2=this.checks[i].c.split(' ').join('');
+	    if(strip1==strip2){
+		  this.checks[i].d.locked=false;
+		  this.checks.splice(i,1);
+		  return;
+	    }
+	  }  
+    }
   }
   parse(){
     //Save whatever text is in textfield as input
@@ -79,16 +96,17 @@ class Parser {
         this.parsefail("No such command:<br>" + commands[i]);
         return;
       }
+      this.matchcommand(commands[i]);
     }
   }
 }
 //the game class, posesses the canvas and calls all of the draw functions
 class Game {
-  constructor(canvas,input,resolver)  {
+  constructor(canvas,input,resolver,parser)  {
     this.canvas = canvas;
     this.input=input;
     this.resolver=resolver;
-
+	this.parser=parser;
 	this.levels = [];
 	this.currentLevel = null;
     this.drawables = [];
@@ -149,7 +167,7 @@ var canvas = document.getElementById('canvas');
 var commandParser= new Parser("myButton","myText","textBox");
 var collisionResolver = new CollisionResolver();
 var inputHandler = new InputHandler();
-var gameInstance = new Game(canvas,inputHandler,collisionResolver);
+var gameInstance = new Game(canvas,inputHandler,collisionResolver,commandParser);
 
 //lets create our character from the sprite sheet
 // Changed speed to 5 from 3 to speed up testing.

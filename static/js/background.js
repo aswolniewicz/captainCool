@@ -132,7 +132,7 @@ class Door extends Collidable {
   //The effectsArray parameter is an array of properties that the door should have.
   //The property name should be followed by the specifications for that property.
   //For example ['location', x-coordinat,y-coordinate]
-  constructor(screen, width, height, x, y, destination, color,effectsArray) {
+  constructor(screen, width, height, x, y, destination, color,effectsArray,locked=false) {
     super(screen.level.game, width, height, x, y, false); //set draw arguments from superclass
     this.context=screen.context; //adopt parent screen context
     this.screen=screen; //parent screen
@@ -140,6 +140,7 @@ class Door extends Collidable {
     this.destination=destination; //destination screen
     this.color=color; //fill color
     this.effect = effectsArray;
+    this.locked=locked;
   }
   //display door as simple colored rectangle
   draw() {
@@ -161,7 +162,7 @@ class Door extends Collidable {
         }
       }
       // If a key is not required or they have found the key the door opperates as usual
-    if (keyIndex<= -1 || doorOn){
+    if (!this.locked && (keyIndex<= -1 || doorOn)){
   		if(collidedWith.constructor.name == 'PlayerCharacter'){
           //get parent screen's parent level to change screens
             this.screen.level.changeScreen(this.destination);

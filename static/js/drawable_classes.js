@@ -406,19 +406,19 @@ class PlayerCharacter extends Character {
       //
   pollForKeyboardInput() {
 
-   	  if (KEYS[65]) // Go Left
+   	  if (KEYS[37]) // Go Left
       {
         this.move(0, 1, 0, 0, DIRECTIONS.LEFT)
       }
- 	  else if (KEYS[68]) // Go Right 39
+ 	  else if (KEYS[39]) // Go Right 39
       {
         this.move(0, 0, 1, 0, DIRECTIONS.RIGHT)
       }
-      else if (KEYS[87]) // Go Up
+      else if (KEYS[38]) // Go Up
       {
         this.move(1, 0, 0, 0, DIRECTIONS.UP);
       }
-      else if (KEYS[83]) // Go Down
+      else if (KEYS[40]) // Go Down
       {
         this.move(0, 0, 0, 1, DIRECTIONS.DOWN);
       }
