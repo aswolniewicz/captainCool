@@ -48,6 +48,14 @@ class Level {
 	  this.game.resolver.collidables=[]; //Reset resolver collidable list
 	  this.currentScreen=screen;
 	  this.game.currentLevel=screen.level;
+	  // Reset list of commands for parser to check
+	  this.game.parser.checks=[];
+	  // Add this screen's list of commands to check
+	  for (var i = 0; i < screen.commands.length; i++) {
+		  this.game.parser.checks.push(screen.commands[i]);
+	  }
+	  // Print screen message
+	  this.game.parser.parsemsg(screen.message);
   }
   //Show current screen's background and all its drawables
   displayScreen(){
@@ -70,8 +78,10 @@ class Level {
 //individual background segments of level map
 class Screen{
   //to construct pass level object, id number, and background color
-  constructor(level, color,type)  {
-  this.type = type;
+  constructor(level, color, type, message="")  {
+	this.commands=[]; //List of commands to check for
+    this.type = type;
+    this.message = message; //Message shown on screen entry
 	this.collidables=[]; //List of collidable objects belonging to game instance
 	this.level = level; //parent level
 	level.addScreen(this); //add itself to parent level's screen list
@@ -88,7 +98,19 @@ class Screen{
 	this.doors = []; //doors belonging to screen
 	this.drawables=[]; //drawables that persist throughout screen
   }
-
+  //Set specific command to open specific door
+  waitforcommand(command,door){
+	// Add command to screen
+	this.commands.push({c:command, d:door, color:door.color});
+	door.color=cmdlockedcolor;
+  }
+  // Remove a command from the command list
+  removeCommand(d) {
+    var index = this.commands.indexOf(d);
+    if (index > -1){
+      this.commands.splice(index,1);
+    }
+  }
   //add Drawable object to drawable list
   addDrawable(d) {
     this.drawables.push(d);
@@ -140,7 +162,7 @@ class Door extends Collidable {
     this.destination=destination; //destination screen
     this.color=color; //fill color; optional parameter default to global color variable
     this.effect = effectsArray;
-    this.locked=locked; //Bool to track whether or not it's a command door, default locked
+    this.locked=locked; //Bool to track whether or not it's a command door, default locked  
   }
   //display door as simple colored rectangle
   draw() {

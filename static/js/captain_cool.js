@@ -39,11 +39,7 @@ class Parser {
   parsereset(){
     this.parsemsg("");
   }
-  //Set specific command to open specific door
-  waitforcommand(command,door){
-	this.checks.push({c:command,d:door});
-	door.color=cmdlockedcolor;
-  }
+  
   //Check if a command matches one of the waiting command
   matchcommand(command){
 	//Loop through array of all commands we're checking for
@@ -56,6 +52,9 @@ class Parser {
 	    if(strip1==strip2){ //If the passed command matchs a stored command
 		  //Unlock the corresponding door
 		  this.checks[i].d.locked=false;
+		  this.checks[i].d.color=this.checks[i].color
+		  //Remove command/door pair from screen list
+		  this.checks[i].d.screen.removeCommand(this.checks[i]);
 		  //Remove command/door pair from the check list
 		  this.checks.splice(i,1);
 		  //Stop loop
@@ -103,7 +102,8 @@ class Parser {
       }
       //If command string is empty then print error
       else if(!commands[i]){
-        this.parsefail("Empty baby")
+        this.parsefail("Empty baby");
+        return;
       }
       //if command is not parsed then print error
       else{
