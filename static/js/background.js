@@ -132,15 +132,15 @@ class Door extends Collidable {
   //The effectsArray parameter is an array of properties that the door should have.
   //The property name should be followed by the specifications for that property.
   //For example ['location', x-coordinat,y-coordinate]
-  constructor(screen, width, height, x, y, destination, color,effectsArray,locked=false) {
+  constructor(screen, width, height, x, y, destination, effectsArray, locked=false, color=unlockedcolor) {
     super(screen.level.game, width, height, x, y, false); //set draw arguments from superclass
     this.context=screen.context; //adopt parent screen context
     this.screen=screen; //parent screen
     screen.addDrawable(this); //add itself to parent screen's drawable list
     this.destination=destination; //destination screen
-    this.color=color; //fill color
+    this.color=color; //fill color; optional parameter default to global color variable
     this.effect = effectsArray;
-    this.locked=locked;
+    this.locked=locked; //Bool to track whether or not it's a command door, default locked
   }
   //display door as simple colored rectangle
   draw() {
@@ -149,20 +149,9 @@ class Door extends Collidable {
   }
   //when touched by player character change screens
   onCollision(collidedWith) {
-      var keyIndex = this.effect.indexOf('keyed');
-      var locIndex = this.effect.indexOf('location');
-      var doorOn = false;
-      if (keyIndex > -1){
-        // If a key is required check to see if they have a key matching the required key name
-        var keyName = this.effect[keyIndex + 1];
-        var inObj = OBJ.indexOf(keyName);
-        if (inObj > -1){
-          // If they have the key allow the door to opperate
-          doorOn = true;
-        }
-      }
-      // If a key is not required or they have found the key the door opperates as usual
-    if (!this.locked && (keyIndex<= -1 || doorOn)){
+    var locIndex = this.effect.indexOf('location');
+    // If a key is not required or they have found the key the door opperates as usual
+    if (!this.locked){
   		if(collidedWith.constructor.name == 'PlayerCharacter'){
           //get parent screen's parent level to change screens
             this.screen.level.changeScreen(this.destination);

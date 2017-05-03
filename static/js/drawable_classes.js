@@ -70,7 +70,7 @@ class Obstacle extends Collidable {
 //The property name should be followed by the specifications for that property.
 //For example if the MessageArea has the key property then the name of the key should imediately follow 'key' in the array.
 class MessageArea extends Collidable {
-  constructor(game, width, height, x, y, image, solid, effectsArray) {
+  constructor(game, width, height, x, y, image, solid, message="") {
     super(game, width, height, x, y, solid);
     //can't access this in constructor until we call super
    // this.color = color; //color is a string (think css)
@@ -78,7 +78,7 @@ class MessageArea extends Collidable {
     this.image = new Image();
     this.image.src = image;
     this.displayMessage = true;
-    this.effect = effectsArray;
+    this.message=message;
     this.cutX = 0;
     this.cutY = 0;
   }
@@ -97,33 +97,9 @@ class MessageArea extends Collidable {
   //
   onCollision(collidedwith) {
     this.baseOnCollision(collidedwith);
-    var messageIndex = this.effect.indexOf('message');
-    if(this.displayMessage && messageIndex > -1) {
-      this.showMessage(this.effect[messageIndex+1]);
+    if(this.displayMessage) {
+      this.showMessage(this.message);
       this.displayMessage = false;
-    }
-    var keyIndex = this.effect.indexOf('key');
-    // Check to make sure that 'key' is a property of the object
-    if (keyIndex > -1){
-      // If you have already picked up the key don't pick it up again.
-      if (OBJ.indexOf(this.effect[keyIndex+1]) <= -1){
-        OBJ.push(this.effect[keyIndex+1]);
-        console.log(OBJ);
-        //Remove object from drawable list
-        this.game.removeDrawable(this);
-        var count; //Index of other object in this object's contact array
-        var index; //Index of this object in other object's contact array
-        var other; //Other object that is touching current object
-
-        //Call contactLost function on all objects that were
-        //Touching this object and vice versa
-        for(count = 0; count < this.contactList.length; count++){
-			other=this.contactList[count];
-			this.onContactLost(other,count);
-			index=other.contactList.indexOf(this);
-			other.onContactLost(this,index);
-		}
-      }
     }
   }
 
@@ -136,26 +112,55 @@ class MessageArea extends Collidable {
   }
 
   //
-  pollForKeyboardInput() {
-    if(KEYS[13]) {
-      this.hideMessage();
-    }
-  }
-
-  //
   showMessage(message) {
-    console.log(message)
-    var messageArea = document.getElementById('message-area');
+    var messageArea = document.getElementById('textBox');
     messageArea.innerHTML = message;
   }
 
   //
   hideMessage() {
-    var messageArea = document.getElementById('message-area');
+    var messageArea = document.getElementById('textBox');
     messageArea.innerHTML = '';
   }
 }
 
+class Key extends MessageArea {
+  constructor(game, width, height, x, y, image, door, message=keymessage, lockcolor=keylockedcolor) {
+    //Intialize all the same stuff as a MessageArea, assume unsolid
+    super(game, width, height, x, y, image, false, message); 
+    this.door=door; //Door to unlock
+    this.color=door.color; //Store color of door when its unlocked
+    this.door.color=lockcolor; //Change color to door to lockedcolor
+  }
+	
+  onCollision(collidedwith) {
+	// Do the same message area stuff
+    super.onCollision(collidedwith);
+    // If you have already picked up the key don't pick it up again.
+    if (OBJ.indexOf(this) <= -1){
+	  // Unlock door
+	  this.door.locked=false;
+	  // Change door color back to its unlocked state
+	  this.door.color=this.color;
+	  // Add to item list
+      OBJ.push(this);
+      // Remove object from drawable list
+      this.game.removeDrawable(this);
+      var count; //Index of other object in this object's contact array
+      var index; //Index of this object in other object's contact array
+      var other; //Other object that is touching current object
+
+      //Call contactLost function on all objects that were
+      //Touching this object and vice versa
+      for(count = 0; count < this.contactList.length; count++){
+        other=this.contactList[count];
+		this.onContactLost(other,count);
+		index=other.contactList.indexOf(this);
+		other.onContactLost(this,index);
+	  }
+    } 
+  }
+}
 //any character that moves extends this class
 class Character extends Collidable {
   constructor(game, width, height, image, speed, x, y, solid) {
@@ -274,6 +279,7 @@ class PlayerCharacter extends Character {
   constructor(game, width, height, image, speed, x, y, solid) {
     super(game, width, height, image, speed, x, y, solid);
     this.count = 0;
+    this.parser=game.parser;
     this.canMoveUp = true;
     this.canMoveLeft = true;
     this.canMoveRight = true;
@@ -422,6 +428,10 @@ class PlayerCharacter extends Character {
       {
         this.move(0, 0, 0, 1, DIRECTIONS.DOWN);
       }
+      if(KEYS[13]) // If enter is pressed
+      {
+		this.parser.parsereset();
+	  }
     }
 }
 

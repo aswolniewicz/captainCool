@@ -6,6 +6,10 @@ var KEYS = [];
 //Array storing objects picked up by the character
 var OBJ = [];
 
+var keylockedcolor='red';
+var cmdlockedcolor='orange';
+var unlockedcolor='green';
+var keymessage="You found a key! Press enter to dismiss.";
 
 var charX = 0;
 var charY = 0;
@@ -16,9 +20,10 @@ class Parser {
     this.button=document.getElementById(buttonid);
     var self=this;
     this.button.onclick= function (){self.parse();};
-    //Get and store textField element
+    //Get and store textField and textBox element for input/output
     this.inField = document.getElementById(inFieldId);
     this.outField = document.getElementById(outFieldId);
+    //Array of commands to look for during parsing
     this.checks=[];
   }
   //Print out a message to textBox
@@ -34,17 +39,26 @@ class Parser {
   parsereset(){
     this.parsemsg("");
   }
+  //Set specific command to open specific door
   waitforcommand(command,door){
 	this.checks.push({c:command,d:door});
+	door.color=cmdlockedcolor;
   }
+  //Check if a command matches one of the waiting command
   matchcommand(command){
+	//Loop through array of all commands we're checking for
 	for (var i = 0; i < this.checks.length; i++) {
+      //If the door is valid
       if(this.checks[i].d){
+		// Remove all spaces so its whitespace independent
 	    var strip1=command.split(' ').join('');
 	    var strip2=this.checks[i].c.split(' ').join('');
-	    if(strip1==strip2){
+	    if(strip1==strip2){ //If the passed command matchs a stored command
+		  //Unlock the corresponding door
 		  this.checks[i].d.locked=false;
+		  //Remove command/door pair from the check list
 		  this.checks.splice(i,1);
+		  //Stop loop
 		  return;
 	    }
 	  }  
@@ -96,6 +110,7 @@ class Parser {
         this.parsefail("No such command:<br>" + commands[i]);
         return;
       }
+      //After parsing command check if it matches one of commands in checklist
       this.matchcommand(commands[i]);
     }
   }
