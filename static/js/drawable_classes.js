@@ -131,7 +131,7 @@ class Key extends MessageArea {
     this.color=door.color; //Store color of door when its unlocked
     this.door.color=lockcolor; //Change color to door to lockedcolor
   }
-	
+
   onCollision(collidedwith) {
 	// Do the same message area stuff
     super.onCollision(collidedwith);
@@ -157,7 +157,7 @@ class Key extends MessageArea {
 		index=other.contactList.indexOf(this);
 		other.onContactLost(this,index);
 	  }
-    } 
+    }
   }
 }
 //any character that moves extends this class
