@@ -1,5 +1,7 @@
-
-//base drawable class, anything drawn on the screen inherits this.
+/**
+* @class Drawable
+* base drawable class, anything drawn on the sreen inherits this 
+*/
 class Drawable {
   constructor(game, width, height, x, y) {
     this.context = game.context;
@@ -8,12 +10,27 @@ class Drawable {
     this.x = x;
     this.y = y;
   }
-  //draw method to overload
+  /**
+  * @memberof Drawable
+  * base draw class that needs to be overloaded 
+  */
   draw() { }
 }
 
-//
+/**
+* @class Collidalbe
+* extends Drawable 
+*/
 class Collidable extends Drawable{
+  /**
+  * @constructor
+  * @param {Object} the game instance
+  * @param {int} width of the object
+  * @param {int} height of the object
+  * @param {int} x-coord of the object on the canvas 
+  * @param {int} y-coord of the object ont he canvas 
+  * @param {boolean} tells whether the object can be walked over or not. If true then the object is solid, if false it is not
+  */
   constructor(game, width, height, x, y, solid) {
     super(game, width, height, x, y);
     this.resolver= game.resolver;
@@ -21,55 +38,106 @@ class Collidable extends Drawable{
     this.solid = solid;
     this.contactList = [];
   }
+  /**
+  * @memberof Collidable
+  * draw method not overloaded 
+  */
   draw(){
   }
-  //
+  /**
+  * @memberof Collidable 
+  * @param {Object} the object on the contact list that is no longer in contact with the object of owner
+  * removes from contact list
+  */
   baseOnContactLost(lostWith, i) {
     this.contactList.splice(i, 1);
   }
 
-  //
+  /**
+  * @memberof Collidable
+  * this method is being overrided by baseOnContactLost but because of js inheritance rules has to call the base method
+  */
   onContactLost(lostWith, i) {
     this.baseOnContactLost(lostWith, i);
   }
 
-  //
+  /**
+  * @memberof Collidable
+  * when an object collides with another object add it to the contact list
+  */
   baseOnCollision(collidedWith) {
     //if it doesn't exist in the contactList, add it
     if(this.contactList.indexOf(collidedWith) <= -1)
       this.contactList.push(collidedWith);
   }
 
-  //
+  /**
+  * @memberof Collidable
+  * this method is being overrided by baseOnCollision
+  * all it does is call baseOnCollision
+  */
   onCollison(collidedWith) {
     this.baseOnCollision(collidedWith);
   }
 }
 
-//
+/**
+* @class Obstacle
+* extends Collidable 
+*/
 class Obstacle extends Collidable {
+  /**
+  * @constructor
+  * @param {object} instance of game l
+  * @param {int} width of obstacle
+  * @param {int} height of obstacle
+  * @param {int} x-coord of obstacle on canvas
+  * @param {int} y-coord of obstacle on canvas 
+  */
   constructor(game, width, height, x, y) {
     super(game, width, height, x, y, true) //true b/c solid
   }
+  /**
+  * @memberof Obstacle
+  * draw method for obstacle 
+  */
   draw() {
     this.context.fillStyle = 'black';
     this.context.fillRect(this.x, this.y, this.width, this.height);
   }
-
+/**
+* @memberof Obstacle
+* calls baseOnCollision method from Collidable
+*/
   onCollision() {
     this.baseOnCollision();
   }
-
+/**
+* @memberof Obstacle
+* calls baseOnContactLost method from Collidable
+*/
   onContactLost() {
     this.baseOnContactLost();
   }
 
 }
-
-//The effectsArray parameter of the MessageArea is an array of properties that the door should have.
-//The property name should be followed by the specifications for that property.
-//For example if the MessageArea has the key property then the name of the key should imediately follow 'key' in the array.
+/**
+* @class MessageArea
+* extends collidable
+* an interactive obstacle 
+*/
 class MessageArea extends Collidable {
+  /**
+  * @constructor 
+  * @param {object} game instance
+  * @param {int} width of the message area
+  * @param {int} height of the message area
+  * @param {int} x-coord of the message area
+  * @param {imt} y-coord of the message area 
+  * @param {file} file path to the image source
+  * @param {boolean} solid flag. 
+  * @param {string} string containing the message being printed by the message are 
+  */
   constructor(game, width, height, x, y, image, solid, message="") {
     super(game, width, height, x, y, solid);
     //can't access this in constructor until we call super

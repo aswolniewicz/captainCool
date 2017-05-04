@@ -1,21 +1,41 @@
-//
+/**
+* @class CollisionResolver
+* handles collisions between collidables in game
+*/
 class CollisionResolver {
+  /**
+  * @constructor 
+  * @param {Object} the instance belonging to the game
+  */
   constructor(gameInstance) {
     this.collidables = [];
     this.stop=false; //Variable to force collision detection to stop
   }
 
-  //call the notify methods of the two objects that collided
+  /**
+  * @memberof CollisionResolver
+  * @param {Object} object1 in the collision
+  * @param {Object} object2 in the collision
+  * purpose is to pass each object the other object it collided with 
+  */
   notifyCollilsion(obj1, obj2) {
     obj1.onCollision(obj2); //takes the object it collided with to figure out what to do
     obj2.onCollision(obj1); //samesies
   }
 
-  //
+  /**
+  * @memberof CollisionResolver 
+  * @param {Object} the collidable to add to the collidable list
+  * purpose is to push a new collidable onto the collidable list 
+  */
   addCollidable(c) {
     this.collidables.push(c);
   }
-  // Remove collidable object from detection list
+  /**
+  * @memberof CollisionResolver
+  * @param {Object} object to be removed from the collidable list
+  * pupose is to remove the collidable from the collidables list
+  */
   removeCollidable(c){
     console.log("removed collidable")
   	var index = this.collidables.indexOf(c) //Find collidable in list
@@ -25,6 +45,10 @@ class CollisionResolver {
   }
   //really great O(n^2) method that needs to be re written
   //maybe only check every object against objects that moved?
+  /**
+  * @memberof CollisionResolver 
+  * purpose is to figure out who is colliding with who 
+  */
   detectCollisions() {
     var self = this;
     self.stop=false; //Assume detection is good to go
