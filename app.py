@@ -2,7 +2,7 @@ from flask import *
 
 app = Flask(__name__)
 app.config.update(dict(
-   DEBUG=True
+   DEBUG=False
 ))
 
 class User:
