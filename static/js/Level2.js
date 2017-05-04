@@ -19,6 +19,7 @@ var Door2_4to2_5 = new Door(Screen2_4, 150, 10, 400, 0, Screen2_5,['location',50
 // Commands
 Screen2_1.waitforcommand("foo=\"bar\"", Door2_1to2_2);
 Screen2_2.waitforcommand("speak foo", Door2_2to2_3);
+commandParser.addVariable("MaryPoppins","\"supercalifragilisticexpialidocious\"")
 
 // Objects in Screen 1
 var Wall2_1_1 = new Obstacle(gameInstance, 450, 640, 550,0); //Right wall
@@ -40,8 +41,8 @@ Screen2_2.addDrawable([varBox,varBox1,masterCool2_2,Wall2_2_1]);
 
 //Objects in Screen 3
 var equalBox = new MessageArea(gameInstance, 48, 48, 455, 150, message="The '=' command will set an existing variable or create a new variable");
-var equalBox1 = new MessageArea(gameInstance, 48, 48, 400, 250, message="The stuff to the left of the sign (the left operator) must be a valid variable name: variables must start with a letter and then only alphanumeric characters");
-var equalBox2 = new MessageArea(gameInstance, 48, 48, 510, 250, message="The stuff to the right of the sign (the right operator) must be a valid value (we'll get to that) or another existing variable");
+var equalBox1 = new MessageArea(gameInstance, 48, 48, 400, 250, message="The stuff to the left of the sign (the left operand) must be a valid variable name: variables must start with a letter and then only alphanumeric characters");
+var equalBox2 = new MessageArea(gameInstance, 48, 48, 510, 250, message="The stuff to the right of the sign (the right operand) must be a valid value (we'll get to that) or another existing variable");
 var Wall2_3_1 = new Obstacle(gameInstance, 450, 640, 650,0); //Right wall
 var Wall2_3_2 = new Obstacle(gameInstance, 300, 640, 0, 0); //Left wall
 var Wall2_3_3 = new Obstacle(gameInstance, 960, 300, 0,400); //Bottom wall

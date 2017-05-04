@@ -188,10 +188,17 @@ class Parser {
     for (var i = 0; i < commands.length; i++) {
       //Removing leading and trailing whitespace
       commands[i]=commands[i].trim();
+      //Put spaces around operators
+      commands[i]=commands[i].replace(/=/g, ' = ');
+      commands[i]=commands[i].replace(/\+/g, ' + ');
+      commands[i]=commands[i].replace(/-/g, ' - ');
+      commands[i]=commands[i].replace(/\*/g, ' * ');
+      commands[i]=commands[i].replace(/\//g, ' / ');
+      commands[i]=commands[i].replace(/%/g, ' % ');
+      //Remove extra spaces
+      commands[i]=commands[i].replace(/\s+/g, ' ');
       //Check if it matches one of commands in checklist
       this.matchcommand(commands[i]);
-      //Put spaces around equals sign
-      commands[i]=commands[i].split("=").join(" = ");
       //Store each word of the command into another array
       var words=commands[i].split(" ");
       //Check for and evaulate variables
@@ -212,6 +219,62 @@ class Parser {
 		      words[j]=this.variables[dex];
 		    }
 		  }
+	  }
+	  
+	  var np=RegExp(/^-?[0-9]+.?[0-9]*$/); // Numerical: decimals and ints
+	  var sp=RegExp(/^"[^"]*""[^"]*"$/i); // Strings: anything in ""
+	  //For every word pair around an operatir
+	  for(var j=0; j<words.length-1;j++){
+		//Concatenate their strings to check for valid format
+		var sum=words[j-1]+words[j+1];
+		//If operator is "+"
+		if (words[j]=="+" && j>1){
+		  //If it fits numerical format
+		  if(np.test(sum)){
+			//Add the numbers and revaluate the command
+			words[j-1]=Number(words[j-1])+Number(words[j+1]);
+			words[j-1]=words[j-1].toString();
+			words.splice(j,2);
+			j-=2;
+		  }
+		  //If it fits string format
+		  else if(sp.test(sum)){
+			//Concat the strings and revaluate the command
+			words[j-1]=words[j-1].substr(0,words[j-1].length-1)
+			words[j-1]+=words[j+1].substr(1,words[j+1].length-1);
+			words.splice(j,2);
+			j-=2;
+		  }
+		}
+		//If it's a -,*,/,or % operation with valid numerical format
+		else if (j>1 && RegExp(/^[-\*\/%]$/).test(words[j]) && np.test(sum)){
+		  //Perform the matching operation
+		  if(words[j]=="-"){
+		    words[j-1]=Number(words[j-1])-Number(words[j+1]);
+		  }
+		  else if(words[j]=="/"){
+		    words[j-1]=Number(words[j-1])/Number(words[j+1]);
+		  }
+		  else if(words[j]=="*"){
+		    words[j-1]=Number(words[j-1])*Number(words[j+1]);
+		  }
+		  else if(words[j]=="%"){
+		    words[j-1]=Number(words[j-1])%Number(words[j+1]);
+		  }
+		  //Revaluate the command
+		  words[j-1]=words[j-1].toString();
+		  words.splice(j,2);
+		  j-=2;
+		}
+		//If it is a negation (a negative sign with no left operand)
+		//Also with valid numerical format
+		else if(words[j]=="-" && np.test(words[j+1])){
+		  //Negate the value and revaluate the command
+		  words[j+1]=Number(words[j+1])*-1;
+		  words[j+1]=words[j+1].toString();
+		  words.splice(j,1);
+		  j-=1;
+		}
 	  }
 	  //Set command equal to the evaulated input
 	  commands[i]=words.join(" ");
@@ -234,7 +297,7 @@ class Parser {
 		  this.parsefail("Bad variable, must start with a letter and be alphanumeric");
 		  return;
 		}
-		if(!RegExp(/^"[^"]*"$/i).test(varValue) && !RegExp(/^[0-9]*$/i).test(varName)){
+		if(!RegExp(/^"[^"]*"$/i).test(varValue) && !np.test(varValue)){
 		  this.parsefail("Bad value, must be a number or string");
 		  return;
 		}
