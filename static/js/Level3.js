@@ -7,7 +7,7 @@
 var Screen3_1 = new Screen(Level3,'../static/img/background.png','image',"You beat Level 3! Don't stop now!");
 var Screen3_2 = new Screen(Level3,'../static/img/background.png','image',"Create a new variable call 'ten' thats equal to '5+5'");
 var Screen3_3 = new Screen(Level3,'../static/img/background.png','image',"Math time!");
-var Screen3_4 = new Screen(Level3,'../static/img/background.png','image',"");
+var Screen3_4 = new Screen(Level3,'../static/img/background2.png','image',"You Did it!");
 
 
 
@@ -78,6 +78,14 @@ var qBoxr = new MessageArea(gameInstance, 48, 48, 700, 300, message="Set variabl
 
 Screen3_3.addDrawable([Wall3_3_1,Wall3_3_2,Wall3_3_3,qBoxl,qBoxr]);
 
+/**
+* create the walls for level4 screen 3
+* @event Obstacle
+*/
+
+var trophy= new MessageArea(gameInstance, 48, 48, 470, 300, message="Press the quit game button to finish",image='../static/img/trophy.png');
+
+Screen3_4.addDrawable(trophy);
 /**
 * start level3 at screen 1
 * @event Level
