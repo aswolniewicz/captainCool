@@ -4,7 +4,7 @@
 * First we initialized all the screens with images, and messsages 
 * @event Screen
 */
-var Screen3_1 = new Screen(Level3,'../static/img/background.png','image',"You beat Level 3! Don't stop now!");
+var Screen3_1 = new Screen(Level3,'../static/img/background.png','image',"");
 var Screen3_2 = new Screen(Level3,'../static/img/background.png','image',"Create a new variable call 'ten' thats equal to '5+5'");
 var Screen3_3 = new Screen(Level3,'../static/img/background.png','image',"Math time!");
 var Screen3_4 = new Screen(Level3,'../static/img/background2.png','image',"You Did it!");
