@@ -7,7 +7,13 @@ class InputHandler {
     window.addEventListener('keydown', function (e) {
  		  KEYS =(KEYS || []); //Boolean array of which keys are down
  		  KEYS[e.keyCode] = true;
-    //  updateKeysPressedLogs(e.keyCode, 0);
+ 		  if(KEYS[17]){ // If you press control, it mutes the music
+			var song = document.getElementById('music');
+            if (!song.muted)
+              song.muted=true;
+            else
+              song.muted=false;  
+		  }
  	  })
  	  window.addEventListener('keyup', function (e) {
  		  KEYS[e.keyCode] = false;

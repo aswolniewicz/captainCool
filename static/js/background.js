@@ -4,9 +4,14 @@ Background.js contains all classes pertinant to the background
 Those classes are Level, Screen, and Door
 */
 
-//indiviual levels of the game
+/**
+* This class creates level 
+* @class Level */
 class Level {
   //to construct pass a Game object and id number
+  /** 
+  * To create a level you need to pass a Game object and ID number
+  * @constuctor */
   constructor(game)  {
 	this.game=game;
 	this.collidables=[]; //List of collidable objects belonging to game instance
@@ -16,11 +21,17 @@ class Level {
     this.context = game.context; //level adopts context from Game object
     this.drawables = []; //drawables that persist throughout the level
   }
-  //add screen object to screen list
+  /** 
+  * Add a screen object to level screen list
+  * @function addScreen
+  */
   addScreen(screen){
 	  this.screens.push(screen);
   }
-  //add drawable object to drawable list
+  /** 
+  * Adds drawable object to the drawables list
+  * @function addDrawable
+  * @param object to be added to list */
   addDrawable(d) {
     var dList = [].concat(d);
 	for (var i = 0; i < dList.length; i++) {
@@ -30,6 +41,11 @@ class Level {
 	  }
     }
   }
+  /** 
+  * remove a drawable from this list, remove from screen, remove from collidable list
+  * @function removeDrawable
+  * @param {Object} object to remove
+  */
   removeDrawable(d) {
     var index = this.drawables.indexOf(d);
     if (index > -1){
@@ -38,13 +54,23 @@ class Level {
     this.removeCollidable(d);
     this.currentScreen.removeDrawable(d);
   }
+  /**  
+  * remove an object from Collidable list, helper function to removeDrawable
+  * @function removeCollidable
+  * @param {Object} object to be removed 
+  */
   removeCollidable(c){
   	var index = this.collidables.indexOf(c) //Find collidable in list
   	if(index > -1){ // If its found
         this.collidables.splice(index,1) //Remove it from the list
       }
   }
-  //change level's current screen
+  /**
+  * change the level's screen. 
+  * resets command parser, collidable list, and prints screen message
+  * @function changeScreen
+  * @param {Object} screen that we are changing to 
+  */
   changeScreen(screen){
 	  //set new screen
 	  this.game.resolver.stop=true; // Stop current collision detection
@@ -60,7 +86,10 @@ class Level {
 	  // Print screen message
 	  this.game.parser.parsemsg(screen.message);
   }
-  //Show current screen's background and all its drawables
+  /** 
+  * displays screen and all its drawable 
+  * @function displayScreen 
+  */
   displayScreen(){
 	  if (this.currentScreen != null){
 		  //draw background
@@ -69,7 +98,10 @@ class Level {
 		  this.drawables.forEach(function(d){d.draw();});
 	  }
   }
-  //Print all screen ids to the console
+  /** 
+  * Debug helper method, print all screed ids to the console
+  * @function logScreens 
+  */
   logScreens(){
 	  this.screens.forEach(function(screen) {
 		  console.log("hello from");
@@ -78,9 +110,19 @@ class Level {
   }
 }
 
-//individual background segments of level map
+/** 
+* Creates a new screen 
+* @class Screen
+*/
 class Screen{
   //to construct pass level object, id number, and background color
+  /**
+  * @constructor 
+  * @param {Object} level object
+  * @param file path to background image of screen
+  * @param denote image
+  * @param {string} message to display to screen  
+  */
   constructor(level, color, type, message="")  {
 	this.commands=[]; //List of commands to check for
     this.type = type;
@@ -101,13 +143,22 @@ class Screen{
 	this.doors = []; //doors belonging to screen
 	this.drawables=[]; //drawables that persist throughout screen
   }
-  //Set specific command to open specific door
+  /**
+  * This function sets the command needed in order to open a door in game
+  * @function waitforcommand
+  * @param {string} command 
+  * @param {Object} door object 
+  */
   waitforcommand(command,door){
 	// Add command to screen
 	this.commands.push({c:command, d:door, color:door.color});
 	door.color=cmdlockedcolor;
   }
-  // Remove a command from the command list
+  /**
+  * remove a command from the command list
+  * @function removeCommand
+  * @param {Object} door object command pairing
+  */
   removeCommand(d) {
     var index = this.commands.indexOf(d);
     if (index > -1){
@@ -115,6 +166,11 @@ class Screen{
     }
   }
   //add Drawable object to drawable list
+  /**
+  * add an object to the drawable list 
+  * @function addDrawable 
+  * @param {Object} object to draw to canvas 
+  */
   addDrawable(d) {
     var dList = [].concat(d);
 	for (var i = 0; i < dList.length; i++) {
@@ -124,6 +180,11 @@ class Screen{
 	  }
     }
   }
+  /**
+  * remove an object from the drawable list and remove from collidable list
+  * @function removeDrawable
+  * @param {Object} the object to be removed  
+  */
   removeDrawable(d) {
     var index = this.drawables.indexOf(d);
     if (index > -1){
@@ -131,13 +192,21 @@ class Screen{
     }
     this.removeCollidable(d);
   }
+   /**
+  * remove an object from the collidable list, helper function
+  * @function removeCollidable
+  * @param {Object} the object to be removed  
+  */
   removeCollidable(c){
   	var index = this.collidables.indexOf(c) //Find collidable in list
   	if(index > -1){ // If its found
         this.collidables.splice(index,1) //Remove it from the list
       }
   }
-  //display background
+ /**
+ * draws everything in the drawables list and the background 
+ * @function draw 
+ */
   draw(){
     //draws the background
     if(this.type == 'image'){
@@ -152,14 +221,28 @@ class Screen{
   }
 }
 
-//collidable objects that transport you from screen to screen on touch
+/**
+* This class is for Doors that transport you from screen to screen on touch
+* @class Door 
+* @classdesc The door class extends the collidable class. It inherits all the methods in Collidable and adds some of its own methods
+*/
 class Door extends Collidable {
   //to construct, give it a parent screen, draw arguments, destintion screen,
   //color and an array describing the effect the door should have.
 
-  //The effectsArray parameter is an array of properties that the door should have.
-  //The property name should be followed by the specifications for that property.
-  //For example ['location', x-coordinat,y-coordinate]
+  /**
+  * The constuctor for the Door Class
+  * @constructor 
+  * @param {Object} screen
+  * @param {int} width of door
+  * @param {int} height of door 
+  * @param {int} x position on the canvas 
+  * @param {int} y position on the canvas
+  * @param {Object} the destination screen 
+  * @param effectsArray is an array of properties that the door should have. The property name should be followed by the specifications for that property. For example ['location', x-coord, y-coord]
+  * @param boolean if door is locked 
+  * @param {string} color that corresponds to whether the door is locked or not, green if unlocked
+  */
   constructor(screen, width, height, x, y, destination, effectsArray, locked=false, color=unlockedcolor) {
     super(screen.level.game, width, height, x, y, false); //set draw arguments from superclass
     this.context=screen.context; //adopt parent screen context
@@ -170,12 +253,19 @@ class Door extends Collidable {
     this.effect = effectsArray;
     this.locked=locked; //Bool to track whether or not it's a command door, default locked  
   }
-  //display door as simple colored rectangle
+  /**
+  * This function just renders the door on the canvas
+  * @function draw
+  */
   draw() {
     this.context.fillStyle = this.color;
     this.context.fillRect(this.x, this.y, this.width, this.height);
   }
-  //when touched by player character change screens
+  /**
+  * This function changes the screen when a door is collided with
+  * @function onCollision
+  * @param {Object} the object that collided with the door 
+  */
   onCollision(collidedWith) {
     var locIndex = this.effect.indexOf('location');
     // If a key is not required or they have found the key the door opperates as usual
