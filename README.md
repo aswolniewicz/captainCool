@@ -8,6 +8,9 @@ Kathryn Osborn, kateosborn10
 ## Project Title:  
 Captain Cool  
 
+## Description
+A fun arcade-style javascript single-player game built on HTML5 Canvas. Become captainCool and exlore the cobblestone streens of codetown USA, learning the fundamentals of coding as you complete levels. 
+
 ## How To Run:  
 Click this link to access the deployed version of our game: 
 http://captaincool.herokuapp.com 
@@ -19,9 +22,6 @@ To build and run the game on your local machine:
 4. Inside your repository type the command python app.py in your terminal
 5. Go to the local port designated by the terminal and have fun!
  
-
-##  Game Description:  
-Captain Cool is an arcade style game where the user plays as Captain Cool.
 
 ## Repository Organization:  
 1. jasmine: holds all the Jasmine files/ documents  

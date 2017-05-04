@@ -661,6 +661,7 @@ var DIRECTIONS = {
   DOWN : 0
 }
 
+
 /**
 * sets up the timer and starts it
 * @function 

@@ -2,13 +2,16 @@
 
 
 {% block styles %}
-    <link href = "{{ url_for('static', filename='css/results_index.css') }}" rel = "stylesheet">
+    <link href = "{{ url_for('static', filename='css/start.css') }}" rel = "stylesheet">
 {% endblock %}
 
 
 {% block content %}
 
-<h1>Enter your information to start the game.</h1>
+<h1> CaptainCool: A HTML5 game written in javascript. </h1>
+<p> Become the superhero-in-training captainCool as he explores the cobblestone streets of codetown USA. <br>
+Learn the fundamentals of coding as you race through the levels and become a codeMaster. Good Luck and have fun! </p>
+<h2>Enter your information to start the game.</h2>
 <br>
 <form method="post" action="{{ url_for('game') }}">
 <div class="form-group">
@@ -18,7 +21,9 @@
 </div>
 
 <button class="btn btn-default">Start</button>
+
 </form>
+
 <audio src = "{{ url_for('static', filename = 'media/backgroundMusic.mp3')}}" autoplay loop>
 {% endblock %}
 
