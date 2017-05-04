@@ -1,4 +1,32 @@
-/**
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: drawable_classes.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: drawable_classes.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
 * @module Drawable_classes
 */
 /**
@@ -74,7 +102,7 @@ class Collidable extends Drawable{
   */
   baseOnCollision(collidedWith) {
     //if it doesn't exist in the contactList, add it
-    if(this.contactList.indexOf(collidedWith) <= -1)
+    if(this.contactList.indexOf(collidedWith) &lt;= -1)
       this.contactList.push(collidedWith);
   }
 
@@ -244,7 +272,7 @@ class Key extends MessageArea {
 	// Do the same message area stuff
     super.onCollision(collidedwith);
     // If you have already picked up the key don't pick it up again.
-    if (OBJ.indexOf(this) <= -1){
+    if (OBJ.indexOf(this) &lt;= -1){
 	  // Unlock door
 	  this.door.locked=false;
 	  // Change door color back to its unlocked state
@@ -259,7 +287,7 @@ class Key extends MessageArea {
 
       //Call contactLost function on all objects that were
       //Touching this object and vice versa
-      for(count = 0; count < this.contactList.length; count++){
+      for(count = 0; count &lt; this.contactList.length; count++){
         other=this.contactList[count];
 		this.onContactLost(other,count);
 		index=other.contactList.indexOf(this);
@@ -315,7 +343,7 @@ class Character extends Collidable {
                           this.x, this.y,
                           this.width, this.height);
     if(this.isSpeaking) {
-      if(this.speechCounter <= this.speechDuration) {
+      if(this.speechCounter &lt;= this.speechDuration) {
         this.context.font = "14px Arial";
         this.context.fillStyle = 'white';
         this.context.fillText(this.dialogue, this.x - 20, this.y - 20);
@@ -581,13 +609,13 @@ class PlayerCharacter extends Character {
   */
   checkOutOfBounds(){
     // Forbid the player character to go off the screen.
-    if (this.x < 0){
+    if (this.x &lt; 0){
       this.x = 0
     }
     else if( this.x > window.canvas.width - this.width){
       this.x = window.canvas.width - this.width;
     }
-    if (this.y < 0){
+    if (this.y &lt; 0){
       this.y = 0
     }
     else if( this.y > window.canvas.height- this.height){
@@ -679,14 +707,14 @@ function startTimer(length, display) {
     sec = (elapsed % 60) | 0;
 
     // Make ready for display.
-    min = min < 10 ? "0" + min : min;
-    sec = sec < 10 ? "0" + sec : sec;
+    min = min &lt; 10 ? "0" + min : min;
+    sec = sec &lt; 10 ? "0" + sec : sec;
 
     // display
     display.textContent = min + ":" + sec;
 
     // Start countdown at the very top.
-    if (elapsed <= 0) {
+    if (elapsed &lt;= 0) {
       start = Date.now() + 1000;
     }
   };
@@ -703,3 +731,26 @@ window.onload = function() {
   var display = document.querySelector('#time');
   startTimer(1, display);
 }
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-Background.html">Background</a></li><li><a href="module-Collision_resolver.html">Collision_resolver</a></li><li><a href="module-Debug.html">Debug</a></li><li><a href="module-Drawable_classes.html">Drawable_classes</a></li><li><a href="module-Game.html">Game</a></li><li><a href="module-InputHandler.html">InputHandler</a></li></ul><h3>Classes</h3><ul><li><a href="module-Background.Level.html">Level</a></li><li><a href="module-Background-Door.html">Door</a></li><li><a href="module-Background-Screen.html">Screen</a></li><li><a href="module-Collision_resolver.CollisionResolver.html">CollisionResolver</a></li><li><a href="module-Drawable_classes.Drawable.html">Drawable</a></li><li><a href="module-Drawable_classes-Character.html">Character</a></li><li><a href="module-Drawable_classes-Collidable.html">Collidable</a></li><li><a href="module-Drawable_classes-Key.html">Key</a></li><li><a href="module-Drawable_classes-MessageArea.html">MessageArea</a></li><li><a href="module-Drawable_classes-NonPlayerCharacter.html">NonPlayerCharacter</a></li><li><a href="module-Drawable_classes-Obstacle.html">Obstacle</a></li><li><a href="module-Drawable_classes-PlayerCharacter.html">PlayerCharacter</a></li><li><a href="module-Game.Parser.html">Parser</a></li><li><a href="module-Game-Game.html">Game</a></li><li><a href="module-InputHandler.InputHandler.html">InputHandler</a></li></ul><h3>Events</h3><ul><li><a href="module-Game.html#~event:createPlayerCharacter">create PlayerCharacter</a></li><li><a href="global.html#event:Door">Door</a></li><li><a href="global.html#event:Key">Key</a></li><li><a href="global.html#event:Level">Level</a></li><li><a href="global.html#event:MessageArea">MessageArea</a></li><li><a href="global.html#event:NonPLayerCharacter">NonPLayerCharacter</a></li><li><a href="global.html#event:NonPlayerCharacter">NonPlayerCharacter</a></li><li><a href="global.html#event:Obstacle">Obstacle</a></li><li><a href="global.html#event:Screen">Screen</a></li><li><a href="module-Game.html#~event:startsgameatLevel1">starts game at Level1</a></li></ul><h3>Global</h3><ul><li><a href="global.html#KEYS">KEYS</a></li><li><a href="global.html#OBJ">OBJ</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Thu May 04 2017 11:16:03 GMT-0600 (MDT)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

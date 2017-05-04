@@ -1,5 +1,17 @@
-//adds the key even listeners when it's constructed
+/**
+* @module InputHandler
+*/
+
+
+/**
+* listens for input from the user, using EventListener
+* @class 
+* @memberof module:InputHandler
+*/
 class InputHandler {
+  /**
+  * @constructor
+  */
   constructor() {
     //
     this.Pollers = [];
@@ -21,17 +33,22 @@ class InputHandler {
  	  })
   }
 
-  //
+  /**
+  * adds an object to the poller list so it can listen for input
+  * @method
+  */
   addPoller(c) {
     this.Pollers.push(c);
   }
 
-  //
+  /**
+  * polls for keyboard input
+  * @method
+  */
   pollForKeyboardInput() {
       this.Pollers.forEach(function(p) {
           p.pollForKeyboardInput();
       });
-      //up, left, right, down, direction (for animation)
-    //controllables must have a move command
+
   }
 }
