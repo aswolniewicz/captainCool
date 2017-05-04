@@ -91,6 +91,7 @@ class Parser {
 	// Create an array of variable names
 	var nameList=Object.keys(this.variables);
 	// Search through array for variable with name 'name'
+	console.log(nameList);
     for(var i=0; i<nameList.length; i++){
 	  if(nameList[i]==name){
 	    return name;
@@ -106,9 +107,7 @@ class Parser {
   * Add new variable to the parser
   */
   addVariable(name,value){
-	if(Object.keys(this.variables).length<=100){
-	  this.variables[name]=value;
-	}
+	this.variables[name]=value;
   }
   /**
   * @method
@@ -210,6 +209,7 @@ class Parser {
       for(var j=0; j<words.length;j++){
 		  //Find the variable 
 		  dex=this.findVariable(words[j]);
+		  console.log(dex);
 		  //If the variable is found
 		  if(dex != -1){
 			//Find its position
@@ -221,7 +221,6 @@ class Parser {
 		    }
 		  }
 	  }
-	  
 	  var np=RegExp(/^-?[0-9]+.?[0-9]*$/); // Numerical: decimals and ints
 	  var sp=RegExp(/^"[^"]*""[^"]*"$/i); // Strings: anything in ""
 	  //For every word pair around an operatir
