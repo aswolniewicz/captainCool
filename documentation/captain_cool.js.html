@@ -1,4 +1,32 @@
-//allows us to actually catch errors that would otherwise fail silently
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: captain_cool.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: captain_cool.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>//allows us to actually catch errors that would otherwise fail silently
 'use strict';
 /**
 * @module Game
@@ -91,7 +119,7 @@ class Parser {
 	// Create an array of variable names
 	var nameList=Object.keys(this.variables);
 	// Search through array for variable with name 'name'
-    for(var i=0; i<nameList.length; i++){
+    for(var i=0; i&lt;nameList.length; i++){
 	  if(nameList[i]==name){
 	    return name;
 	  }
@@ -106,7 +134,7 @@ class Parser {
   * Add new variable to the parser
   */
   addVariable(name,value){
-	if(Object.keys(this.variables).length<=100){
+	if(Object.keys(this.variables).length&lt;=100){
 	  this.variables[name]=value;
 	}
   }
@@ -142,7 +170,7 @@ class Parser {
   */
   matchcommand(command){
 	//Loop through array of all commands we're checking for
-	for (var i = 0; i < this.checks.length; i++) {
+	for (var i = 0; i &lt; this.checks.length; i++) {
       //If the object is valid
       if(this.checks[i].d){
 		// Remove all spaces so its whitespace independent
@@ -187,7 +215,7 @@ class Parser {
     //Separate input by semicolons into an array
     var commands = inText.split(";");
     //For each command (text up until semicolon), parse it
-    for (var i = 0; i < commands.length; i++) {
+    for (var i = 0; i &lt; commands.length; i++) {
       //Removing leading and trailing whitespace
       commands[i]=commands[i].trim();
       //Check if it matches one of commands in checklist
@@ -201,7 +229,7 @@ class Parser {
       //Variable to track if it appears behind an equal sign
       var wdex=-1;
       //For each word check if it matchs an exisiting variable
-      for(var j=0; j<words.length;j++){
+      for(var j=0; j&lt;words.length;j++){
 		  //Find the variable 
 		  dex=this.findVariable(words[j]);
 		  //If the variable is found
@@ -236,14 +264,14 @@ class Parser {
 		  this.parsefail("Bad variable, must start with a letter and be alphanumeric");
 		  return;
 		}
-		if(!RegExp(/^"[^"]*"$/i).test(varValue) && !RegExp(/^[0-9]*$/i).test(varName)){
+		if(!RegExp(/^"[^"]*"$/i).test(varValue) &amp;&amp; !RegExp(/^[0-9]*$/i).test(varName)){
 		  this.parsefail("Bad value, must be a number or string");
 		  return;
 		}
 		//If not a command word then set variable
-		if(this.keywords.indexOf(varName) < 0){
+		if(this.keywords.indexOf(varName) &lt; 0){
 		  //Attempt to set variable and check for failure
-		  if(this.setVariable(varName,varValue) < 0){
+		  if(this.setVariable(varName,varValue) &lt; 0){
 		    this.parsefail("Setting variable failed");
 		    return;
 		  }
@@ -283,7 +311,7 @@ class Parser {
       }
       //if command is not parsed then print error
       else{
-        this.parsefail("No such command:<br>" + commands[i]);
+        this.parsefail("No such command:&lt;br>" + commands[i]);
         return;
       }
     }
@@ -320,7 +348,7 @@ class Game {
   */
   addDrawable(d) {
     var dList = [].concat(d);
-	for (var i = 0; i < dList.length; i++) {
+	for (var i = 0; i &lt; dList.length; i++) {
       this.drawables.push(dList[i]);
       if(dList[i].collides){ //When adding drawables check also if they're collidable
 	    this.collidables.push(dList[i]);
@@ -416,3 +444,26 @@ var Level8 = new Level(gameInstance);
 * @event starts game at Level1 
 */
 gameInstance.currentLevel=Level1;
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-Background.html">Background</a></li><li><a href="module-Collision_resolver.html">Collision_resolver</a></li><li><a href="module-Debug.html">Debug</a></li><li><a href="module-Drawable_classes.html">Drawable_classes</a></li><li><a href="module-Game.html">Game</a></li><li><a href="module-InputHandler.html">InputHandler</a></li></ul><h3>Classes</h3><ul><li><a href="module-Background.Level.html">Level</a></li><li><a href="module-Background-Door.html">Door</a></li><li><a href="module-Background-Screen.html">Screen</a></li><li><a href="module-Collision_resolver.CollisionResolver.html">CollisionResolver</a></li><li><a href="module-Drawable_classes.Drawable.html">Drawable</a></li><li><a href="module-Drawable_classes-Character.html">Character</a></li><li><a href="module-Drawable_classes-Collidable.html">Collidable</a></li><li><a href="module-Drawable_classes-Key.html">Key</a></li><li><a href="module-Drawable_classes-MessageArea.html">MessageArea</a></li><li><a href="module-Drawable_classes-NonPlayerCharacter.html">NonPlayerCharacter</a></li><li><a href="module-Drawable_classes-Obstacle.html">Obstacle</a></li><li><a href="module-Drawable_classes-PlayerCharacter.html">PlayerCharacter</a></li><li><a href="module-Game.Parser.html">Parser</a></li><li><a href="module-Game-Game.html">Game</a></li><li><a href="module-InputHandler.InputHandler.html">InputHandler</a></li></ul><h3>Events</h3><ul><li><a href="module-Game.html#~event:createPlayerCharacter">create PlayerCharacter</a></li><li><a href="global.html#event:Door">Door</a></li><li><a href="global.html#event:Key">Key</a></li><li><a href="global.html#event:Level">Level</a></li><li><a href="global.html#event:MessageArea">MessageArea</a></li><li><a href="global.html#event:NonPLayerCharacter">NonPLayerCharacter</a></li><li><a href="global.html#event:NonPlayerCharacter">NonPlayerCharacter</a></li><li><a href="global.html#event:Obstacle">Obstacle</a></li><li><a href="global.html#event:Screen">Screen</a></li><li><a href="module-Game.html#~event:startsgameatLevel1">starts game at Level1</a></li></ul><h3>Global</h3><ul><li><a href="global.html#KEYS">KEYS</a></li><li><a href="global.html#OBJ">OBJ</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Thu May 04 2017 11:16:03 GMT-0600 (MDT)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

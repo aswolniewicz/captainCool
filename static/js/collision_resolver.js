@@ -1,10 +1,14 @@
 /**
-* @class CollisionResolver
+* @module Collision_resolver
+*/
+/**
 * handles collisions between collidables in game
+* @class
+* @memberof module:Collision_resolver
 */
 class CollisionResolver {
   /**
-  * @constructor 
+  * @constructor
   * @param {Object} the instance belonging to the game
   */
   constructor(gameInstance) {
@@ -13,7 +17,7 @@ class CollisionResolver {
   }
 
   /**
-  * @memberof CollisionResolver
+  * @method
   * @param {Object} object1 in the collision
   * @param {Object} object2 in the collision
   * purpose is to pass each object the other object it collided with 
@@ -24,7 +28,7 @@ class CollisionResolver {
   }
 
   /**
-  * @memberof CollisionResolver 
+  * @method
   * @param {Object} the collidable to add to the collidable list
   * purpose is to push a new collidable onto the collidable list 
   */
@@ -32,7 +36,7 @@ class CollisionResolver {
     this.collidables.push(c);
   }
   /**
-  * @memberof CollisionResolver
+  * @method
   * @param {Object} object to be removed from the collidable list
   * pupose is to remove the collidable from the collidables list
   */
@@ -43,10 +47,9 @@ class CollisionResolver {
         this.collidables.splice(index,1) //Remove it from the list
       }
   }
-  //really great O(n^2) method that needs to be re written
-  //maybe only check every object against objects that moved?
+ 
   /**
-  * @memberof CollisionResolver 
+  * @method
   * purpose is to figure out who is colliding with who 
   */
   detectCollisions() {

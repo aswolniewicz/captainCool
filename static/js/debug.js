@@ -1,7 +1,8 @@
+
 /**
-* @description
-* this whole js file is for debugging purposes and is not currently in use 
+* @module Debug
 */
+
 var charX = 0;
 var charY = 0;
 var debugContactList = [];
@@ -13,8 +14,8 @@ var debugLogCharY = document.getElementById('char-y');
 var debugLogContactList = document.getElementById('contact-list');
 var debugKeysPressedList = document.getElementById('keys-pressed-list');
 /**
-* @function updatePositionLogs
 * print to console where the character is on the screen 
+* @method
 */
 function updatePositionLogs() {
   debugLogCharX.innerHTML = "Character x: " + charX;
@@ -22,8 +23,8 @@ function updatePositionLogs() {
 }
 
 /**
-* @function updateContactLogs
 * purpose is to update the contact logs based on who is in contact with who
+* @method 
 */
 function updateContactLogs() {
   debugLogContactList.innerHTML = '';
@@ -40,8 +41,8 @@ function updateContactLogs() {
 }
 
 /**
-* @function updateKeysPressedLogs 
 * shows what keys are being pressed 
+* @method 
 */
 function updateKeysPressedLogs(k, remove) {
   if(!remove) {
@@ -62,8 +63,8 @@ function updateKeysPressedLogs(k, remove) {
 }
 
 /**
-* @function updateLogs
 * updates the position logs and contact logs 
+* @method
 */
 function updateLogs() {
   updatePositionLogs();

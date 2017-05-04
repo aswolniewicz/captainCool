@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: collision_resolver.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: collision_resolver.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+* @module Collision_resolver
+*/
+/**
+* handles collisions between collidables in game
+* @class
+* @memberof module:Collision_resolver
+*/
+class CollisionResolver {
+  /**
+  * @constructor
+  * @param {Object} the instance belonging to the game
+  */
+  constructor(gameInstance) {
+    this.collidables = [];
+    this.stop=false; //Variable to force collision detection to stop
+  }
+
+  /**
+  * @method
+  * @param {Object} object1 in the collision
+  * @param {Object} object2 in the collision
+  * purpose is to pass each object the other object it collided with 
+  */
+  notifyCollilsion(obj1, obj2) {
+    obj1.onCollision(obj2); //takes the object it collided with to figure out what to do
+    obj2.onCollision(obj1); //samesies
+  }
+
+  /**
+  * @method
+  * @param {Object} the collidable to add to the collidable list
+  * purpose is to push a new collidable onto the collidable list 
+  */
+  addCollidable(c) {
+    this.collidables.push(c);
+  }
+  /**
+  * @method
+  * @param {Object} object to be removed from the collidable list
+  * pupose is to remove the collidable from the collidables list
+  */
+  removeCollidable(c){
+    console.log("removed collidable")
+  	var index = this.collidables.indexOf(c) //Find collidable in list
+  	if(index > -1){ // If its found
+        this.collidables.splice(index,1) //Remove it from the list
+      }
+  }
+ 
+  /**
+  * @method
+  * purpose is to figure out who is colliding with who 
+  */
+  detectCollisions() {
+    var self = this;
+    self.stop=false; //Assume detection is good to go
+    self.collidables.forEach(function(d1) {
+      self.collidables.forEach(function(d2) {
+		if(self.stop){return 0} //If any function changes stop variable to true then detection ceases
+        if(((d1.x + d1.width >= d2.x) &amp;&amp; (d1.x &lt;= d2.x + d2.width))
+            &amp;&amp; ((d1.y + d1.height >= d2.y) &amp;&amp; (d1.y &lt;= d2.y + d2.height)) &amp;&amp; !(d1 === d2)) {
+            self.notifyCollilsion(d1, d2); //eventaully need to raise a method that notifies its args of the collision (observer)
+        }
+        //no contact and in contact remove d2 from d1's contact list
+        else {
+          //if they are in contact remove from contact
+          var indexOfContactedItem = d1.contactList.indexOf(d2);
+          if(indexOfContactedItem > -1)
+            d1.onContactLost(d2, indexOfContactedItem); //pass it the index so we don't have to find it again
+        }
+      });
+    })
+  }
+}
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-Background.html">Background</a></li><li><a href="module-Collision_resolver.html">Collision_resolver</a></li><li><a href="module-Debug.html">Debug</a></li><li><a href="module-Drawable_classes.html">Drawable_classes</a></li><li><a href="module-Game.html">Game</a></li><li><a href="module-InputHandler.html">InputHandler</a></li></ul><h3>Classes</h3><ul><li><a href="module-Background.Level.html">Level</a></li><li><a href="module-Background-Door.html">Door</a></li><li><a href="module-Background-Screen.html">Screen</a></li><li><a href="module-Collision_resolver.CollisionResolver.html">CollisionResolver</a></li><li><a href="module-Drawable_classes.Drawable.html">Drawable</a></li><li><a href="module-Drawable_classes-Character.html">Character</a></li><li><a href="module-Drawable_classes-Collidable.html">Collidable</a></li><li><a href="module-Drawable_classes-Key.html">Key</a></li><li><a href="module-Drawable_classes-MessageArea.html">MessageArea</a></li><li><a href="module-Drawable_classes-NonPlayerCharacter.html">NonPlayerCharacter</a></li><li><a href="module-Drawable_classes-Obstacle.html">Obstacle</a></li><li><a href="module-Drawable_classes-PlayerCharacter.html">PlayerCharacter</a></li><li><a href="module-Game.Parser.html">Parser</a></li><li><a href="module-Game-Game.html">Game</a></li><li><a href="module-InputHandler.InputHandler.html">InputHandler</a></li></ul><h3>Events</h3><ul><li><a href="module-Game.html#~event:createPlayerCharacter">create PlayerCharacter</a></li><li><a href="global.html#event:Door">Door</a></li><li><a href="global.html#event:Key">Key</a></li><li><a href="global.html#event:Level">Level</a></li><li><a href="global.html#event:MessageArea">MessageArea</a></li><li><a href="global.html#event:NonPLayerCharacter">NonPLayerCharacter</a></li><li><a href="global.html#event:NonPlayerCharacter">NonPlayerCharacter</a></li><li><a href="global.html#event:Obstacle">Obstacle</a></li><li><a href="global.html#event:Screen">Screen</a></li><li><a href="module-Game.html#~event:startsgameatLevel1">starts game at Level1</a></li></ul><h3>Global</h3><ul><li><a href="global.html#KEYS">KEYS</a></li><li><a href="global.html#OBJ">OBJ</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Thu May 04 2017 11:16:03 GMT-0600 (MDT)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
