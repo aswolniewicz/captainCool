@@ -28,7 +28,6 @@ class Level {
   addScreen(screen){
 	  this.screens.push(screen);
   }
-  //add drawable object to drawable list
   /** 
   * Adds drawable object to the drawables list
   * @function addDrawable
@@ -66,7 +65,6 @@ class Level {
         this.collidables.splice(index,1) //Remove it from the list
       }
   }
-  //change level's current screen
   /**
   * change the level's screen. 
   * resets command parser, collidable list, and prints screen message
@@ -88,9 +86,8 @@ class Level {
 	  // Print screen message
 	  this.game.parser.parsemsg(screen.message);
   }
-  //Show current screen's background and all its drawables
   /** 
-  * displays screen by calling the draw method 
+  * displays screen and all its drawable 
   * @function displayScreen 
   */
   displayScreen(){
@@ -101,9 +98,8 @@ class Level {
 		  this.drawables.forEach(function(d){d.draw();});
 	  }
   }
-  //Print all screen ids to the console
   /** 
-  * Debug helper method, check which screen we are on
+  * Debug helper method, print all screed ids to the console
   * @function logScreens 
   */
   logScreens(){
@@ -114,7 +110,6 @@ class Level {
   }
 }
 
-//individual background segments of level map
 /** 
 * Creates a new screen 
 * @class Screen
@@ -235,9 +230,6 @@ class Door extends Collidable {
   //to construct, give it a parent screen, draw arguments, destintion screen,
   //color and an array describing the effect the door should have.
 
-  //The effectsArray parameter is an array of properties that the door should have.
-  //The property name should be followed by the specifications for that property.
-  //For example ['location', x-coordinat,y-coordinate]
   /**
   * The constuctor for the Door Class
   * @constructor 
@@ -247,7 +239,7 @@ class Door extends Collidable {
   * @param {int} x position on the canvas 
   * @param {int} y position on the canvas
   * @param {Object} the destination screen 
-  * @param effectsArray
+  * @param effectsArray is an array of properties that the door should have. The property name should be followed by the specifications for that property. For example ['location', x-coord, y-coord]
   * @param boolean if door is locked 
   * @param {string} color that corresponds to whether the door is locked or not, green if unlocked
   */
@@ -261,7 +253,6 @@ class Door extends Collidable {
     this.effect = effectsArray;
     this.locked=locked; //Bool to track whether or not it's a command door, default locked  
   }
-  //display door as simple colored rectangle
   /**
   * This function just renders the door on the canvas
   * @function draw
@@ -270,7 +261,6 @@ class Door extends Collidable {
     this.context.fillStyle = this.color;
     this.context.fillRect(this.x, this.y, this.width, this.height);
   }
-  //when touched by player character change screens
   /**
   * This function changes the screen when a door is collided with
   * @function onCollision
