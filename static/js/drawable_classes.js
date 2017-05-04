@@ -151,7 +151,10 @@ class MessageArea extends Collidable {
     this.cutY = 0;
   }
 
-  //
+/**
+* @memberof MessageArea
+* draw method overloaded for message area 
+*/
  draw() {
   charX = this.x;
   charY = this.y;
@@ -162,7 +165,10 @@ class MessageArea extends Collidable {
 
   }
 
-  //
+  /**
+  * @memberof MessageArea 
+  * onCollision method for message area
+  */
   onCollision(collidedwith) {
     this.baseOnCollision(collidedwith);
     if(this.displayMessage) {
@@ -171,26 +177,38 @@ class MessageArea extends Collidable {
     }
   }
 
-  //
+  /**
+  * @memberof MessageArea
+  * onContactLost method for message area
+  */
   onContactLost(lostWith, i) {
     this.baseOnContactLost(lostWith, i);
     //do whatever else you need to do
     this.displayMessage = true;
   }
 
-  //
+  /**
+  * @memberof MessageArea
+  * show message, show what the user inputed to the text box
+  */
   showMessage(message) {
     var messageArea = document.getElementById('textBox');
     messageArea.innerHTML = message;
   }
 
-  //
+  /**
+  * @memberof MessageArea
+  * hide message, hide what the user inputed to the text box
+  */
   hideMessage() {
     var messageArea = document.getElementById('textBox');
     messageArea.innerHTML = '';
   }
 }
-
+/**
+* @class Key
+* extends message area, inherits everything from message area and adds to it
+*/
 class Key extends MessageArea {
   constructor(game, width, height, x, y, image, door, message=keymessage, lockcolor=keylockedcolor) {
     //Intialize all the same stuff as a MessageArea, assume unsolid
