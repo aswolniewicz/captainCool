@@ -200,7 +200,6 @@ class Parser {
       //Remove extra spaces
       commands[i]=commands[i].replace(/\s+/g, ' ');
       //Check if it matches one of commands in checklist
-      this.matchcommand(commands[i]);
       //Store each word of the command into another array
       var words=commands[i].split(" ");
       //Check for and evaulate variables
@@ -280,7 +279,7 @@ class Parser {
 	  }
 	  //Set command equal to the evaulated input
 	  commands[i]=words.join(" ");
-	  console.log(commands[i]);
+	  this.matchcommand(commands[i]);
 	  //If there's an equal sign attempt to set variable
       if(commands[i].indexOf("=") > -1){
 		//Look at input on either side of the equal sign
