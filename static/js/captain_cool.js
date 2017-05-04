@@ -25,6 +25,10 @@ class Parser {
     this.outField = document.getElementById(outFieldId);
     //Array of commands to look for during parsing
     this.checks=[];
+    //Session variables
+    this.variables={};
+    //Key words
+    this.keywords=["speak"];
   }
   //Print out a message to textBox
   parsemsg(message){
@@ -39,7 +43,42 @@ class Parser {
   parsereset(){
     this.parsemsg("");
   }
-  
+  findVariable(name){
+	if(!this.variables){
+	  return -1;
+	}
+	var nameList=Object.keys(this.variables);
+    for(var i=0; i<nameList.length; i++){
+	  if(nameList[i]==name){
+	    return i;
+	  }
+	}
+	return -1;
+  }
+  addVariable(name,value){
+	if(Object.keys(this.variables).length<=100){
+	  this.variables[name]=value;
+	}
+  }
+  setVariable(name,value){
+	if(this.findVariable(name) > -1){
+	  this.variables[name]=value;
+	}
+	else{
+	  this.addVariable(name,value);
+	}
+	return this.findVariable(name);
+  }
+  useVariable(name){
+    if(this.findVariable(name) > -1){
+	  return this.variables[name];
+	}
+  }
+  removeVariable(name){
+	if(this.findVariable(name) > -1){
+	  delete this.variables[name];
+	}
+  }
   //Check if a command matches one of the waiting command
   matchcommand(command){
 	//Loop through array of all commands we're checking for
@@ -78,13 +117,71 @@ class Parser {
     for (var i = 0; i < commands.length; i++) {
       //Removing leading and trailing whitespace
       commands[i]=commands[i].trim();
+      //Put spaces around equals sign
+      commands[i]=commands[i].split("=").join(" = ");
       //Store each word of the command into another array
       var words=commands[i].split(" ");
-      
+      //Check for and evaulate variables
+      var dex=-1;
+      //Get list of existing variables
+      var varList=Object.keys(this.variables);
+      //Variable to track if it appears behind an equal sign
+      var wdex=-1;
+      //For each word check if it matchs an exisiting variable
+      for(var j=0; j<words.length;j++){
+		  //Find the variable 
+		  dex=this.findVariable(words[j]);
+		  //If the variable is found
+		  if(dex > -1){
+			//Find its position
+			wdex=commands[i].indexOf(words[j],wdex+1);
+			//If its on the right of the equal sign
+			if(wdex > commands[i].indexOf("=")){
+			  //Evaluate it
+		      words[j]=this.variables[varList[dex]];
+		    }
+		  }
+	  }
+	  //Set command equal to the evaulated input
+	  commands[i]=words.join(" ");
+	  console.log(commands[i]);
+	  //If there's an equal sign attempt to set variable
+      if(commands[i].indexOf("=") > -1){
+		//Look at input on either side of the equal sign
+	    var equalSplit=commands[i].split("=");
+	    //If more than 1 equal sign or a missing operator call usage failure
+	    if(equalSplit.length != 2 || equalSplit[0]=='' || equalSplit[1]==''){
+		  this.parsefail("Usage error, should be ' [variable1] = [variable2] '");
+		  return;
+		}
+		// Name of variable is left of the equal sign
+		var varName=equalSplit[0].trim();
+		// Value of the variable is right of the equal sign
+		var varValue=equalSplit[1].trim();
+		if(!RegExp(/^[a-z][a-z0-9]*$/i).test(varName)){
+		  this.parsefail("Bad variable, must start with a letter and be alphanumeric");
+		  return;
+		}
+		if(!RegExp(/^"[^"]*"$/i).test(varValue) && !RegExp(/^[0-9]*$/i).test(varName)){
+		  this.parsefail("Bad value, must be a number or string");
+		  return;
+		}
+		if(this.keywords.indexOf(varName) < 0){
+		  if(this.setVariable(varName,varValue) < 0){
+		    this.parsefail("Setting variable failed");
+		    return;
+		  }
+		  this.parsemsg(varName+" is now equal to "+varValue);
+		}
+		else{
+		  this.parsefail("Cannot use command as variable");
+		  return;
+		}
+      }
       //If the first word is speak, run speak command
-      if(words[0].toLowerCase()=="speak"){
+      else if(words[0].toLowerCase()=="speak"){
         //Get indices of the string to be spoken
-        var dex = commands[i].indexOf(words[0]);
+        dex = commands[i].indexOf(words[0]);
         var startq=commands[i].indexOf("\"", dex+1);
         var endq=commands[i].indexOf("\"", startq+1);
         //If spoken string cannot be found print error
