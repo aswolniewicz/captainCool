@@ -23,7 +23,7 @@ Screen1_5.waitforcommand("speak \"hello\"",Door1_5to2_1);
 
 // Objects in Screen 1
 var masterCool1_1 = new NonPlayerCharacter(gameInstance,400,50,"Hey kid, pick up that key");
-var key1_1 = new Key(gameInstance, 48, 48, 400, 250, Door1_1to1_2, message="Good! Now go through the door on the right");
+var key1_1 = new Key(gameInstance, 48, 48, 50, 550, Door1_1to1_2, message="Good! Now go through the door on the right");
 
 Screen1_1.addDrawable([key1_1,masterCool1_1]);
 

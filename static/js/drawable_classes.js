@@ -210,6 +210,15 @@ class MessageArea extends Collidable {
 * extends message area, inherits everything from message area and adds to it
 */
 class Key extends MessageArea {
+  /**
+  * @constructor 
+  * @param {Object} game instance
+  * @param {int} width of key
+  * @param {int} height of key
+  * @param {string} message belonging to the key
+  * @param {file} image source for the key
+  * @param {string} color of door, keylockedcolor
+  */
   constructor(game, width, height, x, y, door, message=keymessage,  image='../static/img/key.png', lockcolor=keylockedcolor) {
     //Intialize all the same stuff as a MessageArea, assume unsolid
     super(game, width, height, x, y, message, image); 
@@ -218,7 +227,12 @@ class Key extends MessageArea {
     this.door.color=lockcolor; //Change color to door to lockedcolor
 	this.door.locked=true; //If it has a key, intialize door to being locked;
   }
-
+/**
+* @memberof Key
+* this function deals with the key and door connection. If key has been collided with then remove key from canvas
+* and set door to unlocked 
+* @param {Object} the object that is colliding with the Key 
+*/
   onCollision(collidedwith) {
 	// Do the same message area stuff
     super.onCollision(collidedwith);
@@ -247,8 +261,24 @@ class Key extends MessageArea {
     }
   }
 }
-//any character that moves extends this class
+
+/**
+* @class Character
+* base class for any object on canvas that moves. any subsequest character class extends this one
+* extends the class Collidable because a character is also a Collidable 
+*/
 class Character extends Collidable {
+  /**
+  * @constructor
+  * @param {Object} the game instance
+  * @param {int} width of the character
+  * @param {int} height of the character
+  * @param {file} image source file for character
+  * @param {int} speed that the character is moving, set to 5
+  * @param {int} x-coord of start postion of character on canvas
+  * @param {int} y-coord of start postion of character on canvas
+  * @param {boolean} whether character is solid or not, i.e. collidable or not
+  */
   constructor(game, width, height, image, speed, x, y, solid) {
     //super calls the base class constructor
     //super.methodname() calls that method from the base class
@@ -266,7 +296,10 @@ class Character extends Collidable {
     this.speechDuration;
   }
 
-  //draws to canvas context based on the source image and the position
+  /**
+  @memberof Character
+  * base draw method for any character, renders the sprite sheet and sets speak style, fill 
+  */
   draw() {
     charX = this.x;
     charY = this.y;
@@ -286,49 +319,87 @@ class Character extends Collidable {
       }
     }
   }
-
+  /**
+  * @memberof Character 
+  * @param {string} the message to be spoken to the screen
+  * @param {int} duration of the message in frames. 120 = 2 seconds 
+  */
   speak(dialogue, duration) {
     this.isSpeaking = true;
     this.dialogue = dialogue;
     this.speechDuration = duration;
   }
-
+/**
+* @memberof Character
+* sets isSpeaking boolean to false to silence character
+*/
   silence() {
     this.isSpeaking = false;
     this.speechCounter = 0;
   }
+  /**
+  * @memberof Character
+  * calls the base on collision method for Collidable 
+  */
   onCollision(){
 	  this.baseOnCollision();
   }
 
-  //move must be overridden if we want to do anything
+  /**
+  * @memberof Characer
+  * base move method that does nothing, needs to be overwritten for a moving character
+  */
   move(up, left, right, down, direction) {}
 }
 
-// this is for  masterCool who is not controlled by keyboard input
-// now mastercool animates constantly by rocking
-// still displays message when collided with
+
+/**
+* @class NonPlayerCharacter 
+* extends Character class
+* for characters like masterCool who animate but are not controlled by keyboard input. 
+*/
 class NonPlayerCharacter extends Character{
+  /**
+  * @constructor
+  * @param {object} game instance
+  * @param {int} x-coord on the canvas
+  * @param {int} y-coord on the canvas 
+  * @param {string} message that the nonPlayerCharacter speaks when collided with
+  * @param {int} width dimension of the character
+  * @param {int} height dimension of the character
+  * @param {file} image source, currently hardcoded because we have only one nonplayer character
+  * @param {int} speed also hardcoded to be 2 
+  * @param {boolean} solid boolean, pass true 
+  */
 	constructor(game, x, y, message="", width=53, height=64,image= '../static/img/master_cool.png', speed=2, solid=true) {
     super(game, width, height, image, speed, x, y, solid);
     this.message = message;
     this.count = 0;
 }
-
+  /**
+  * @memberof NonPlayerCharacter
+  * @param {Object} the object that collided with the NPC 
+  * calls base on collision from collidable class and also speaks message passed in constructor 
+  */
   onCollision(collidedWith){
     this.baseOnCollision(collidedWith);
 
     if(collidedWith.solid == true){
      this.speak(this.message, 120);
    }
-      // 120 means the message will display for 2 seconds, we can change this
 
   }
-
+  /**
+  * @memberof NonPlayerCharacter
+  * this function allows the NPC to constantly animate 
+  */
   rock(){
     this.setAnimationFrame();
   }
-
+  /**
+  * @memberof NonPlayerCharacter
+  * uses the sprite sheet to animate. Every 15 frames the image changes 
+  */
   setAnimationFrame() {
 
         if(this.count % 15 == 0) { // Every 15 movement frames (frame group) cycle through sprites
@@ -350,6 +421,10 @@ class NonPlayerCharacter extends Character{
 
     }
 
+    /**
+    * @memberof NonPlayerCharacter
+    * draw function for NPC. Calls rock which calls setAnimationFrame then calls the draw method from Character
+    */
     draw(){
       this.rock();
       super.draw();
@@ -358,7 +433,23 @@ class NonPlayerCharacter extends Character{
 
 
 //player character that responds to key input
+/**
+* @class PlayerCharacter
+* extends character
+* PlayerCharacter moves based on keyboard input
+*/
 class PlayerCharacter extends Character {
+  /**
+  * @constructor
+  * @param {object} game instance
+  * @param {int} width dimension of the character
+  * @param {int} height dimension of the character
+  * @param {file} image source
+  * @param {int} speed should be 5
+  * @param {int} x-coord on the canvas
+  * @param {int} y-coord on the canvas 
+  * @param {boolean} solid boolean, pass true 
+  */
   constructor(game, width, height, image, speed, x, y, solid) {
     super(game, width, height, image, speed, x, y, solid);
     this.count = 0;
@@ -368,7 +459,11 @@ class PlayerCharacter extends Character {
     this.canMoveRight = true;
     this.canMoveDown = true;
   }
-
+  /**
+  * @memberof PlayerCharacter
+  * initializes playercharcter to be able to move all directions
+  * in place so we can disable movement later when dealing with collisions
+  */
   allowMovement() {
     this.canMoveUp = true;
     this.canMoveLeft = true;
@@ -376,7 +471,13 @@ class PlayerCharacter extends Character {
     this.canMoveDown = true;
   }
 
-  //
+  /**
+  * @memberof PlayerCharacter
+  * @param {Object} the object that has collided with the player character
+  * onCollision method of Player Character builds off of baseOnCollision
+  * disables movement based on where the character collided with an object
+  * also has the character speak "I can't go this way" when colliding with an Obstacle
+  */
   onCollision(collidedWith) {
     this.baseOnCollision(collidedWith);
     //for debug purposes
@@ -406,7 +507,11 @@ class PlayerCharacter extends Character {
     }
   }
 
-  //
+  /**
+  * @memberof PlayerCharacter
+  * onContactLost method of player character
+  * if lost contact with obstacle then allow movement again 
+  */
   onContactLost(lostWith, i) {
     this.baseOnContactLost(lostWith, i);
     //for debug purposes
@@ -415,10 +520,16 @@ class PlayerCharacter extends Character {
       this.allowMovement();
   }
 
-  //checks if keys are pressed and if they are, move and animate
-  // uses the WASD keys
-  // move commands go in as 1 or 0
-  //and animate in the direction of direction
+/**
+* @memberof PlayerCharacter 
+* move method of character overwritten
+* @param {boolean} pass a 1 if you want to move up 
+* @param {boolean} pass a 1 if you want to move left
+* @param {boolean} pass a 1 if you want to move right
+* @param {boolean} pass a 1 if you want to move down 
+* @param {object} directions.direction i.e. DIRECTIONS.LEFT
+* when you call move you pass all bool params 0 except for 1 and that determines the direction the sprite moves
+*/
   move(up, left, right, down, direction) {
       this.animate = true;
       // use pressed to normaize the speed.  Its not perfect right now but its closer.
@@ -433,8 +544,10 @@ class PlayerCharacter extends Character {
       this.checkOutOfBounds();
       //at some point have to turn off animation
   }
-
-  //an imperceptable move that clears collisions and doesnt check flags
+  /**
+  * @memberof PlayerCharacter
+  * bounce method bounces character off of collidables so it can move again 
+  */
   bounce(up, left, right, down) {
     this.x -= (left * 2);
     this.x += (right * 2);
@@ -443,12 +556,22 @@ class PlayerCharacter extends Character {
   }
 
 
-  // Change location of the player character
+  /**
+  * @memberof PlayerCharacter
+  * method to change the location of the PC 
+  * used when going through doors 
+  * @param {int} destination x-coord on canvas
+  * @param {int} destination y-coord on canvas 
+  */
   changeLocation(destX, destY){
     this.x = destX;
     this.y = destY;
   }
-
+  /**
+  * @memberof PlayerCharacter
+  * method to check if PC is still on canvas
+  * forbids the player from going off the screen 
+  */
   checkOutOfBounds(){
     // Forbid the player character to go off the screen.
     if (this.x < 0){
@@ -465,7 +588,10 @@ class PlayerCharacter extends Character {
     }
   }
 
-  //figure out where on the spritesheet to animate from
+    /**
+  * @memberof PlayerCharacter
+  * uses the sprite sheet to animate. Every 15 frames the image changes 
+  */
   setAnimationFrame() {
         //set yImage based on direction for most sprites
         this.cutY = this.direction;
@@ -487,7 +613,11 @@ class PlayerCharacter extends Character {
         this.count++;
 
     }
-      //
+/**
+* @memberof PlayerCharacter
+* listens for keys pressed, based on the arrow keys
+* calls the move function to move the character based on keys pressed
+*/
   pollForKeyboardInput() {
 
    	  if (KEYS[37]) // Go Left
@@ -513,8 +643,10 @@ class PlayerCharacter extends Character {
     }
 }
 
-//an 'enum' for directions not sure how much milage we will get out
-//of this as it's pretty specific to our only sprite sheet
+/**
+* @enum
+* contains the sprite sheet cut based on the direction
+*/
 var DIRECTIONS = {
   UP : 3,
   LEFT : 1,
@@ -522,8 +654,10 @@ var DIRECTIONS = {
   DOWN : 0
 }
 
-// This is the timer, and will be displyed above the canvas.
-// Cannot start at 0, it breaks. Start.
+/**
+* @function startTimer
+* sets up the timer and starts it
+*/
 function startTimer(length, display) {
   // Set up the parameters.
   var start = Date.now(), elapsed, min, sec;
@@ -554,7 +688,10 @@ function startTimer(length, display) {
   setInterval(timer, 1000);
 }
 
-// Load timer
+/**
+* @function 
+* deploys the timer to the canvas
+*/
 window.onload = function() {
   var display = document.querySelector('#time');
   startTimer(1, display);
