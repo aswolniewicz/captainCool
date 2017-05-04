@@ -51,6 +51,10 @@ class Parser {
     this.outField = document.getElementById(outFieldId);
     //Array of commands to look for during parsing
     this.checks=[];
+    //Session variables
+    this.variables={};
+    //Key words
+    this.keywords=["speak"];
   }
   /**
   * @memberof Parser
@@ -76,7 +80,59 @@ class Parser {
   parsereset(){
     this.parsemsg("");
   }
-  
+  /**
+  * @memberof Parser
+  * @param {String} variable to be found
+  * return the name of variable if found, otherwise return -1
+  */
+  findVariable(name){
+	// Create an array of variable names
+	var nameList=Object.keys(this.variables);
+	// Search through array for variable with name 'name'
+    for(var i=0; i<nameList.length; i++){
+	  if(nameList[i]==name){
+	    return name;
+	  }
+	}
+	// If not found return -1
+	return -1;
+  }
+  /**
+  * @memberof Parser
+  * @param {String} name of variable to be set
+  * @param {Object} value of variable to be set
+  * Add new variable to the parser
+  */
+  addVariable(name,value){
+	if(Object.keys(this.variables).length<=100){
+	  this.variables[name]=value;
+	}
+  }
+  /**
+  * @memberof Parser
+  * @param {String} name of variable to be set
+  * @param {Object} value of variable to be set
+  * Set value of variable, if its undefined create new variable
+  */
+  setVariable(name,value){
+	if(this.findVariable(name) > -1){
+	  this.variables[name]=value;
+	}
+	else{
+	  this.addVariable(name,value);
+	}
+	return this.findVariable(name);
+  }
+  /**
+  * @memberof Parser
+  * @param {String} name of variable to be removed
+  * Remove variable from parser if it exists, otherwise do nothing
+  */
+  removeVariable(name){
+	if(this.findVariable(name) > -1){
+	  delete this.variables[name];
+	}
+  }
   /**
   * @memberof Parser
   * @param {String} command typed by user
@@ -85,21 +141,30 @@ class Parser {
   matchcommand(command){
 	//Loop through array of all commands we're checking for
 	for (var i = 0; i < this.checks.length; i++) {
-      //If the door is valid
+      //If the object is valid
       if(this.checks[i].d){
 		// Remove all spaces so its whitespace independent
-	    var strip1=command.split(' ').join('');
-	    var strip2=this.checks[i].c.split(' ').join('');
+	    var strip1=command.replace(/\s+/g, '');
+	    var strip2=this.checks[i].c.replace(/\s+/g, '');
 	    if(strip1==strip2){ //If the passed command matchs a stored command
-		  //Unlock the corresponding door
-		  this.checks[i].d.locked=false;
-		  this.checks[i].d.color=this.checks[i].color
-		  //Remove command/door pair from screen list
-		  this.checks[i].d.screen.removeCommand(this.checks[i]);
-		  //Remove command/door pair from the check list
+		  if(this.checks[i].type=="door"){
+			//Unlock the corresponding door
+			this.checks[i].d.locked=false;
+			this.checks[i].d.color=this.checks[i].color
+		  }
+		  else if(this.checks[i].type=="spawn"){
+			//Add drawable to screen's drawable list therefore spawning it
+			this.checks[i].s.addDrawable(this.checks[i].d);
+		  }
+		  else if(this.checks[i].type=="remove"){
+			//Remove drawable from screen's drawable list therefore removing it
+			this.checks[i].s.removeDrawable(this.checks[i].d);
+		  }
+		  //Remove command from screen list
+	      this.checks[i].s.removeCommand(this.checks[i]);
+		  //Remove command from the check list
 		  this.checks.splice(i,1);
-		  //Stop loop
-		  return;
+		  i--;
 	    }
 	  }  
     }
@@ -114,7 +179,7 @@ class Parser {
     this.inField.value="";
     //If input is too large then fail on error
     if(inText.length>50){
-      this.parsefail("Input too big bro");
+      this.parsefail("Input is too large");
       return;
     }
     //Separate input by semicolons into an array
@@ -123,13 +188,76 @@ class Parser {
     for (var i = 0; i < commands.length; i++) {
       //Removing leading and trailing whitespace
       commands[i]=commands[i].trim();
+      //Check if it matches one of commands in checklist
+      this.matchcommand(commands[i]);
+      //Put spaces around equals sign
+      commands[i]=commands[i].split("=").join(" = ");
       //Store each word of the command into another array
       var words=commands[i].split(" ");
-      
+      //Check for and evaulate variables
+      var dex=-1;
+      //Variable to track if it appears behind an equal sign
+      var wdex=-1;
+      //For each word check if it matchs an exisiting variable
+      for(var j=0; j<words.length;j++){
+		  //Find the variable 
+		  dex=this.findVariable(words[j]);
+		  //If the variable is found
+		  if(dex != -1){
+			//Find its position
+			wdex=commands[i].indexOf(words[j],wdex+1);
+			//If its on the right of the equal sign
+			if(wdex > commands[i].indexOf("=")){
+			  //Evaluate it
+		      words[j]=this.variables[dex];
+		    }
+		  }
+	  }
+	  //Set command equal to the evaulated input
+	  commands[i]=words.join(" ");
+	  console.log(commands[i]);
+	  //If there's an equal sign attempt to set variable
+      if(commands[i].indexOf("=") > -1){
+		//Look at input on either side of the equal sign
+	    var equalSplit=commands[i].split("=");
+	    //If more than 1 equal sign or a missing operator call usage failure
+	    if(equalSplit.length != 2 || equalSplit[0]=='' || equalSplit[1]==''){
+		  this.parsefail("Usage error, should be ' [variable1] = [stuff] '");
+		  return;
+		}
+		// Name of variable is left of the equal sign
+		var varName=equalSplit[0].trim();
+		// Value of the variable is right of the equal sign
+		var varValue=equalSplit[1].trim();
+		//Regexs to check if the input is properly formatted
+		if(!RegExp(/^[a-z][a-z0-9]*$/i).test(varName)){
+		  this.parsefail("Bad variable, must start with a letter and be alphanumeric");
+		  return;
+		}
+		if(!RegExp(/^"[^"]*"$/i).test(varValue) && !RegExp(/^[0-9]*$/i).test(varName)){
+		  this.parsefail("Bad value, must be a number or string");
+		  return;
+		}
+		//If not a command word then set variable
+		if(this.keywords.indexOf(varName) < 0){
+		  //Attempt to set variable and check for failure
+		  if(this.setVariable(varName,varValue) < 0){
+		    this.parsefail("Setting variable failed");
+		    return;
+		  }
+		  //Print success message;
+		  this.parsemsg(varName+" is now equal to "+varValue);
+		}
+		else{
+		  //If it is a command word send this error message
+		  this.parsefail("Cannot use command as variable");
+		  return;
+		}
+      }
       //If the first word is speak, run speak command
-      if(words[0].toLowerCase()=="speak"){
+      else if(words[0].toLowerCase()=="speak"){
         //Get indices of the string to be spoken
-        var dex = commands[i].indexOf(words[0]);
+        dex = commands[i].indexOf(words[0]);
         var startq=commands[i].indexOf("\"", dex+1);
         var endq=commands[i].indexOf("\"", startq+1);
         //If spoken string cannot be found print error
@@ -156,8 +284,6 @@ class Parser {
         this.parsefail("No such command:<br>" + commands[i]);
         return;
       }
-      //After parsing command check if it matches one of commands in checklist
-      this.matchcommand(commands[i]);
     }
   }
 }
@@ -249,7 +375,6 @@ class Game {
 
 }
 
-//get the canvas from the html
 /**
 * @enum creating instances of class to get the game going 
 */
@@ -262,7 +387,7 @@ var gameInstance = new Game(canvas,inputHandler,collisionResolver,commandParser)
 /**
 * @event create PlayerCharacter 
 */
-var character = new PlayerCharacter (gameInstance, 44, 60, '../static/img/captain_cool.png', 5, 150, 0, true);
+var character = new PlayerCharacter (gameInstance, 44, 60, '../static/img/captain_cool.png', 5, 455, 300, true);
 inputHandler.addPoller(character);
 gameInstance.addDrawable(character);
 

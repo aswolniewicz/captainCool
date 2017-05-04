@@ -138,7 +138,7 @@ class MessageArea extends Collidable {
   * @param {boolean} solid flag. 
   * @param {string} string containing the message being printed by the message are 
   */
-  constructor(game, width, height, x, y, image, solid, message="") {
+  constructor(game, width, height, x, y, message="", image='../static/img/alert.png', solid=false) {
     super(game, width, height, x, y, solid);
     //can't access this in constructor until we call super
    // this.color = color; //color is a string (think css)
@@ -210,12 +210,13 @@ class MessageArea extends Collidable {
 * extends message area, inherits everything from message area and adds to it
 */
 class Key extends MessageArea {
-  constructor(game, width, height, x, y, image, door, message=keymessage, lockcolor=keylockedcolor) {
+  constructor(game, width, height, x, y, door, message=keymessage,  image='../static/img/key.png', lockcolor=keylockedcolor) {
     //Intialize all the same stuff as a MessageArea, assume unsolid
-    super(game, width, height, x, y, image, false, message); 
+    super(game, width, height, x, y, message, image); 
     this.door=door; //Door to unlock
     this.color=door.color; //Store color of door when its unlocked
     this.door.color=lockcolor; //Change color to door to lockedcolor
+	this.door.locked=true; //If it has a key, intialize door to being locked;
   }
 
   onCollision(collidedwith) {
@@ -308,7 +309,7 @@ class Character extends Collidable {
 // now mastercool animates constantly by rocking
 // still displays message when collided with
 class NonPlayerCharacter extends Character{
-    constructor(game, width, height, image, speed, x, y, solid,message="") {
+	constructor(game, x, y, message="", width=53, height=64,image= '../static/img/master_cool.png', speed=2, solid=true) {
     super(game, width, height, image, speed, x, y, solid);
     this.message = message;
     this.count = 0;
@@ -321,10 +322,6 @@ class NonPlayerCharacter extends Character{
      this.speak(this.message, 120);
    }
       // 120 means the message will display for 2 seconds, we can change this
-
-
-
-
 
   }
 
