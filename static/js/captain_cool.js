@@ -1,20 +1,46 @@
 //allows us to actually catch errors that would otherwise fail silently
 'use strict';
 
-//global array for all pressed keys
+/**
+* array storing all the pressed keys by user 
+* @global 
+*/
 var KEYS = [];
-//Array storing objects picked up by the character
+/**
+* array storing objects picked by the character
+* @global
+*/
 var OBJ = [];
-
+/**
+* @enum
+* variables to store colors of doors
+* red = door locked because of key
+* orange = door locked by command
+* green = door unlocked 
+*/
 var keylockedcolor='red';
 var cmdlockedcolor='orange';
 var unlockedcolor='green';
+/**
+* @enum 
+* var holding string that is the message when you pick up the key 
+*/
 var keymessage="You found a key! Press enter to dismiss.";
 
 var charX = 0;
 var charY = 0;
 
+/**
+* @class Parser
+* This class creates a parser to deal with user input 
+*/
 class Parser {
+  /**
+  * @constructor
+  * @param {Object} Button ID 
+  * @param {String} user input stored in text field 
+  * @param {String} output 
+  */
   constructor(buttonid,inFieldId,outFieldId){
     //Change the 'Submit Text' button's click function to parseInput()
     this.button=document.getElementById(buttonid);
@@ -26,21 +52,36 @@ class Parser {
     //Array of commands to look for during parsing
     this.checks=[];
   }
-  //Print out a message to textBox
+  /**
+  * @memberof Parser
+  * @param {String} message to be printed 
+  * prints out a message to textBox 
+  */
   parsemsg(message){
     this.outField.innerHTML=message;
   }
-  //Print out an error message to textBox
+  /**
+  * @memberof Parser
+  * @param {String} error message to be printed
+  * prints out message if parser failed 
+  */
   parsefail(error){
     //Print 'Parsing failed' then a newline of '='
     this.parsemsg(error);
   }
-  //Flush textBox, i.e., make it completely blank
+  /**
+  * @memberof Parser
+  * reset the text box to be blank so user can input again 
+  */
   parsereset(){
     this.parsemsg("");
   }
   
-  //Check if a command matches one of the waiting command
+  /**
+  * @memberof Parser
+  * @param {String} command typed by user
+  * check if a command matches one of the waiting commands 
+  */
   matchcommand(command){
 	//Loop through array of all commands we're checking for
 	for (var i = 0; i < this.checks.length; i++) {
@@ -63,6 +104,10 @@ class Parser {
 	  }  
     }
   }
+  /**
+  * @memberof Parser
+  * parse the input 
+  */
   parse(){
     //Save whatever text is in textfield as input
     var inText=this.inField.value;
@@ -116,7 +161,10 @@ class Parser {
     }
   }
 }
-//the game class, posesses the canvas and calls all of the draw functions
+/**
+* @class Game
+* Posesses the canvas and calls all of the draw function
+*/
 class Game {
   constructor(canvas,input,resolver,parser)  {
     this.canvas = canvas;
@@ -130,8 +178,11 @@ class Game {
     this.context = this.canvas.getContext("2d");
   }
 
-  //anything that's drawable we need to add to this list so that
-  //we call its draw method on draw
+ /**
+  * @memberof Game
+  * anything that is drawable we need to add to this list and then we call its draw method
+  * @param {Object} the object that needs to be drawn to the screen 
+  */
   addDrawable(d) {
     var dList = [].concat(d);
 	for (var i = 0; i < dList.length; i++) {
@@ -141,6 +192,11 @@ class Game {
 	  }
     }
   }
+ /**
+  * @memberof Game
+  * method to remove drawable oject from screen
+  * @param {Object} the object that needs to be removed from the screen 
+  */
   removeDrawable(d) {
     var index = this.drawables.indexOf(d);
     if (index > -1){
@@ -149,12 +205,21 @@ class Game {
     this.removeCollidable(d);
     this.currentLevel.removeDrawable(d);
   }
+  /**
+  * @memberof Game
+  * method to remove drawable objects from collidable list 
+  * @param {Object} the object that needs to be removed from collidables
+  */
   removeCollidable(c){
   	var index = this.collidables.indexOf(c) //Find collidable in list
   	if(index > -1){ // If its found
         this.collidables.splice(index,1) //Remove it from the list
       }
   }
+    /**
+  * @memberof Game
+  * draw method belonging to game class 
+  */
   draw() {
     this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
     this.currentLevel.displayScreen();
@@ -170,7 +235,10 @@ class Game {
     //updateLogs();
     window.requestAnimationFrame(function(){self.draw();});
   }
-  //call the initial global draw function and set some values
+  /**
+  * @memberof Game
+  * start method to call in initial global draw function and set values of canvas
+  */
   start() {
     this.canvas.width = 960;
     this.canvas.height = 640;
@@ -182,19 +250,25 @@ class Game {
 }
 
 //get the canvas from the html
+/**
+* @enum creating instances of class to get the game going 
+*/
 var canvas = document.getElementById('canvas');
 var commandParser= new Parser("myButton","myText","textBox");
 var collisionResolver = new CollisionResolver();
 var inputHandler = new InputHandler();
 var gameInstance = new Game(canvas,inputHandler,collisionResolver,commandParser);
 
-//lets create our character from the sprite sheet
-// Changed speed to 5 from 3 to speed up testing.
+/**
+* @event create PlayerCharacter 
+*/
 var character = new PlayerCharacter (gameInstance, 44, 60, '../static/img/captain_cool.png', 5, 150, 0, true);
 inputHandler.addPoller(character);
 gameInstance.addDrawable(character);
 
-
+/**
+* @enum Creates Levels 1-8
+*/
 var Level1 = new Level(gameInstance);
 var Level2 = new Level(gameInstance);
 var Level3 = new Level(gameInstance);
@@ -204,4 +278,7 @@ var Level6 = new Level(gameInstance);
 var Level7 = new Level(gameInstance);
 var Level8 = new Level(gameInstance);
 
+/**
+* @event starts game at Level1 
+*/
 gameInstance.currentLevel=Level1;

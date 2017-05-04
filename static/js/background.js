@@ -23,14 +23,14 @@ class Level {
   }
   /** 
   * Add a screen object to level screen list
-  * @function addScreen
+  * @memberof Level 
   */
   addScreen(screen){
 	  this.screens.push(screen);
   }
   /** 
   * Adds drawable object to the drawables list
-  * @function addDrawable
+  * @memberof Level
   * @param object to be added to list */
   addDrawable(d) {
     var dList = [].concat(d);
@@ -43,7 +43,7 @@ class Level {
   }
   /** 
   * remove a drawable from this list, remove from screen, remove from collidable list
-  * @function removeDrawable
+  * @memberof Level
   * @param {Object} object to remove
   */
   removeDrawable(d) {
@@ -56,7 +56,7 @@ class Level {
   }
   /**  
   * remove an object from Collidable list, helper function to removeDrawable
-  * @function removeCollidable
+  * @memberof Level
   * @param {Object} object to be removed 
   */
   removeCollidable(c){
@@ -68,7 +68,7 @@ class Level {
   /**
   * change the level's screen. 
   * resets command parser, collidable list, and prints screen message
-  * @function changeScreen
+  * @memberof Level
   * @param {Object} screen that we are changing to 
   */
   changeScreen(screen){
@@ -88,7 +88,7 @@ class Level {
   }
   /** 
   * displays screen and all its drawable 
-  * @function displayScreen 
+  * @memberof Level
   */
   displayScreen(){
 	  if (this.currentScreen != null){
@@ -100,7 +100,7 @@ class Level {
   }
   /** 
   * Debug helper method, print all screed ids to the console
-  * @function logScreens 
+  * @memberof Level
   */
   logScreens(){
 	  this.screens.forEach(function(screen) {
@@ -145,7 +145,7 @@ class Screen{
   }
   /**
   * This function sets the command needed in order to open a door in game
-  * @function waitforcommand
+  * @memberof Screen
   * @param {string} command 
   * @param {Object} door object 
   */
@@ -156,7 +156,7 @@ class Screen{
   }
   /**
   * remove a command from the command list
-  * @function removeCommand
+  * @memberof Screen
   * @param {Object} door object command pairing
   */
   removeCommand(d) {
@@ -168,7 +168,7 @@ class Screen{
   //add Drawable object to drawable list
   /**
   * add an object to the drawable list 
-  * @function addDrawable 
+  * @memberof Screen
   * @param {Object} object to draw to canvas 
   */
   addDrawable(d) {
@@ -182,7 +182,7 @@ class Screen{
   }
   /**
   * remove an object from the drawable list and remove from collidable list
-  * @function removeDrawable
+  * @memberof Screen 
   * @param {Object} the object to be removed  
   */
   removeDrawable(d) {
@@ -194,7 +194,7 @@ class Screen{
   }
    /**
   * remove an object from the collidable list, helper function
-  * @function removeCollidable
+  * @memberof Screen
   * @param {Object} the object to be removed  
   */
   removeCollidable(c){
@@ -205,7 +205,7 @@ class Screen{
   }
  /**
  * draws everything in the drawables list and the background 
- * @function draw 
+ * @memberof Screen
  */
   draw(){
     //draws the background
@@ -255,7 +255,7 @@ class Door extends Collidable {
   }
   /**
   * This function just renders the door on the canvas
-  * @function draw
+  * @memberof Door
   */
   draw() {
     this.context.fillStyle = this.color;
@@ -263,7 +263,7 @@ class Door extends Collidable {
   }
   /**
   * This function changes the screen when a door is collided with
-  * @function onCollision
+  * @memberof Door
   * @param {Object} the object that collided with the door 
   */
   onCollision(collidedWith) {
