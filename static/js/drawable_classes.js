@@ -425,7 +425,7 @@ class PlayerCharacter extends Character {
       }
       if(KEYS[13]) // If enter is pressed
       {
-		this.parser.parsereset();
+		this.parser.parsereset(); //Clear text
 	  }
     }
 }

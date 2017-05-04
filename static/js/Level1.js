@@ -42,7 +42,7 @@ Screen1_2.addDrawable([ctrl, ctrl1, ctrl2, ctrl3, Wall1_2_2,Wall1_2_1]);
 var ctrl4 = new MessageArea(gameInstance, 48, 48, 150, 300, '../static/img/practiceKey.jpg', false, "Click on the text box below to type in a command");
 var ctrl5 = new MessageArea(gameInstance, 48, 48, 350, 300, '../static/img/practiceKey.jpg', false, "Click on the submit command button to run that command");
 var ctrl6 = new MessageArea(gameInstance, 48, 48, 550, 300, '../static/img/practiceKey.jpg', false, "Not everything you'll type will run but you'll learn as you go");
-var ctrl7 = new MessageArea(gameInstance, 48, 48, 750, 300, '../static/img/practiceKey.jpg', false, "Press the enter key to dismiss any message");
+var ctrl7 = new MessageArea(gameInstance, 48, 48, 750, 300, '../static/img/practiceKey.jpg', false, "Press the enter key to dismiss any message <br> Press the left control key to mute");
 
 Screen1_3.addDrawable([ctrl4,ctrl5,ctrl6,ctrl7,Wall1_2_2, Wall1_2_1]);
 
@@ -59,4 +59,4 @@ var speakBox1 = new MessageArea(gameInstance, 48, 48, 750, 300, '../static/img/p
 
 Screen1_5.addDrawable([masterCool1_5,speakBox,speakBox1]);
 // Start screen
-Level1.changeScreen(Screen1_5);
+Level1.changeScreen(Screen1_1);

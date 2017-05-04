@@ -64,6 +64,6 @@
     <script src="{{url_for('static', filename='js/captain_cool.js')}}"></script>
     <script src="{{url_for('static', filename='js/Level1.js')}}"></script>
     <script> gameInstance.start(); </script>
-    <audio src = "{{ url_for('static', filename = 'media/backgroundMusic.mp3')}}" autoplay loop>
+    <audio id="music" src = "{{ url_for('static', filename = 'media/backgroundMusic.mp3')}}" autoplay loop>
 
 {% endblock %}
