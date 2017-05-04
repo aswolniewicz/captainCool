@@ -5,15 +5,18 @@
 {% endblock %}
 
 {% block content %}
-<h1>GAME OVER</h1><br>
+<h1>GAME OVER</h1>
 <div id="results">
 	<ul>
 		<h3>
-			NAME: {{ user.initials }}<br> <br>
+		<!-- 	NAME: {{ user.initials }}<br> <br> -->
 			<!--TIME: <span id = "time"></span>-->
 		</h3>
 	</ul>
+<h2> Thanks For Playing {{user.initials}}! <br> We hope you enjoyed, check back later for more levels! </h2>
+
 </div>
+
 <img src = {{ url_for('static', filename = 'img/cc_plain.png')}}>
 <audio src = "{{ url_for('static', filename = 'media/backgroundMusic.mp3')}}" autoplay loop>
 <script src="{{url_for('static', filename='js/drawable_classes.js')}}"></script>
