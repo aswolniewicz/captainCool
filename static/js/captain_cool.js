@@ -141,21 +141,30 @@ class Parser {
   matchcommand(command){
 	//Loop through array of all commands we're checking for
 	for (var i = 0; i < this.checks.length; i++) {
-      //If the door is valid
+      //If the object is valid
       if(this.checks[i].d){
 		// Remove all spaces so its whitespace independent
-	    var strip1=command.split(' ').join('');
-	    var strip2=this.checks[i].c.split(' ').join('');
+	    var strip1=command.replace(/\s+/g, '');
+	    var strip2=this.checks[i].c.replace(/\s+/g, '');
 	    if(strip1==strip2){ //If the passed command matchs a stored command
-		  //Unlock the corresponding door
-		  this.checks[i].d.locked=false;
-		  this.checks[i].d.color=this.checks[i].color
-		  //Remove command/door pair from screen list
-		  this.checks[i].d.screen.removeCommand(this.checks[i]);
-		  //Remove command/door pair from the check list
+		  if(this.checks[i].type=="door"){
+			//Unlock the corresponding door
+			this.checks[i].d.locked=false;
+			this.checks[i].d.color=this.checks[i].color
+		  }
+		  else if(this.checks[i].type=="spawn"){
+			//Add drawable to screen's drawable list therefore spawning it
+			this.checks[i].s.addDrawable(this.checks[i].d);
+		  }
+		  else if(this.checks[i].type=="remove"){
+			//Remove drawable from screen's drawable list therefore removing it
+			this.checks[i].s.removeDrawable(this.checks[i].d);
+		  }
+		  //Remove command from screen list
+	      this.checks[i].s.removeCommand(this.checks[i]);
+		  //Remove command from the check list
 		  this.checks.splice(i,1);
-		  //Stop loop
-		  return;
+		  i--;
 	    }
 	  }  
     }
@@ -179,6 +188,8 @@ class Parser {
     for (var i = 0; i < commands.length; i++) {
       //Removing leading and trailing whitespace
       commands[i]=commands[i].trim();
+      //Check if it matches one of commands in checklist
+      this.matchcommand(commands[i]);
       //Put spaces around equals sign
       commands[i]=commands[i].split("=").join(" = ");
       //Store each word of the command into another array
@@ -205,14 +216,13 @@ class Parser {
 	  //Set command equal to the evaulated input
 	  commands[i]=words.join(" ");
 	  console.log(commands[i]);
-	  console.log(Object.keys(this.variables));
 	  //If there's an equal sign attempt to set variable
       if(commands[i].indexOf("=") > -1){
 		//Look at input on either side of the equal sign
 	    var equalSplit=commands[i].split("=");
 	    //If more than 1 equal sign or a missing operator call usage failure
 	    if(equalSplit.length != 2 || equalSplit[0]=='' || equalSplit[1]==''){
-		  this.parsefail("Usage error, should be ' [variable1] = [variable2] '");
+		  this.parsefail("Usage error, should be ' [variable1] = [stuff] '");
 		  return;
 		}
 		// Name of variable is left of the equal sign
@@ -274,8 +284,6 @@ class Parser {
         this.parsefail("No such command:<br>" + commands[i]);
         return;
       }
-      //After parsing command check if it matches one of commands in checklist
-      this.matchcommand(commands[i]);
     }
   }
 }
@@ -367,7 +375,6 @@ class Game {
 
 }
 
-//get the canvas from the html
 /**
 * @enum creating instances of class to get the game going 
 */
@@ -380,7 +387,7 @@ var gameInstance = new Game(canvas,inputHandler,collisionResolver,commandParser)
 /**
 * @event create PlayerCharacter 
 */
-var character = new PlayerCharacter (gameInstance, 44, 60, '../static/img/captain_cool.png', 5, 150, 0, true);
+var character = new PlayerCharacter (gameInstance, 44, 60, '../static/img/captain_cool.png', 5, 455, 300, true);
 inputHandler.addPoller(character);
 gameInstance.addDrawable(character);
 

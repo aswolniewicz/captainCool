@@ -151,8 +151,29 @@ class Screen{
   */
   waitforcommand(command,door){
 	// Add command to screen
-	this.commands.push({c:command, d:door, color:door.color});
+	this.commands.push({c:command, d:door, color:door.color, s:door.screen, type: "door"});
+	door.locked=true;
 	door.color=cmdlockedcolor;
+  }
+  /**
+  * This function sets the command needed in order to spawn an object in game
+  * @memberof Screen
+  * @param {string} command 
+  * @param {Object} drawable object
+  * @param {Object} screen object
+  */
+  spawnoncommand(command,drawable,screen){
+	this.commands.push({c:command, d:drawable, s:screen, type:"spawn"})
+  }
+  /**
+  * This function sets the command needed in order to remove an object in game
+  * @memberof Screen
+  * @param {string} command 
+  * @param {Object} drawable object 
+  * @param {Object} screen object
+  */
+  removeoncommand(command,drawable,screen){
+	this.commands.push({c:command, d:drawable, s:screen, type:"remove"});
   }
   /**
   * remove a command from the command list
