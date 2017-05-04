@@ -59,7 +59,7 @@ var Wall1_2_2 = new Obstacle(gameInstance, 960, 250, 0, 0); //Top wall
 * create control areas on screen 2
 * @event MessageArea
 */
-var ctrl = new MessageArea(gameInstance, 48, 48, 150, 300, message="FYI, you move with the arrow keys");
+var ctrl = new MessageArea(gameInstance, 48, 48, 150, 300, message="Press the left control key to mute");
 var ctrl1 = new MessageArea(gameInstance, 48, 48, 350, 300, message="Just so we're clear, you move with the arrow keys");
 var ctrl2 = new MessageArea(gameInstance, 48, 48, 550, 300, message="To avoid any confusion, you move with the arrow keys");
 var ctrl3 = new MessageArea(gameInstance, 48, 48, 750, 300, message="Did you know that you move with the arrow keys?");
@@ -74,7 +74,7 @@ Screen1_2.addDrawable([ctrl, ctrl1, ctrl2, ctrl3, Wall1_2_2,Wall1_2_1]);
 var ctrl4 = new MessageArea(gameInstance, 48, 48, 150, 300, message="Click on the text box below to type in a command");
 var ctrl5 = new MessageArea(gameInstance, 48, 48, 350, 300, message="Click on the submit command button to run that command");
 var ctrl6 = new MessageArea(gameInstance, 48, 48, 550, 300, message="Not everything you'll type will run but you'll learn as you go");
-var ctrl7 = new MessageArea(gameInstance, 48, 48, 750, 300, message="Press the enter key to dismiss any message <br> Press the left control key to mute");
+var ctrl7 = new MessageArea(gameInstance, 48, 48, 750, 300, message="Press the enter key to dismiss any message");
 
 Screen1_3.addDrawable([ctrl4,ctrl5,ctrl6,ctrl7,Wall1_2_2, Wall1_2_1]);
 

@@ -1,5 +1,5 @@
 html { 
-  background: url(../img/background2.png) no-repeat center center fixed; 
+  background: url(../img/background.png) no-repeat center center fixed; 
   width:100%;
   height:100%;
   -webkit-background-size: cover;
@@ -11,16 +11,6 @@ body {
   background-color: transparent;
   color: white;
   text-align: center;
-
   font-size: 30px;
   letter-spacing: 3px;
 }
-
-  padding-top: 50px;
-}
-
-img {
-  padding: inherit;
-  padding-top: 100px;
-}
-
